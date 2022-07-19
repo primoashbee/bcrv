@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: grid;
+    height: 100%;
+    place-items : center;
+    background: url('../reset_assets/email_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+html {
+    display: grid;
+    height: 100%;
+    place-items : center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.wrapper {
+   height: 200px;
+   width: 600px;
+   border-radius: 5px;
+   background: rgb(49, 49, 48);
+   display: flex;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+}
+
+.wrapper .field {
+    height: 30%;
+    width: 80%;
+}
+
+.wrapper .field input {
+    height: 100%;
+    width: 100%;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 0 130px 0 15px;
+    font-size: 20px;
+    outline: none;
+}
+
+.wrapper .field .btn-2 {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 40px;
+    width: 100px;
+    color: #333;
+    background: rgb(255, 238, 3);
+    border-radius: 5px;
+    line-height: 40px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.heading {
+    color: white;
+    align-items: center;
+    text-align: center;
+    font-size: 10px;
+}
+
+.heading span {
+  background: rgb(255, 238, 3);
+  padding: 2px;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+/* Start of Media Queries - Responsive */
+@media (max-width: 690px) {
+    .wrapper {
+        height: 200px;
+        width: 500px;
+        margin-left: 15px;
+     }
+
+     .wrapper .field {
+        height: 30%;
+        width: 80%;
+    }
+}
+
+@media (max-width: 500px) {
+    .wrapper {
+        height: 200px;
+        width: 400px;
+        margin-left: 50px;
+     }
+
+     .wrapper .field {
+        height: 30%;
+        width: 80%;
+    }
+}

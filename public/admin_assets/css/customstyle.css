@@ -1,0 +1,21 @@
+.card {
+    background: rgb(2, 54, 85);
+    object-fit: cover;
+    color: white;
+}
+
+.card-body {
+    color: white;
+}
+
+.form-control {
+    color: white;
+}
+
+.table-responsive {
+    color: white;
+}
+
+.card-chart {
+    background: rgb(2, 54, 85);
+}
