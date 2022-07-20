@@ -21,11 +21,12 @@ class CreateStudentinfoTable extends Migration
             $table->string('course')->nullable();
             $table->string('year')->nullable();
             $table->string('contact_number')->nullable();
+            $table->string('education_level');
             $table->string('status')->default('1');
             $table->timestamps();
         });
 
-        DB::table('student_info')->insert(['alternate_id' => 1000000, 'name' => 'default_Student']);
+        DB::table('student_info')->insert(['alternate_id' => 1000000, 'name' => 'default_Student','education_level'=>'College']);
     }
 
     /**

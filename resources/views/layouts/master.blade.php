@@ -248,14 +248,14 @@
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 {{-- count --}}
 <script>
-  $(setInterval(function(){
-    $.ajax({
-        url: "/newest_requests",
-        success: function( response ) {
-            $('#newest_requests').text( response );
-        }
-    });
-  },1000));
+  // $(setInterval(function(){
+  //   $.ajax({
+  //       url: "/newest_requests",
+  //       success: function( response ) {
+  //           $('#newest_requests').text( response );
+  //       }
+  //   });
+  // },1000));
 </script>
 @yield('scripts')
 </body>

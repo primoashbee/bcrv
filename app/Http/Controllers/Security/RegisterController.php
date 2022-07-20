@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Security;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Mail;
+use App\User;
 
 use Sentinel;
-use Activation;
-use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 use Validator;
-use App\User;
+use Activation;
+use Illuminate\Http\Request;
 use App\Models\Roles\RoleModel;
 use App\Models\Roles\UserModel;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Models\PrimaryModels\StudentInfo;
 use App\Models\User\UserModel as UserUserModel;
-use Mail;
+use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 
 class RegisterController extends Controller
 {   
@@ -33,7 +35,8 @@ class RegisterController extends Controller
             'first_name' => 'required|max:50',
             'email' => 'unique:users|required|email',
             'password' => 'required|min:7|max:12|confirmed',
-            'password_confirmation' => 'required|min:7|max:12'
+            'password_confirmation' => 'required|min:7|max:12',
+            'education_level'=> ['required', Rule::in(StudentInfo::EDUCATION_LEVEL)]
         ]);
 
         //to get the ID of roles
@@ -71,6 +74,7 @@ class RegisterController extends Controller
         $studentinfo->alternate_id = $student_info_table->alternate_id + 1;
         $studentinfo->email = $request->email;
         $studentinfo->name = $request->first_name;
+        $studentinfo->education_level = $request->education_level;
         $studentinfo->save();
         
         return redirect()->back()->with(['success' => "Registered Successfully! Verify your email to login."]);

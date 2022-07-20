@@ -116,6 +116,20 @@
                 </div>
 
                 <div class="input-wrap">
+
+                  <select
+                    name="education_level"
+                    class="input-field"
+                    required
+                  >
+                    <option> </option>
+                    <option value="High School"> High School Graduate </option>
+                    <option value="College"> College Graduate </option>
+                  </select>
+                  <label>Education Level</label>
+                </div>
+
+                <div class="input-wrap">
                   <input
                     type="password"
                     name="password"

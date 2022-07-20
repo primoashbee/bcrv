@@ -139,6 +139,7 @@ Route::get('guest', function () {
 
 
         Route::get('/requirements', 'RequirementController@index')->name('requirements');
+        Route::post('/requirements', 'RequirementController@store')->name('requirements.store');
 
     //Route to show requests page
         Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
