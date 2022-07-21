@@ -9,13 +9,13 @@
   <div class="modal-dialog modal-m">
   <div class="modal-content">
       <div class="modal-header">
-      <h4 class="modal-title">Add New Requirement</h4>
+      <h4 class="modal-title" id="modal_title">Add New Requirement</h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
       </div>
       <div class="modal-body">
-          <form action="{{route('requirements.store')}}" method="POST" class="form-horizontal">
+          <form action="{{route('requirements.store')}}" method="POST" class="form-horizontal" id="formSubmit">
           {{ csrf_field() }}
           <div class="card-body">
               <div class="row">
@@ -25,7 +25,7 @@
                           <div class="input-group">
                             <div class="custom-file">
                               {{-- <input type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile"> --}}
-                              <input style="cursor: pointer;" type="text" name="name" class="form-control" required>
+                              <input style="cursor: pointer;" type="text" name="name" class="form-control" id="name" required>
                             </div>
                           </div>
                       </div>
@@ -34,7 +34,7 @@
                           <div class="input-group">
                             <div class="custom-file">
                               {{-- <input type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile"> --}}
-                              <input type="textarea" class="form-control" name="description" required>
+                              <input type="textarea" class="form-control" name="description" id="description" required>
                             </div>
                           </div>
                       </div>
@@ -46,6 +46,7 @@
                               <select
                                 name="education_level"
                                 class="form-control"
+                                id="education_level"
                               >
                                 <option></option>
                                 <option value="High School"> High School Graduate</option>
@@ -92,57 +93,131 @@
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">Requirements</h3>
-          <a class="btn btn-app bg-orange float-right" data-toggle="modal" data-target="#modal-lg">
+          <a class="btn btn-app bg-orange float-right" data-toggle="modal" data-target="#modal-lg"  id="addButton">
             <i class="fas fa-plus"></i> Add
         </a>
         </div>
         <div class="card-body">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4 style="color:black">College Level </h4>
+                  </button>
+                </h2>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <th> Requirement</th>
+                      <th> Description</th>
+                      <th class="text-center" > Mandatory</th>
+                      <th class="text-center"> Active</th>
+                      <th class="text-center"> Actions</th>
+                    </thead>
+                    <tbody>
+                      @foreach($college as $key=>$item)
+                      <tr>
+                        <td>
+                          {{$item->name}}
+                        </td>
+                        <td>
+                          {{$item->description}}
+                        </td>
+                        <td class="text-center">
+                          @if($item->mandatory)
+                          <span class="badge badge-success">{{$item->mandatory_name}}</span>
+                          @else
+                          <span class="badge badge-danger">{{$item->mandatory_name}}</span>
+                          @endif
+      
+                        </td>
+                        <td class="text-center">
+                          @if($item->active)
+                          <span class="badge badge-success">{{$item->active_name}}</span>
+                          @else
+                          <span class="badge badge-danger">{{$item->active_name}}</span>
+                          @endif
+                        </td>
+      
+                        <td class="text-center">
+                          <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                            <i class="fa fa-pen" style="padding: 10px;"></i> 
+                            Edit
+                          </a>
+                        </td>
+                      </tr>
+                      @endforeach
+      
+                    </tbody>
+                  </table>
+                                  </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    
+                    <h4 style="color:black">High School Level </h4>
 
-            <h1>College Level</h1>
-            <table class="table">
-              <thead>
-                <th> Requirement</th>
-                <th class="text-center"> Status</th>
-              </thead>
-              <tbody>
-                @foreach($list as $key=>$item)
-                <tr>
-                  <td>
-                    {{$item}}
-                  </td>
-                  <td class="text-center">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck{{$key}}">
-                  </td>
-                </tr>
-                @endforeach
-
-              </tbody>
-            </table>
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
             
-            <hr>
+                  <table class="table">
+                    <thead>
+                      <th> Requirement</th>
+                      <th> Description</th>
+                      <th class="text-center"> Mandatory</th>
+                      <th class="text-center"> Active </th>
+                      <th class="text-center"> Actions</th>
+      
+                    </thead>
+                    <tbody>
+                      @foreach($high_school as $key=>$item)
+                      <tr>
+                        <td>
+                          {{$item->name}}
+                        </td>
+                        <td>
+                          {{$item->description}}
+                        </td>
+                        <td class="text-center">
+                          @if($item->mandatory)
+                          <span class="badge badge-success">{{$item->mandatory_name}}</span>
+                          @else
+                          <span class="badge badge-danger">{{$item->mandatory_name}}</span>
+                          @endif
+      
+                        </td>
+                        <td class="text-center">
+                          @if($item->active)
+                          <span class="badge badge-success">{{$item->active_name}}</span>
+                          @else
+                          <span class="badge badge-danger">{{$item->active_name}}</span>
+                          @endif
+                        </td>
+                        <td class="text-center">
+                          <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                            <i class="fa fa-pen" style="padding: 10px;"></i> 
+                            Edit
+                          </a>
+                        </td>
+                      </tr>
+                      @endforeach
+      
+                    </tbody>
+                  </table>                </div>
+              </div>
+            </div>
 
-            <h1>High School Level</h1>
-            
-            <table class="table">
-              <thead>
-                <th> Requirement</th>
-                <th class="text-center"> Status</th>
-              </thead>
-              <tbody>
-                @foreach($list as $key=>$item)
-                <tr>
-                  <td>
-                    {{$item}}
-                  </td>
-                  <td class="text-center">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck{{$key}}">
-                  </td>
-                </tr>
-                @endforeach
-
-              </tbody>
-            </table>
-           
+          </div>
         </div>
     </div>
 </div>
@@ -181,6 +256,30 @@
 </script>
 <script>
     $(document).ready(function() {
+      $('#addButton').click(function(){
+        $('#formSubmit').attr('action','{{route('requirements.store')}}')
+        $('#name').val('')
+        $('#description').val('')
+        $('#education_level').val('')
+        $('#mandatory').prop('checked', false)
+        $('#active').prop('checked', false)
+
+        $('#modal_title').html('Add New Requirement')
+      })
+      $('.showUpdate').click(function(){
+        const data = JSON.parse($(this).attr('data'))
+        console.log(data)
+        $('#modal_title').html('Update Requirement')
+        const URL =  `/requirements/update/${data.id}`
+        $('#formSubmit').attr('action',URL)
+        $('#name').val(data.name)
+        $('#description').val(data.description)
+        $('#education_level').val(data.education_level)
+        $('#mandatory').prop('checked',data.mandatory)
+        $('#active').prop('checked',data.active)
+        // console.log(JSON.parse($(this).attr('data'))
+        $('#modal-lg').modal('show')
+      })
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {
           $tr = $(this).closest('tr');
@@ -195,6 +294,8 @@
           $('#deleteModalForm').attr('action', '/delete_course/'+data[0]);
           $('#deleteModalPop').modal('show');
       });
+
+
     });
   </script>
 @endsection

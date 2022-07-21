@@ -202,7 +202,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+      <div class="container-fluid" id="app">
         @yield('content')
       </div>
     </section>
@@ -214,6 +214,8 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
+
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('admin_assets/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -234,18 +236,29 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin_assets/dist/js/pages/dashboard2.js') }}"></script>
 <!-- for the sweet alert -->
-<script src="{{ url('admin_assets/js/sweetalert.js') }}"></script>
-<script>
+{{-- <script src="{{ url('admin_assets/js/sweetalert.js') }}"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+<script defer>
   @if (session('status'))
-  swal({
-    title: '{{ session('status') }}',
-    icon: '{{ session('statuscode') }}',
-    button: "Ok",
-  });
+  // swal({
+  //   title: '{{ session('status') }}',
+  //   icon: '{{ session('statuscode') }}',
+  //   button: "Ok",
+  // }).then(()=>{
+  //   alert('deleted')
+  // })
+    Swal.fire(
+        '{{ session('status') }}',
+        '{{ session('statuscode') }}',
+        'success'
+    )
   @endif
 </script>
 
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 {{-- count --}}
 <script>
   // $(setInterval(function(){

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequirementsTable extends Migration
+class CreateStudentRequirementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateRequirementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requirements', function (Blueprint $table) {
+        Schema::create('student_requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->longText('description')->nullable();
-            $table->boolean('mandatory')->default();
-            $table->string('education_level');
-            $table->boolean('active');
-
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('requirement_id');
+            $table->unsignedInteger('status');
+            $table->string('path');
             $table->timestamps();
         });
-        
-    
     }
 
     /**
@@ -34,6 +30,6 @@ class CreateRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requirements');
+        Schema::dropIfExists('student_requirements');
     }
 }
