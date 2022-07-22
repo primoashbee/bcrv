@@ -18,6 +18,7 @@
  * @link       http://cartalyst.com
  */
 
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -125,6 +126,33 @@ class MigrationCartalystSentinel extends Migration
             $table->engine = 'InnoDB';
             $table->unique('email');
         });
+
+        //SET ADMIN
+        $roleID = 1;
+
+        // $userModel = new UserUserModel();
+
+        //method for registrationof user to Sentinel
+        // $user = Sentinel::register($request->all());
+        $user = Sentinel::register(array(
+            'email'    => 'admin@bcrv.com.ph',
+            'password' => 'p@ssw0rd',
+            'first_name' => 'Administrator',
+        ));
+
+        $role = Sentinel::findRoleByID($roleID);
+        $role->users()->attach($user);
+        
+        //method for activating the user
+        $activate = Activation::create($user);
+
+        Activation::where('user_id',$user->id)
+        ->update(
+            [
+                'completed'=>true,
+                'completed_at'=>now()
+            ]
+        );
     }
 
     /**
