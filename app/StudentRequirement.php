@@ -13,7 +13,7 @@ class StudentRequirement extends Model
 
     public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
 
     public function requirement()
@@ -25,7 +25,7 @@ class StudentRequirement extends Model
     {
 
     
-        if($this->status == StudentRequirement::PENDING){
+        if($this->status == self::PENDING){
             return [
                 'code'=>422,
                 'message'=>'Pending',
@@ -34,7 +34,7 @@ class StudentRequirement extends Model
     
             ];
         }
-        if($this->status == StudentRequirement::APPROVED){
+        if($this->status == self::APPROVED){
             return [
                 'code'=>200,
                 'message'=>'Approved',
@@ -42,7 +42,7 @@ class StudentRequirement extends Model
                 'feedback_class'=>'valid-feedback'
             ];
         }
-        if($this->status == StudentRequirement::MISSING){
+        if($this->status == self::MISSING){
             return [
                 'code'=>404,
                 'message'=>'Missing',
@@ -51,4 +51,5 @@ class StudentRequirement extends Model
             ];
         }
     }
+
 }

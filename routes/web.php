@@ -143,6 +143,8 @@ Route::get('guest', function () {
         Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
         Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
+        Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+
     //Route to show requests page
         Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
     //Route for adding a new request 

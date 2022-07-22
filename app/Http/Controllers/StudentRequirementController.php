@@ -19,7 +19,7 @@ class StudentRequirementController extends Controller
             // Storage::disk('requirements')->put('ashbee.png', $file,'ashbee.png');
             $requirement  = Requirement::find($key)->name;
             $email = Sentinel::getUser()->email;
-            $filename = "$email/$email - $requirement.png";
+            $filename = "$email/$user->first_name - $requirement.png";
 
 
             Storage::disk('requirements')->putFileAs(
@@ -32,12 +32,23 @@ class StudentRequirementController extends Controller
               ->update([
                 'status' => StudentRequirement::PENDING,
                 'path'   => $email,
-                'filename' => "$email - $requirement.png"
+                'filename' => "$user->first_name - $requirement.png"
               ]);
             
         }
 
 
+    }
+
+    public function index(Request $request)
+    {
+        $list = StudentRequirement::with('requirement','student')
+        ->when($request->has('requirement_id'), function($q, $data){
+            $q->where('requirement_id', $data);
+        })
+        ->get();
+
+        return view('admin.requirements.student-requirements', compact('list'));
     }
 
 }
