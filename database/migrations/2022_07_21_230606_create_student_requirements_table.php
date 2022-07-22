@@ -18,7 +18,8 @@ class CreateStudentRequirementsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('requirement_id');
             $table->unsignedInteger('status');
-            $table->string('path');
+            $table->string('path')->nullable();
+            $table->string('filename')->nullable();
             $table->timestamps();
         });
     }

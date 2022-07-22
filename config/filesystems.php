@@ -64,6 +64,11 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'requirements'=> [
+            'driver'=>'local',
+            'root'=>storage_path('app/requirements')
+        ]
+
     ],
 
 ];

@@ -102,22 +102,21 @@
                 @foreach($list as $item)
                 {{-- <li class="list-group-item">  --}}
                 <div class="form-group">
-                    <label> {{$item->name }}
-                        @if($item->mandatory)<span style="color:red">*</span> @endif 
+                    <label> {{$item->requirement->name  }}
+                        @if($item->requirement->mandatory)<span style="color:red">*</span> @endif 
                     </label>
 
                     {{-- <input type="file" name="requirement_{{$item->id}}" id="requirement_{{$item->id}}"> --}}
                     <div class="custom-file">
-                        <?php 
-                            $res = studentRequirementStatus($item, $user_id);
-                        ?>
-                        <input type="file" class="custom-file-input {{$res['class']}}" id="requirement_{{$item->id}}" name="requirement_{{$item->id}}">
+
+                        <input type="file" class="custom-file-input {{$item->html['class']}}"  name="requirement[{{$item->requirement_id}}]" id="requirement[{{$item->requirement_id}}]">
                         
-                        <div class="{{$res['feedback_class']}}">
-                            {{$res['message']}}
-                        </div>
+              
                     
-                        <label class="custom-file-label" for="requirement_{{$item->id}}" required> Choose File</label>
+                        <label class="custom-file-label" for="requirement[{{$item->requirement_id}}]" required> Choose File</label>
+                        <div class="{{$item->html['feedback_class']}}">
+                          {{$item->html['message']}}
+                      </div>
                     </div>
                 </div>
                 {{-- </li> --}}
@@ -165,7 +164,15 @@
   });
 </script>
 <script>
-    // $(document).ready(function() {
+    $(document).ready(function() {
+      $('.custom-file-input').on('change',function(){
+              //get the file name
+              var fileName = $(this).val();
+              //replace the "Choose a file" label
+              $(this).next('.custom-file-label').html(fileName);
+        })
+
+    })
     //   $('#addButton').click(function(){
     //     $('#formSubmit').attr('action','{{route('requirements.store')}}')
     //     $('#name').val('')

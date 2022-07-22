@@ -16,6 +16,11 @@ class Requirement extends Model
         return $query->where('education_level','High School');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
     public function getMandatoryNameAttribute()
     {
         return $this->mandatory ? 'True' : 'False';
@@ -25,4 +30,5 @@ class Requirement extends Model
     {
         return $this->active ? 'True' : 'False';
     }
+    
 }

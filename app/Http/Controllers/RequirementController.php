@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Requirement;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
 use App\Models\PrimaryModels\StudentInfo;
+use App\StudentRequirement;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class RequirementController extends Controller
@@ -28,9 +30,21 @@ class RequirementController extends Controller
         $user_id = $user->id;
         $level = StudentInfo::find($user_id)->education_level;
 
-        $list  = Requirement::where('education_level',$level)->get();
+        $list  = Requirement::active()->where('education_level',$level)->get();
+        $requirements = $list->pluck('id')->toArray();
+        $existing     = User::find($user->id)->studentRequirements->pluck('requirement_id')->toArray();
+        $to_add = array_merge(array_diff($requirements, $existing),array_diff($existing, $requirements));
 
-        // dd($list);
+        foreach($to_add as $requirement_id)
+        {
+            User::find($user->id)->studentRequirements()->create(
+                [
+                    'requirement_id'=>$requirement_id,
+                    'status' => StudentRequirement::MISSING,
+                ]);
+        }
+
+        $list = User::find($user->id)->studentRequirements;
 
 
         return view('students.requirements.index', compact('list','level','user_id'));
