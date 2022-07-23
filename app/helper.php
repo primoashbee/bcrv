@@ -38,3 +38,4 @@ function studentRequirementStatus(Requirement $requirement, $user_id)
         ];
     }
 }
+

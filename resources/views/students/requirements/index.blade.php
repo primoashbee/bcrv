@@ -109,7 +109,7 @@
                     {{-- <input type="file" name="requirement_{{$item->id}}" id="requirement_{{$item->id}}"> --}}
                     <div class="custom-file">
 
-                        <input type="file" class="custom-file-input {{$item->html['class']}}"  name="requirement[{{$item->requirement_id}}]" id="requirement[{{$item->requirement_id}}]">
+                        <input type="file" class="custom-file-input {{$item->html['class']}}"  name="requirement[{{$item->requirement_id}}]" id="requirement[{{$item->requirement_id}}]"  @if($item->status == 2) readonly @endif>
                         
               
                     

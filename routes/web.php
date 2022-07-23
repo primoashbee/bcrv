@@ -144,6 +144,11 @@ Route::get('guest', function () {
         Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
         Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+        Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
+        Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
+
+
+        Route::get('/notifications/list', 'NotificationController@list')->name('notifications.list');
 
     //Route to show requests page
         Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');

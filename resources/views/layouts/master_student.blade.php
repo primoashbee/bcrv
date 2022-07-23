@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="{{ asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
@@ -42,11 +42,8 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" href="/show_response_students">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-danger navbar-badge" id="newest_response_students">0</span>
-        </a>
+      <li class="nav-item">
+        <notification user_id="{{auth()->user()->id}}"></notification>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -164,6 +161,7 @@
   <aside class="control-sidebar control-sidebar-dark">
   </aside>
 </div>
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
@@ -201,14 +199,14 @@
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 {{-- count --}}
 <script>
-  $(setInterval(function(){
-    $.ajax({
-        url: "/newest_response_students",
-        success: function( response ) {
-            $('#newest_response_students').text( response );
-        }
-    });
-  },1000));
+  // $(setInterval(function(){
+  //   $.ajax({
+  //       url: "/newest_response_students",
+  //       success: function( response ) {
+  //           $('#newest_response_students').text( response );
+  //       }
+  //   });
+  // },1000));
 </script>
 @yield('scripts')
 </body>

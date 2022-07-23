@@ -46,7 +46,6 @@ class RequirementController extends Controller
 
         $list = User::find($user->id)->studentRequirements;
 
-
         return view('students.requirements.index', compact('list','level','user_id'));
     }
 

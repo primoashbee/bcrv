@@ -59,7 +59,6 @@ class DashboardController extends Controller
     // ============================= Functions for - STUDENT ============================= //
     // show dashboard page for students
     public function show_dashboard_students() {
-
         $student_email = Sentinel::getUser()->email;
         $roles_student = 2;
         

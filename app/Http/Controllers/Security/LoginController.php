@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Security;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
 use Sentinel;
 use Validator;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 
@@ -26,6 +27,7 @@ class LoginController extends Controller
         //if user already logged in return the user to dashboard or home
         if(Sentinel::check()){
             // return redirect('/dashboard');
+
             if(Sentinel::getUser()->roles->first()->name == 'Admin'){
                 return redirect(url('/show_dashboard'));
             }else{
@@ -45,6 +47,11 @@ class LoginController extends Controller
         //if the validator succeed and remember is on
         if($request->remember == 'on'){
             try{
+                $credentials = $request->only('email', 'password');
+                if (Auth::attempt($credentials)) {
+                    return redirect()->intended('dashboard')
+                                ->withSuccess('Signed in');
+                }
                 $user = Sentinel::authenticateAndRemember($request->all());
             }catch(ThrottlingException $e){
             //Throttle checks if the user enters a wrong password 3 times and will not let the user login for a given time
@@ -70,6 +77,13 @@ class LoginController extends Controller
         }else{
             //if the validator succeed and remember is off
             try{
+                $credentials = $request->only('email', 'password');
+                if (Auth::attempt($credentials)) {
+                    $user = Sentinel::authenticate($request->all());
+
+                    // return redirect()->intended('dashboard')
+                    //             ->withSuccess('Signed in');
+                }
                 $user = Sentinel::authenticate($request->all());
             }catch(ThrottlingException $e){
             //Throttle checks if the user enters a wrong password 3 times and will not let the user login for a given time
@@ -117,6 +131,7 @@ class LoginController extends Controller
     //function for logout
     public function logout() {
         Sentinel::logout();
+        auth()->logout();
         return redirect(url('/'));
     }
 }

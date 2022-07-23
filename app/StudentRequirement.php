@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class StudentRequirement extends Model
 {
@@ -10,7 +11,9 @@ class StudentRequirement extends Model
     const PENDING = 1;
     const APPROVED = 2;
     const MISSING = 3;
+    const REJECTED = 4;
 
+    const STATUS_RULES = [self::PENDING, self::APPROVED, self::MISSING, self::REJECTED];
     public function student()
     {
         return $this->belongsTo(User::class,'user_id','id');
@@ -48,6 +51,43 @@ class StudentRequirement extends Model
                 'message'=>'Missing',
                 'class'=>'is-invalid',
                 'feedback_class'=>'invalid-feedback'
+            ];
+        }
+        if($this->status == self::REJECTED){
+            return [
+                'code'=>404,
+                'message'=>'Rejected',
+                'class'=>'is-invalid',
+                'feedback_class'=>'invalid-feedback'
+            ];
+        }
+    }
+
+    public function getDirectoryAttribute()
+    {
+        $path = $this->path;
+        $filename = $this->filename;
+        return Storage::disk('requirements')->path("$path\\$filename");
+    }
+
+    public function notificationData()
+    {
+        if($this->status == self::APPROVED){
+            return [
+                'message'=>'Your submitted requirement is approved!',
+                'title'  => 'Requirement: ' . $this->requirement->name
+            ];
+        }
+        if($this->status == self::REJECTED){
+            return [
+                'message'=>'Your submitted requirement is Rejected!',
+                'title'  => 'Requirement: ' . $this->requirement->name
+            ];
+        }
+        if($this->status == self::PENDING){
+            return [
+                'message'=>'Your submitted requirement is Pending!',
+                'title'  => 'Requirement: ' . $this->requirement->name
             ];
         }
     }

@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="{{ asset('admin_assets/dist/css/adminlte.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
@@ -63,10 +63,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="/show_notifications">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-danger navbar-badge" id="newest_requests">0</span>
-        </a>
+        <notification user_id="{{auth()->user()->id}}"></notification>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -202,7 +199,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid" id="app">
+      <div class="container-fluid" >
         @yield('content')
       </div>
     </section>

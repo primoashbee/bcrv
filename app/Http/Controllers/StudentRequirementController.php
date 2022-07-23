@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Requirement;
+use App\Events\MyEvent;
 use App\StudentRequirement;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use App\Notifications\StudentRequirementUpdatedNotification;
 
 class StudentRequirementController extends Controller
 {
@@ -42,13 +45,52 @@ class StudentRequirementController extends Controller
 
     public function index(Request $request)
     {
+        event(new MyEvent('hello world'));
+
         $list = StudentRequirement::with('requirement','student')
         ->when($request->has('requirement_id'), function($q, $data){
             $q->where('requirement_id', $data);
         })
-        ->get();
+        ->when($request->has('q'), function($q, $data){
+            $q->orWhere('filename', 'like', '%' . $data . '%');
+        })
+        ->when($request->has('status'), function($q, $data){
+            $q->where('status', $data);
+        })
+        ->paginate(10);
 
         return view('admin.requirements.student-requirements', compact('list'));
     }
 
+    public function download(Request $request, $id)
+    {
+
+        $requirement = StudentRequirement::findOrFail($id);
+        
+        $headers = array(
+          'Content-Type: application/pdf',
+        );
+        $file = $requirement->directory;
+        $filename = $requirement->filename;
+
+       return response()->download($file, $filename, $headers);
+    }
+
+    public function update(Request $request, $id){
+      
+      $request->validate([
+        'status'=>['required', Rule::in(StudentRequirement::STATUS_RULES)]
+      ]);
+
+      $requirement = StudentRequirement::findOrFail($id);
+      
+      $requirement->update([
+        'status'=>$request->status
+      ]);
+
+      $requirement->fresh();
+      $requirement->student->notify(new StudentRequirementUpdatedNotification($requirement));
+
+      return redirect()->back();
+    }
 }

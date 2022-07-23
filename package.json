@@ -24,6 +24,9 @@
         "vue-template-compiler": "^2.7.7"
     },
     "dependencies": {
-        "sweetalert2": "^11.4.23"
+        "laravel-echo": "^1.12.1",
+        "pusher-js": "^7.3.0",
+        "sweetalert2": "^11.4.23",
+        "vue-toastification": "^1.7.14"
     }
 }
