@@ -14,7 +14,7 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 class RequirementController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
         $user = Sentinel::getUser();
         
@@ -23,8 +23,8 @@ class RequirementController extends Controller
         if($is_admin){
             $college = Requirement::college()->get();
             $high_school = Requirement::highSchool()->get();
-
-            return view('admin.requirements.index',compact('college','high_school'));
+            
+            return view('admin.requirements.index',compact('college','high_school','requirement'));
         }
 
         $user_id = $user->id;

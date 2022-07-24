@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Requirement;
 use App\Events\MyEvent;
+use App\Events\StudentRequirementUploadedEvent;
 use App\StudentRequirement;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Notifications\StudentRequirementUpdatedNotification;
+use App\Notifications\StudentRequirementUploadedNotification;
 
 class StudentRequirementController extends Controller
 {
@@ -18,10 +20,13 @@ class StudentRequirementController extends Controller
     public function store(Request $request)
     {
         $user = Sentinel::getUser();
+        $email = $user->email;
+
+        $student = User::find($user->id);
+        $admin = User::find(1);
         foreach($request->file('requirement') as $key=>$file){
             // Storage::disk('requirements')->put('ashbee.png', $file,'ashbee.png');
             $requirement  = Requirement::find($key)->name;
-            $email = Sentinel::getUser()->email;
             $filename = "$email/$user->first_name - $requirement.png";
 
 
@@ -31,22 +36,25 @@ class StudentRequirementController extends Controller
                 $filename
               );
 
-            User::find($user->id)->studentRequirements()->where('requirement_id', $key)
-              ->update([
+            $student_requirement = $student->studentRequirements()->where('requirement_id', $key)->first();
+            $student_requirement->update([
                 'status' => StudentRequirement::PENDING,
                 'path'   => $email,
                 'filename' => "$user->first_name - $requirement.png"
-              ]);
+            ]);
+            $admin->notify(new StudentRequirementUploadedNotification($student_requirement, true));
+
+            $student->notify(new StudentRequirementUploadedNotification($student_requirement));
             
         }
+
+        return redirect()->back();
 
 
     }
 
     public function index(Request $request)
     {
-        event(new MyEvent('hello world'));
-
         $list = StudentRequirement::with('requirement','student')
         ->when($request->has('requirement_id'), function($q, $data){
             $q->where('requirement_id', $data);
@@ -58,8 +66,9 @@ class StudentRequirementController extends Controller
             $q->where('status', $data);
         })
         ->paginate(10);
+        $requirement = $request->has('requirement_id') ? StudentRequirement::with('student','requirement')->findOrFail($request->requirement_id) : null ;
 
-        return view('admin.requirements.student-requirements', compact('list'));
+        return view('admin.requirements.student-requirements', compact('list','requirement'));
     }
 
     public function download(Request $request, $id)
@@ -91,6 +100,6 @@ class StudentRequirementController extends Controller
       $requirement->fresh();
       $requirement->student->notify(new StudentRequirementUpdatedNotification($requirement));
 
-      return redirect()->back();
+      return redirect()->route('requirements.uploaded');
     }
 }

@@ -16,7 +16,7 @@
             <a :href="notification.data.link" class="list-group-item list-group-item-action flex-column align-items-start" v-for="notification in notifications">
                 <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{notification.data.title}}</h5>
-                <small>3 days ago</small>
+                <small>{{notification.created_at}}</small>
                 </div>
                 <p class="mb-1">{{notification.data.message}}</p>
                 <!-- <small>Donec id elit non mi porta.</small> -->
@@ -36,16 +36,28 @@ import Axios from 'axios';
 
 
 export default {
-    props: ['user_id'],
+    props: ['user_id','is_admin'],
     async created(){
+        if(this.is_admin == "1"){
+        Echo.channel('user.notifications.' + this.user_id)
+            .listen('.student-uploaded-requirement', (e) => {
+                console.log(e.data.data.message)
+                this.$toast(e.data.data.message, {
+                        timeout: 5000
+                });
+                this.notifications.unshift(e.data)
+            });
+        }else{
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.requirement-updated', (e) => {
-                console.log(e.message.message + '['+e.message.title+']')
                 this.$toast(e.message.message + '['+e.message.title+']', {
-                        timeout: 2000
+                        timeout: 5000
                 });
-                this.notifications.push(e.data)
-            });
+                console.log('admin has updated your uploaded')
+
+                this.notifications.unshift(e.data)
+            })
+        }
         const {data} = await axios.get('/notifications/list')
         console.log(data)
         this.notifications = data.data

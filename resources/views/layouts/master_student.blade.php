@@ -43,7 +43,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
-        <notification user_id="{{auth()->user()->id}}"></notification>
+        <notification user_id="{{auth()->user()->id}}" is_admin="{{false}}"></notification>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">

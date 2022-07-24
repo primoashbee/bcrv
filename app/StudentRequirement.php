@@ -70,26 +70,34 @@ class StudentRequirement extends Model
         return Storage::disk('requirements')->path("$path\\$filename");
     }
 
-    public function notificationData()
+    public function notificationData($to_admin = false)
     {
-        if($this->status == self::APPROVED){
-            return [
-                'message'=>'Your submitted requirement is approved!',
-                'title'  => 'Requirement: ' . $this->requirement->name
-            ];
+        if(!$to_admin){
+            if($this->status == self::APPROVED){
+                return [
+                    'message'=>'Your submitted requirement is approved!',
+                    'title'  => 'Requirement: ' . $this->requirement->name
+                ];
+            }
+            if($this->status == self::REJECTED){
+                return [
+                    'message'=>'Your submitted requirement is Rejected!',
+                    'title'  => 'Requirement: ' . $this->requirement->name
+                ];
+            }
+            if($this->status == self::PENDING){
+                return [
+                    'message'=>'Your submitted requirement is Pending!',
+                    'title'  => 'Requirement: ' . $this->requirement->name
+                ];
+            }
         }
-        if($this->status == self::REJECTED){
-            return [
-                'message'=>'Your submitted requirement is Rejected!',
-                'title'  => 'Requirement: ' . $this->requirement->name
-            ];
-        }
-        if($this->status == self::PENDING){
-            return [
-                'message'=>'Your submitted requirement is Pending!',
-                'title'  => 'Requirement: ' . $this->requirement->name
-            ];
-        }
+
+        return [
+            'message' => $this->student->first_name . ' uploaded a requirement - ' . $this->requirement->name  . ' ( '. $this->filename.' )',
+            'title' => 'Requirement Upload'
+        ];
+
     }
 
 }

@@ -180,6 +180,21 @@
 </script>
 <script>
     $(document).ready(function() {
+
+      @if($requirement != null)
+        const data = @json($requirement);
+        console.log(data)
+        const URL  = `/requirements/${data.id}`
+        const type = data.student.first_name +  ' - ' + data.requirement.name
+
+        $('#formSubmit').attr('action',URL)
+        $('#name').val(data.filename);
+        $('#created_at').val(data.created_at);
+        $('#status').val(data.status);
+        $('#modal_title').html(type);
+        $('#modal-lg').modal('show')
+
+      @endif
       $('#btnSearch').click(function(){
         const q = $('#q').val();
         const q_status = $('#q_status').val();

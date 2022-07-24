@@ -256,6 +256,9 @@
 <!-- Page specific script -->
 <script>
   $(function () {
+ 
+
+    
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
@@ -264,6 +267,7 @@
 </script>
 <script>
     $(document).ready(function() {
+
       $('#addButton').click(function(){
         $('#formSubmit').attr('action','{{route('requirements.store')}}')
         $('#name').val('')
