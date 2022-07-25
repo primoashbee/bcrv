@@ -24,7 +24,7 @@ class RequirementController extends Controller
             $college = Requirement::college()->get();
             $high_school = Requirement::highSchool()->get();
             
-            return view('admin.requirements.index',compact('college','high_school','requirement'));
+            return view('admin.requirements.index',compact('college','high_school'));
         }
 
         $user_id = $user->id;
