@@ -19,14 +19,14 @@ services:
       - mynetwork
 
   #Cron Service
-  cron:
-    build:
-      context: .
-      dockerfile: ./docker/cron/Dockerfile
-    volumes:
-      - ./:/var/www
-    networks:
-      - mynetwork
+  # cron:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/cron/Dockerfile
+  #   volumes:
+  #     - ./:/var/www
+  #   networks:
+  #     - mynetwork
     #container_name: cron
 
  # Nginx Service
