@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Requirement;
 use App\Events\MyEvent;
-use App\Events\StudentRequirementUploadedEvent;
 use App\StudentRequirement;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use App\Events\StudentRequirementUploadedEvent;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Notifications\StudentRequirementUpdatedNotification;
 use App\Notifications\StudentRequirementUploadedNotification;
@@ -81,8 +83,11 @@ class StudentRequirementController extends Controller
         );
         $file = $requirement->directory;
         $filename = $requirement->filename;
-
-       return response()->download($file, $filename, $headers);
+        return Storage::disk('requirements')->download($requirement->path . '/' . $requirement->filename);
+          
+        // return (new Response($nF, 200))
+        //       ->header('Content-Type', 'image/jpeg');
+       return response()->download($nF, $filename, $headers);
     }
 
     public function update(Request $request, $id){
