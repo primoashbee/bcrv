@@ -149,6 +149,7 @@ Route::get('guest', function () {
 
 
         Route::get('/notifications/list', 'NotificationController@list')->name('notifications.list');
+        Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
 
     //Route to show requests page
         Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');

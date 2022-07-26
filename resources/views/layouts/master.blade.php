@@ -199,7 +199,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid" >
+      <div class="container-fluid col-12" >
         @yield('content')
       </div>
     </section>

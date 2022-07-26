@@ -13,7 +13,7 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right">
         <div class="list-group">
-            <a :href="notification.data.link" class="list-group-item list-group-item-action flex-column align-items-start" v-for="notification in notifications">
+            <a :href="notification.data.link" @click.prevent = "goToNotification(notification.id)" class="list-group-item list-group-item-action flex-column align-items-start" :class="{ 'active' : className(notification.read_at) }" v-for="notification in notifications">
                 <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{notification.data.title}}</h5>
                 <small>{{notification.created_at}}</small>
@@ -41,17 +41,25 @@ export default {
         if(this.is_admin == "1"){
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.student-uploaded-requirement', (e) => {
-                console.log(e.data.data.message)
+                const payload = e;
                 this.$toast(e.data.data.message, {
-                        timeout: 5000
+                    timeout: 5000,
+                    onClick: ()=> {
+                        this.goToNotification(payload.data.id)
+                    },
+                
                 });
                 this.notifications.unshift(e.data)
             });
         }else{
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.requirement-updated', (e) => {
+                const payload = e;
                 this.$toast(e.message.message + '['+e.message.title+']', {
-                        timeout: 5000
+                        timeout: 5000,
+                        onClick: ()=> {
+                            this.goToNotification(payload.data.id)
+                        },
                 });
                 console.log('admin has updated your uploaded')
 
@@ -66,6 +74,20 @@ export default {
     data(){
         return {
             notifications : []
+        }
+    },
+    methods: {
+        async goToNotification(notification_id) {
+            try{
+                const { data } = await axios.patch(`/notification/${notification_id}`);
+                window.location.href = data.data.link
+            }catch(e){
+
+            }
+        },
+
+        className(read_at){
+            return read_at != null ? false : true ;
         }
     },
 

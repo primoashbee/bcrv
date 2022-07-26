@@ -74,21 +74,21 @@
   </div>
   </div>
 </div>
-<div class="">
+<div class="col-12">
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">Requirements</h3>
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="form-group col-4 ">
+            <div class="form-group col-lg-4 col-sm-12">
               <label for="search">Search</label>
               <input type="text" name="q" id="q" class="form-control">
             </div>
-            <div class="col-5">
+            <div class="col-lg-5 col-sm-12">
 
             </div>
-            <div class="form-group col-2 ">
+            <div class="form-group col-lg-2 col-sm-6">
               <label for="q_status">Status</label>
               <select class="form-control" name="q_status" id="q_status">
                 <option value="all">All</option>
@@ -97,12 +97,13 @@
                 <option value="4">Rejected</option>
               </select>
             </div>
-            <div class="form-group col-1 ">
+            <div class="form-group col-lg-1 col-sm-6">
               <label for="submit">&nbsp;</label><br>
               <input type="submit" class="btn btn-primary" id="btnSearch">
             </div>
           </div>
-
+          <div class="clearfix"></div>
+          <div class="table-responsive">
             <table class="table">
               <thead>
                 <th class="" > Requirement</th>
@@ -142,8 +143,9 @@
               </tbody>
             </table>
             {{$list->links()}}
+          </div>
         </div>
-    </div>
+    </div>1
 </div>
 @endsection
 

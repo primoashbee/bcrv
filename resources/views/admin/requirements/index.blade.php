@@ -110,55 +110,56 @@
           
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                  <table class="table">
-                    <thead>
-                      <th> Requirement</th>
-                      <th> Description</th>
-                      <th class="text-center" > Mandatory</th>
-                      <th class="text-center"> Active</th>
-                      <th class="text-center"> Actions</th>
-                    </thead>
-                    <tbody>
-                      @foreach($college as $key=>$item)
-                      <tr>
-                        <td>
-                          {{$item->name}}
-                        </td>
-                        <td>
-                          {{$item->description}}
-                        </td>
-                        <td class="text-center">
-                          @if($item->mandatory)
-                          <span class="badge badge-success">{{$item->mandatory_name}}</span>
-                          @else
-                          <span class="badge badge-danger">{{$item->mandatory_name}}</span>
-                          @endif
-      
-                        </td>
-                        <td class="text-center">
-                          @if($item->active)
-                          <span class="badge badge-success">{{$item->active_name}}</span>
-                          @else
-                          <span class="badge badge-danger">{{$item->active_name}}</span>
-                          @endif
-                        </td>
-      
-                        <td class="text-center">
-                          <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
-                            <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            Edit
-                          </a>
-                          <a href="{{route('requirements.uploaded')}}" type="button" class="btn btn-sm btn-primary bg-info">
-                            <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            View Uploaded Requirements 
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-      
-                    </tbody>
-                  </table>
-                                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <th> Requirement</th>
+                        <th> Description</th>
+                        <th class="text-center" > Mandatory</th>
+                        <th class="text-center"> Active</th>
+                        <th class="text-center"> Actions</th>
+                      </thead>
+                      <tbody>
+                        @foreach($college as $key=>$item)
+                        <tr>
+                          <td>
+                            {{$item->name}}
+                          </td>
+                          <td>
+                            {{$item->description}}
+                          </td>
+                          <td class="text-center">
+                            @if($item->mandatory)
+                            <span class="badge badge-success">{{$item->mandatory_name}}</span>
+                            @else
+                            <span class="badge badge-danger">{{$item->mandatory_name}}</span>
+                            @endif
+        
+                          </td>
+                          <td class="text-center">
+                            @if($item->active)
+                            <span class="badge badge-success">{{$item->active_name}}</span>
+                            @else
+                            <span class="badge badge-danger">{{$item->active_name}}</span>
+                            @endif
+                          </td>
+        
+                          <td class="text-center">
+                            <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                              <i class="fa fa-pen" style="padding: 10px;"></i> 
+                              Edit
+                            </a>
+                            <a href="{{route('requirements.uploaded')}}" type="button" class="btn btn-sm btn-primary bg-info">
+                              <i class="fa fa-pen" style="padding: 10px;"></i> 
+                              View Uploaded Requirements 
+                            </a>
+                          </td>
+                        </tr>
+                        @endforeach
+        
+                      </tbody>
+                    </table>
+                  </div>
               </div>
             </div>
             <div class="card">
