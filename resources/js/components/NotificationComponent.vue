@@ -45,7 +45,7 @@ export default {
                 this.$toast(e.data.data.message, {
                     timeout: 5000,
                     onClick: ()=> {
-                        this.goToNotification(payload.data.id)
+                        this.goToNotification(payload.data.id);
                     },
                 
                 });
