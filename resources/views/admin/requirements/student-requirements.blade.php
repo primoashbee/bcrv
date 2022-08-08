@@ -99,7 +99,7 @@
             </div>
             <div class="form-group col-lg-1 col-sm-6">
               <label for="submit">&nbsp;</label><br>
-              <input type="submit" class="btn btn-primary" id="btnSearch">
+              <input type="submit" class="btn btn-primary" id="btnSearch" value="Search">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -129,8 +129,12 @@
                             @endif
                         </td>
                         <td class="text-center">                          
-                            <a href="{{route("requirements.download", $item->id)}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate"  >
+                            <a href="{{route("requirements.view", $item->id)}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate"  >
                                 <i class="fa fa-eye" style="padding: 10px;"></i> 
+                            </a>
+
+                            <a href="{{route("requirements.download", $item->id)}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate"  >
+                                <i class="fa fa-download" style="padding: 10px;"></i> 
                                 {{-- View --}}
                             </a>
                             <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}" student="{{$item->student->first_name}}" requirement_type="{{$item->requirement->name}}">

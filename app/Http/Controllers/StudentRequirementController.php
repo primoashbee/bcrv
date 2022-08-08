@@ -68,7 +68,8 @@ class StudentRequirementController extends Controller
             $q->where('status', $data);
         })
         ->paginate(10);
-        $requirement = $request->has('requirement_id') ? StudentRequirement::with('student','requirement')->findOrFail($request->requirement_id) : null ;
+
+        $requirement = $request->has('id') ? StudentRequirement::with('student','requirement')->findOrFail($request->id) : null ;
 
         return view('admin.requirements.student-requirements', compact('list','requirement'));
     }
@@ -106,5 +107,21 @@ class StudentRequirementController extends Controller
       $requirement->student->notify(new StudentRequirementUpdatedNotification($requirement));
 
       return redirect()->route('requirements.uploaded');
+    }
+
+    public function view(Request $request, $id){
+      $requirement = StudentRequirement::findOrFail($id);
+        
+      $headers = array(
+        'Content-Type: application/pdf',
+      );
+      $file = $requirement->directory;
+      $filename = $requirement->filename;
+      $src = "https://placehold.co/1200";
+
+      $path = Storage::disk('requirements')->path($requirement->path . '/' . $requirement->filename);
+      return response()->file($path, $headers);
+      return view('preview', compact('src'));
+      // return Storage::disk('requirements')->get($requirement->path . '/' . $requirement->filename);
     }
 }

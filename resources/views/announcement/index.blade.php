@@ -62,9 +62,17 @@
             <thead>
               <th> Title</th>
               <th> Description</th>
-              <th class="text-center"> Actions</th>
+              <th class="text-center"> Actions </th>
             </thead>
+            <tbody>
+              @foreach($announcements as $key=>$item)
+              <tr>
+                <td>{{$item->title}}</td>
+                <td>{{$item->description}}</td>
+              </tr>
+              @endforeach
 
+            </tbody>
         </table>  
         </div>
     </div>

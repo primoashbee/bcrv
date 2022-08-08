@@ -147,11 +147,9 @@
                           <td class="text-center">
                             <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
                               <i class="fa fa-pen" style="padding: 10px;"></i> 
-                              Edit
                             </a>
-                            <a href="{{route('requirements.uploaded')}}" type="button" class="btn btn-sm btn-primary bg-info">
-                              <i class="fa fa-pen" style="padding: 10px;"></i> 
-                              View Uploaded Requirements 
+                            <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}} " type="button" class="btn btn-sm btn-primary bg-info">
+                              <i class="fa fa-eye" style="padding: 10px;"></i> 
                             </a>
                           </td>
                         </tr>
@@ -211,18 +209,19 @@
                         <td class="text-center">
                           <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
                             <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            Edit
+                          
                           </a>
-                          <a href="{{route('requirements.uploaded')}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                          <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
                             <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            View Uploaded Requirements 
+                            {{-- View Uploaded Requirements  --}}
                           </a>
                         </td>
                       </tr>
                       @endforeach
       
                     </tbody>
-                  </table>                </div>
+                  </table>                
+                </div>
               </div>
             </div>
 

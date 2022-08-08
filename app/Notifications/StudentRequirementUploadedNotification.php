@@ -50,7 +50,7 @@ class StudentRequirementUploadedNotification extends Notification
             'notifiable' => $notifiable,
             'message' => $this->notificationData['message'],
             'title' => $this->notificationData['title'],
-            'link'  => route('requirements.uploaded',['requirement_id'=> $this->studentRequirement->id]),
+            'link'  => route('requirements.uploaded',['id'=> $this->studentRequirement->id]),
             'status' => 200
         ];
     }
@@ -62,7 +62,7 @@ class StudentRequirementUploadedNotification extends Notification
                 'notifiable' => $notifiable,
                 'message' => $this->notificationData['message'],
                 'title' => $this->notificationData['title'],
-                'link'  => route('requirements.uploaded',['requirement_id'=> $this->studentRequirement->id]),
+                'link'  => route('requirements.uploaded',['id'=> $this->studentRequirement->id]),
                 'status' => 200
             ];
             $notification = $notifiable->notifications()->first();

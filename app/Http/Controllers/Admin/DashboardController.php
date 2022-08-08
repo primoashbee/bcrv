@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Announcement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PrimaryModels\StudentsModel as StudentsModel;
@@ -38,10 +39,13 @@ class DashboardController extends Controller
         $requests_count = RequestModel::count();
         $pending_count = RequestModel::where('status', 'pending')->count();
         $completed_count = RequestModel::where('status', 'received')->count();
+        $announcement = Announcement::latest();
+
         return view('admin.dashboard.dashboard')->with('student_count', $student_count)
                                             ->with('requests_count', $requests_count)
                                             ->with('pending_count', $pending_count)
-                                            ->with('completed_count', $completed_count);
+                                            ->with('completed_count', $completed_count)
+                                            ->with('announcement', $announcement);
     }
      
     // function to get count of latest requests - for notification - admin
@@ -61,7 +65,8 @@ class DashboardController extends Controller
     public function show_dashboard_students() {
         $student_email = Sentinel::getUser()->email;
         $roles_student = 2;
-        
+        $announcement = Announcement::latest();
+
         $request_students = DB::select(
             DB::raw("SELECT 
                     COUNT(CASE WHEN requests.status = 'pending' THEN requests.status END) as student_pending_count,
@@ -76,7 +81,7 @@ class DashboardController extends Controller
             ")
         );
 
-        return view('students.dashboard.dashboard')->with('request_students', $request_students);
+        return view('students.dashboard.dashboard')->with('request_students', $request_students)->with('announcement', $announcement);
         
     }
 

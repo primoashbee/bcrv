@@ -148,6 +148,7 @@ Route::get('guest', function () {
         Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
         Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+        Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
         Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
         Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
 
