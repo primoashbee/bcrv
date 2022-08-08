@@ -12,9 +12,9 @@
 */
 
 //Route for the Home Page
-    Route::get('/', function () {
-        return view('layouts.welcome');
-    });
+Route::get('/', function () {
+    return view('layouts.welcome');
+});
 
 //Route to view guest
 Route::get('guest', function () {
@@ -58,7 +58,11 @@ Route::get('guest', function () {
     //Route to view the dashboard panel
         Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
 
+        Route::get('/notifications','NotificationController@index'); 
+        Route::get('/notifications/{notification}','NotificationController@view')->name('notification.view');
 
+        Route::get('/annoucement','AnnouncementController@index')->name('announcement.index');
+        Route::post('/annoucement','AnnouncementController@store')->name('announcement.store');
 
 //Routes for courses page
     //Route to show courses page

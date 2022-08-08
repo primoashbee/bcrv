@@ -118,6 +118,13 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ route('announcement.index') }}" class="nav-link {{ 'announcement' == request()->path() ? 'active' : '' }}">
+              <i class="fa fa-bullhorn nav-icon"></i>
+              <p>Annoucement</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route('requirements') }}" class="nav-link {{ 'requirements' == request()->path() ? 'active' : '' }}">
               <i class="fa fa-list nav-icon"></i>
               <p>Requirements</p>

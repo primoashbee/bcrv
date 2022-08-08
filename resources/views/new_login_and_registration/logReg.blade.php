@@ -74,9 +74,8 @@
 
                 <input type="submit" name="signin" value="Sign In" class="sign-btn" />
 
-                <p class="text">
-                  Forgotten your password or you login datails?
-                  <a href="{{ url('/forgot_password') }}">Get help</a> signing in
+                <p class="text" style="color:black; font-size:1em">
+                  <a href="{{ url('/forgot_password') }}">Forgot Password</a>
                 </p>
               </div>
             </form>
@@ -172,17 +171,17 @@
             <div class="text-slider">
               <div class="text-wrap">
                 <div class="text-group">
-                  <h2>Lorem, ipsum dolor.</h2>
-                  <h2>Lorem ipsum dolor sit.</h2>
-                  <h2>Lorem ipsum dolor sit amet.</h2>
+                  {{-- <h2>Lorem, ipsum dolor.</h2> --}}
+                  {{-- <h2>Lorem ipsum dolor sit.</h2>
+                  <h2>Lorem ipsum dolor sit amet.</h2> --}}
                 </div>
               </div>
 
-              <div class="bullets">
+              {{-- <div class="bullets">
                 <span class="active" data-value="1"></span>
                 <span data-value="2"></span>
                 <span data-value="3"></span>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>

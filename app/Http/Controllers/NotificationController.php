@@ -8,6 +8,13 @@ use Illuminate\Notifications\DatabaseNotification;
 class NotificationController extends Controller
 {
     
+    public function index()
+    {
+
+        $notifications = auth()->user()->notifications()->orderBy('id','desc')->get();
+
+        return view('notifications', compact('notifications'));
+    }
     public function list()
     {
         return response()->json([
@@ -26,5 +33,11 @@ class NotificationController extends Controller
             ]
         ],200);
 
+    }
+
+    public function view(Request $request, DatabaseNotification $notification)
+    {
+        $notification->markAsRead();
+        return redirect($notification->data['link']);
     }
 }

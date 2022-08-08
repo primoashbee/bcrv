@@ -51,9 +51,9 @@
                 <li class="nav_menu_item">
                 <a href="{{ url('login') }}" class="nav_menu_link">Account</a>
                 </li>
-                <li class="nav_menu_item">
+                {{-- <li class="nav_menu_item">
                 <a href="https://www.facebook.com/bcrvtvi.edu.ph/" class="nav_menu_link">Help<span style="font-size: 13px; align: top;"> (?)</span></a>
-                </li>
+                </li> --}}
             </ul>
             @endif
         </div>
@@ -79,15 +79,15 @@
 
             <div class="btn_wrapper">
             @if (Sentinel::check())
-                <button onclick="location.href='{{ url('/show_dashboard') }}'" class="btn view_more_btn">
+                {{-- <button onclick="location.href='{{ url('/show_dashboard') }}'" class="btn view_more_btn">
                     Proceed to Admin <i class="ri-arrow-right-line"></i>
-                </button>
+                </button> --}}
 
                 <button onclick="location.href='{{ url('/show_dashboard') }}'" class="btn documentation_btn">Join us</button>
             @else
-              <button onclick="location.href='{{ url('login') }}'" class="btn view_more_btn">
+              {{-- <button onclick="location.href='{{ url('login') }}'" class="btn view_more_btn">
                 Proceed to Admin <i class="ri-arrow-right-line"></i>
-              </button>
+              </button> --}}
 
               <button onclick="location.href='{{ url('login') }}'" class="btn documentation_btn">Join us</button>
             @endif
@@ -148,7 +148,19 @@
       </div>
     </section>
 
-    <footer></footer>
+    <footer style="
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        padding-top:5px;
+        padding-bottom:10px;
+        height: 30px;
+        width: 100%;
+        color: white;
+        text-align: center;"
+      >
+      <p> Footer Here </p>
+    </footer>
 
     <!-- ==== ANIMATE ON SCROLL JS CDN -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

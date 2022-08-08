@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\Models\PrimaryModels\StudentInfo;
+use App\Announcement;
 use Illuminate\Notifications\Notifiable;
+use App\Models\PrimaryModels\StudentInfo;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -46,5 +47,11 @@ class User extends Authenticatable
     public function studentInfo()
     {
         return $this->hasOne(StudentInfo::class,'email','email');
+    }
+
+
+    public function announcement()
+    {
+        return $this->hasMany(Announcement::class);
     }
 }

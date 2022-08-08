@@ -25,7 +25,7 @@
         </div>
 
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">See all</a>
+      <a class="dropdown-item" href="/notifications">See all</a>
     </div>
   <!-- </li> -->
   </div>

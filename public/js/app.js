@@ -2150,7 +2150,7 @@ var render = function render() {
   }), _vm._v(" "), _c("a", {
     staticClass: "dropdown-item",
     attrs: {
-      href: "#"
+      href: "/notifications"
     }
   }, [_vm._v("See all")])])]);
 };
