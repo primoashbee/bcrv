@@ -152,12 +152,16 @@ Route::get('guest', function () {
         Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
         Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
 
+        Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
+
 
         Route::get('/notifications/list', 'NotificationController@list')->name('notifications.list');
         Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
 
     //Route to show requests page
         Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
+        Route::get('/preview_request/{id}', 'Admin\StudentRequestController@view')->name('request.preview');
+        Route::get('/download_request/{id}', 'Admin\StudentRequestController@download')->name('request.download');
     //Route for adding a new request 
         Route::post('/add_request_students', 'Admin\StudentRequestController@add_request_students');  
     //Route to show the page to edit the request

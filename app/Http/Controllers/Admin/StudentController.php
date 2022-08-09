@@ -41,4 +41,11 @@ class StudentController extends Controller
         return redirect('show_students')->with('status', 'Data Updated Successfully!');
     }
 
+    public function delete($id){
+        $student = StudentInfoModel::findOrFail($id);
+
+        $student->delete();
+        return response()->json([], 200);
+    }
+
 }

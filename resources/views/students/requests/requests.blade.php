@@ -27,7 +27,7 @@
                                             <select name="document_name" class="form-control select2" style="width: 100%; height: 100%;">
                                                 <option value="NULL" selected>Select file...</option>
                                                 @foreach ($documents as $document)
-                                                    <option value="{{ $document->file_name }}">{{ $document->file_name }}</option>
+                                                    <option value="{{ $document->id }}">{{ $document->filename }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -70,59 +70,71 @@
                         <th>ID</th>
                         <th>Student ID</th>
                         <th>Document Name</th>
-                        <th>No. of Copies</th>
+                        {{-- <th>No. of Copies</th> --}}
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
+                        <th>Is Signed</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Sentinel::check())
-                        @foreach($student_info->where('email', Sentinel::getUser()->email) as $student)
-                        @foreach($requests->where('student_id', $student->alternate_id) as $request)
+                        @foreach ($requests as $key=>$item)
+                            
                         <tr>
-                            <td>{{ $request->id }}</td>
-                            <td style="width: 100px;">STDNT - {{ $student->alternate_id }}</td>
-                            <td style="width: 700px;">{{ $request->document_name }}</td>
-                            <td style="width: 10px;">{{ $request->number_of_copies }}</td>
-                            <td style="width: 700px;">{{ $request->date_of_request }}</td>
-                            <td style="width: 700px;">{{ $request->release_date }}</td>
-                            <td style="width: 700px;">{{ $request->processing_officer }}</td>
-                            @if ($request->status == 'pending')
-                                <b><td class="text-success">Pending</td></b>
-                            @elseif ($request->status == 'ongoing')
-                                <b><td class="text-warning">Ongoing</td></b>
+                            <td>{{ $item->id }}</td>
+                            <td >STDNT - {{ $item->student_id }}</td>
+                            <td >{{ $item->document->filename }}</td>
+                            {{-- <td style="width: 10px;">{{ $request->number_of_copies }}</td> --}}
+                            <td>{{ $item->date_of_request }}</td>
+                            <td>{{ $item->release_date }}</td>
+                            <td >{{ $item->processing_officer }}</td>
+                            <td>{{ $item->document->signed_name }}</td>
+                            @if ($item->is_responded == '1')
+                                <b><td class="text-success">Received</td></b>
+               
                             @else 
-                                <b><td class="text-info">Received</td></b>
+                                <b><td class="text-warning">Pending</td></b>
                             @endif
-                            @if ($request->status == 'received')
-                                <strong><td style="width: 100px" class="text-success">Finished Transaction</td></strong>
+                            @if ($item->is_responded == "1")
+                                <strong>
+                                    <td style="width: 100px" class="text-success">
+                                        {{-- Finished Transaction --}}
+                                        <a href="{{route('request.preview', $item->id)}}" type="button" target ="_blank" class="btn-sm btn-primary bg-info">
+                                            <i class="fa fa-eye" style="padding: 10px;"></i>
+                                        </a>
+                                        <a href="{{route('request.download', $item->id)}}" type="button" class="btn-sm btn-primary bg-success">
+                                            <i class="fa fa-download" style="padding: 10px;"></i>
+                                        </a>
+                                    </td>
+                                </strong>
+ 
                             @else 
                                 <td style="width: 1500px;">
-                                    <a href="/show_edit_request_students/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-info">
-                                        <i class="fa fa-pen" style="padding: 10px;"></i> Edit
+                                    
+    
+                                    <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-info">
+                                        <i class="fa fa-pen" style="padding: 10px;"></i>
                                     </a>
-                                    <a href="/receive_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-success">
-                                        <i class="fa fa-inbox" style="padding: 10px;"></i> Receive
-                                    </a>    
+                                    {{-- <a href="/receive_request/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-success">
+                                        <i class="fa fa-download" style="padding: 10px;"></i> 
+                                    </a>    --}}
                                 </td>
                             @endif
                         </tr>
                         @endforeach
-                        @endforeach
-                    @endif
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
                         <th>Document Name</th>
-                        <th>No. of Copies</th>
+                        {{-- <th>No. of Copies</th> --}}
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
+                        <th>Is Signed</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>

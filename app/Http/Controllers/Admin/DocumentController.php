@@ -12,6 +12,7 @@ use DB;
 use Faker\Documentor;
 use Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Comment\Doc;
 
 class DocumentController extends Controller
@@ -25,31 +26,44 @@ class DocumentController extends Controller
     // add a document
     public function add_document(Request $request) {
         // upload file
-        $dt = Carbon::now();
-        $folder_name= 'upload';
-        $file_description = $request->file_description;
-        $date_time = $dt->toDayDateTimeString();
-        \Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
-        if ($request->hasFile('fileupload')) {
-            foreach ($request->fileupload as $touploadfile) {
-                $destinationPath = $folder_name.'/';
-                $file_name = $touploadfile->getClientOriginalName(); //Get file original name                   
-                $file_size = $touploadfile->getSize(); //Get file original Size                
-                $upload_file = [
-                    'file_name'=>$file_name,
-                    'path'=> $destinationPath.$file_name,
-                    'description'=> $file_description,
-                    'size'=> $file_size,
-                    'datetime'=>$date_time,
-                ];
+        // $dt = Carbon::now();
+        // $folder_name= 'upload';
+        // $file_description = $request->file_description;
+        // $date_time = $dt->toDayDateTimeString();
+        // \Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
+        // if ($request->hasFile('fileupload')) {
+        //     foreach ($request->fileupload as $touploadfile) {
+        //         $destinationPath = $folder_name.'/';
+        //         $file_name = $touploadfile->getClientOriginalName(); //Get file original name                   
+        //         $file_size = $touploadfile->getSize(); //Get file original Size                
+        //         $upload_file = [
+        //             'file_name'=>$file_name,
+        //             'path'=> $destinationPath.$file_name,
+        //             'description'=> $file_description,
+        //             'size'=> $file_size,
+        //             'datetime'=>$date_time,
+        //         ];
 
-                \Storage::disk('local')->put($folder_name.'/'.$file_name,file_get_contents($touploadfile->getRealPath()));
-                DB::table('documents')->insert($upload_file);
-            }
+        //         \Storage::disk('local')->put($folder_name.'/'.$file_name,file_get_contents($touploadfile->getRealPath()));
+        //         DB::table('documents')->insert($upload_file);
+        //     }
+        // }
+        $signed = false;
+        if($request->has('signed')){
+            $signed = true;
         }
-        
+        $request->validate([
+            'filename'=>'required|unique:documents,filename'
+        ]);
+
+        Documentmodel::create([
+            'filename'=>$request->filename,
+            'description'=>$request->description,
+            'signed' => $signed
+        ]);
+
         Session::flash('statuscode', 'success');
-        return redirect('show_documents')->with('status', 'Data Added Successfully!');
+        return redirect('show_documents')->with('status', 'File Added Successfully!');
     }
 
     //  show the page to edit the document
@@ -62,7 +76,15 @@ class DocumentController extends Controller
     public function edit_document(Request $request, $id)
     {
         $documents = Documentmodel::findOrfail($id);    
-        $documents->description = $request->input('file_description');
+
+        $request->validate(
+            [
+                'filename'=>'required|unique:documents,filename,' . $documents->id,
+                'description'=>'required'
+            ]
+            );
+        $documents->filename = $request->input('filename');
+        $documents->description = $request->input('description');
 
         $documents->update();
         Session::flash('statuscode', 'info');
@@ -80,6 +102,7 @@ class DocumentController extends Controller
         $document->delete();
 
         Session::flash('statuscode', 'error');
-        return redirect('show_documents')->with('status', 'File Deleted!');
+        return response()->json([],200);
+        // return redirect('show_documents')->with('status', 'File Deleted!');
     }
 }

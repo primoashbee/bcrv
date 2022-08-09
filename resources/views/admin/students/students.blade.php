@@ -98,7 +98,9 @@
                         <th>Email</th>
                         <th>Complete Name</th>
                         <th>Course</th>
-                        <th>Year</th>
+                        {{-- <th>Year</th> --}}
+                        <th>Batch</th>
+                        <th>School Year</th>
                         <th>Contact</th>
                         <th>Account</th>
                         <th>Actions</th>
@@ -112,7 +114,9 @@
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->course }}</td>
-                        <td>{{ $student->year }}</td>
+                        {{-- <td>{{ $student->year }}</td> --}}
+                        <td> Batch</td>
+                        <td> School Year</td>
                         <td>{{ $student->contact_number }}</td>
                         @if ($student->status == 0)
                             <b><td class="text-danger">Inactive</td></b>
@@ -121,7 +125,10 @@
                         @endif
                         <td style="width: 190px;">
                             <a href="/show_edit_student/{{ $student->id }}" type="button" class="btn btn-sm btn-primary bg-info">
-                                <i class="fa fa-pen" style="padding: 10px;"></i> Edit
+                                <i class="fa fa-pen" style="padding: 10px;"></i> 
+                            </a>
+                            <a href="#" type="button" class="btn btn-sm btn-primary bg-danger btn-delete" student_id="{{$student->id}}">
+                                <i class="fa fa-trash" style="padding: 10px;"></i> 
                             </a>
                         </td>
                     </tr>
@@ -188,20 +195,40 @@
 </script>  
 <script>
     $(document).ready(function() {
-      $('#example1').DataTable();
-      $('#example1').on('click', '.deletbtn', function() {
-          $tr = $(this).closest('tr');
-  
-          var data = $tr.children("td").map(function() {
+        $('.btn-delete').click(function(e){
+            e.preventDefault();
+            var id = $(this).attr('student_id')
+            console.log(id)
+            Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: `Cancel`,
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        axios.post(`/student/delete/${id}`).then(()=>{
+                            location.reload()
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+        })
+        $('#example1').DataTable();
+        $('#example1').on('click', '.deletbtn', function() {
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
             return $(this).text();
-          }).get(); 
-  
-          // console.log(data);
-  
-          $('#get_student_id').val(data[0]);
-          $('#deleteModalForm').attr('action', '/delete_student/'+data[0]);
-          $('#deleteModalPop').modal('show');
-      });
+            }).get(); 
+
+            // console.log(data);
+
+            $('#get_student_id').val(data[0]);
+            $('#deleteModalForm').attr('action', '/delete_student/'+data[0]);
+            $('#deleteModalPop').modal('show');
+        });
     });
 </script>
 @endsection

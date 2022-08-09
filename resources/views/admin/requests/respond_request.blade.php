@@ -12,7 +12,7 @@
             <h5><i class="fas fa-info"></i> Note:</h5>
             You are about to respond to a request from 
             <u><span class="text-info text-lg"><strong> {{ $student->name }}</strong></span></u>
-            with the requested file <u><span class="text-success text-lg"><strong> {{ $requests->document_name }}</strong></span></u>
+            with the requested file <u><span class="text-success text-lg"><strong> {{ $requests->document->filename }}</strong></span></u>
             <a href="/show_students" type="button" class="btn btn-info bg-info float-right" style="text-decoration: none;">
                 <i class="fa fa-arrow-left" style="padding: 10px;"></i> Return
             </a>
@@ -21,6 +21,18 @@
                     {{ csrf_field() }} 
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                  <label for="exampleSelectBorder">Processing Officer</label>
+                                  
+                                  <select name="processing_officer_name" class="custom-select form-control-border" id="processing_officer">
+                                    <option value=""> Please select </option>
+                                      @foreach ($users as $user)
+                                          <option value="{{ $user->first_name }}">{{ $user->first_name }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="exampleInputFile">File input</label>

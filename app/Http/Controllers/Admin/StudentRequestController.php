@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Session;
+use Sentinel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\PrimaryModels\RequestModel as RequestModel;
-use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
-use App\Models\PrimaryModels\DocumentModel as DocumentModel;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PrimaryModels\ResponseModel;
 use App\Models\PrimaryModels\StudentsModel;
-use Sentinel;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
-use Session;
+use App\Models\PrimaryModels\RequestModel as RequestModel;
+use App\Models\PrimaryModels\DocumentModel as DocumentModel;
+use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 
 class StudentRequestController extends Controller
 {
     // show requests page - STUDENT
     public function show_requests_students() {
-        $student_info = StudentInfoModel::all();
-        $requests = RequestModel::all();
+        // $student_info = StudentInfoModel::all();
+        $requests = RequestModel::where('student_id', auth()->user()->studentInfo->alternate_id)->orderBy('id','desc')->get();
         $documents = DocumentModel::all();
-        return view('students.requests.requests')->with('requests', $requests)
-                                    ->with('student_info', $student_info)
-                                    ->with('documents', $documents);
+        return view('students.requests.requests',compact('requests','documents'));
+        // return view('students.requests.requests')->with('requests', $requests)
+        //                             ->with('student_info', $student_info)
+        //                             ->with('documents', $documents);
     }
 
     // adding new request
@@ -49,6 +51,7 @@ class StudentRequestController extends Controller
         $request_document->document_name = $request->input('document_name');
         $request_document->number_of_copies = $request->input('number_of_copies');
         $request_document->date_of_request = $date_time;
+        $request_document->status = 'Pending';
 
         $request_document->save();
 
@@ -94,5 +97,29 @@ class StudentRequestController extends Controller
             Session::flash('statuscode', 'success');
             return redirect('show_requests_students')->with('status', 'Received!');
         }
+    }
+
+    public function download($id){
+        $request = RequestModel::findOrFail($id);
+        $headers = array(
+            'Content-Type: application/pdf',
+          );
+        $arr  =   explode('/',$request->path);
+        $filename = $arr[count($arr)-1];
+        return Storage::disk('local')->download($request->path);
+            
+
+    }
+
+    public function view($id){
+        $request = RequestModel::findOrFail($id);
+        $headers = array(
+            'Content-Type: application/pdf',
+          );
+          $arr  =   explode('/',$request->path);
+          $filename = $arr[count($arr)-1];
+    
+          $path = Storage::disk('local')->path($request->path);
+          return response()->file($path, $headers);
     }
 }

@@ -33,7 +33,7 @@
                                     <div class="col-sm-12">
                                     <!-- textarea -->
                                     <div class="form-group">
-                                        <label>Course Description</label>
+                                        <label>Duration of Training (Hours)</label>
                                         <textarea class="form-control" name="course_description" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                     </div>
@@ -97,7 +97,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Course Name</th>
-                        <th>Course Description</th>
+                        <th>Duration of Training (Hours)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -122,7 +122,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Course Name</th>
-                        <th>Course Description</th>
+                        <th>Duration of Training (Hours)</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>

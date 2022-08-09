@@ -18,14 +18,17 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
+                        <th>Student Name</th>
                         <th>Course</th>
+                        <th>Batch</th>
+                        <th>School Year</th>
                         <th>Document Name</th>
-                        <th>No. of Copies</th>
+                        <th>Signature</th>
+
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
-                        <th>Status</th>
-                        <th>Response Status</th>
+                        {{-- <th>Response Status</th> --}}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,35 +37,48 @@
                     <tr>
                         <td>{{ $request->id }}</td>
                         <td>STDNT-{{ $request->student_id }}</td>
-                        <td>{{ $request->course }}</td>
-                        <td>{{ $request->document_name }}</td>
-                        <td>{{ $request->number_of_copies }}</td>
+                        <td>{{ $request->studentInfo->name }}</td>
+                        <td>{{ $request->studentInfo->course }}</td>
+                        <td> Batch here</td>
+                        <td> School Year HEre</td>
+                        <td>{{ $request->document->filename }}</td>
+                        <td >{{ $request->document->signed_name }}</td>
+                        {{-- <td>{{ $request->number_of_copies }}</td> --}}
                         <td>{{ $request->date_of_request }}</td>
                         <td>{{ $request->release_date }}</td>
                         <td>{{ $request->processing_officer }}</td>
-                        @if ($request->status == 'pending')
+
+                        {{-- @if ($request->status == 'pending')
                             <b><td class="text-success">Pending</td></b>
                         @elseif ($request->status == 'ongoing')
                             <b><td class="text-warning">Ongoing</td></b>
                         @elseif ($request->status == 'received') 
                             <b><td class="text-info">Received</td></b>
-                        @endif
-                        @if ($request->is_responde == "0")
+                        @endif --}}
+                        {{-- @if ($request->is_responded == "0")
                             <b><td class="text-danger">No Response yet</td></b>
                         @else
                             <b><td class="text-success">Respond Sent</td></b>
+                        @endif --}}
+                        @if($request->status =='Sent')
+                            <b><td class="text-success">{{$request->status}}</td></b>
+                        @else
+                            <b><td class="text-warning">{{$request->status}}</td></b>
                         @endif
                         <td style="width: 210px;">
-                            <a href="/show_edit_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-info">
+                            {{-- <a href="/show_edit_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> Edit
-                            </a>
-                            @if ($request->is_responded == '0')
-                                <a href="/show_respond_to_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-warning">
-                                    <i class="fa fa-file" style="padding: 10px;"></i> Respond
+                            </a> --}}
+                            @if ($request->is_responded  == "1")
+                                <a href="{{route('request.preview', $request->id)}}" type="button" target ="_blank" class="btn-sm btn-primary bg-info">
+                                    <i class="fa fa-eye" style="padding: 10px;"></i>
+                                </a>
+                                <a href="{{route('request.download', $request->id)}}" type="button" class="btn-sm btn-primary bg-success">
+                                    <i class="fa fa-download" style="padding: 10px;"></i>
                                 </a>
                             @else 
-                                <a hidden href="/show_respond_to_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-warning">
-                                    <i class="fa fa-file" style="padding: 10px;"></i> Respond
+                                <a href="/show_respond_to_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-warning">
+                                    <i class="fa fa-file" style="padding: 10px;"></i>
                                 </a>
                             @endif
                         </td>
@@ -73,14 +89,16 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
+                        <th>Student Name</th>
                         <th>Course</th>
+                        <th>Batch</th>
+                        <th>School Year</th>
                         <th>Document Name</th>
-                        <th>No. of Copies</th>
+                        <th>Signature</th>
+
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
-                        <th>Status</th>
-                        <th>Response Status</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>

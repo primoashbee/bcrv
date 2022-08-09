@@ -17,30 +17,35 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/add_document" enctype="multipart/form-data" method="POST" class="form-horizontal">
+                        <form action="/add_document"  method="POST" class="form-horizontal">
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <div class="input-group">
-                                          <div class="custom-file">
-                                            {{-- <input type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile"> --}}
-                                            <input style="cursor: pointer;" type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                          </div>
-                                        </div>
+                                        <label for="file_name">File Name</label>
+                                        <input  type="text" name="filename" class="form-control" id="filename" placeholder="File Name">
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-sm-12">
                                 <!-- textarea -->
                                 <div class="form-group">
                                     <label>File Description</label>
-                                    <textarea class="form-control" name="file_description" rows="3" placeholder="Enter ..."></textarea>
+                                    <textarea class="form-control" name="description" rows="3" placeholder="Enter ..."></textarea>
                                 </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="signed" name="signed" >
+                                          <label class="custom-control-label" for="signed"> Signed</label>
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +108,8 @@
                         <th>ID</th>
                         <th>Document Name</th>
                         <th>Description</th>
-                        <th>File Size</th>
-                        <th>Date Created</th>
+                        {{-- <th>File Size</th> --}}
+                        {{-- <th>Date Created</th> --}}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -112,21 +117,21 @@
                     @foreach($documents as $document)
                     <tr>
                         <td style="width: 100px">{{ $document->id }}</td>
-                        <td style="width: 100px">{{ $document->file_name }}</td>
+                        <td style="width: 100px">{{ $document->filename }}</td>
                         <td style="width: 100px">{{ $document->description }}</td>
-                        <td style="width: 100px">{{ $document->size }} Bytes</td>
-                        <td style="width: 100px">{{ $document->datetime }}</td>
+                        {{-- <td style="width: 100px">{{ $document->size }} Bytes</td> --}}
                         
                         <td style="width: 210px;">
-                            <a href="{{ url('/download_document', $document->file_name) }}" type="button" class="btn btn-sm btn-primary bg-warning">
+                            {{-- <a href="{{ url('/download_document', $document->file_name) }}" type="button" class="btn btn-sm btn-primary bg-warning">
                                 <i class="fa fa-download" style="padding: 10px;"></i> Download
-                            </a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary bg-danger deletbtn">
-                                <i class="fa fa-trash" style="padding: 10px;"></i> Delete
-                            </a>
+                            </a> --}}
                             <a href="/show_edit_document/{{ $document->id }}" type="button" class="btn btn-sm btn-primary bg-info">
-                                <i class="fa fa-pen" style="padding: 10px;"></i> Edit
+                                <i class="fa fa-pen" style="padding: 10px;"></i>
                             </a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary bg-danger deletbtn" id="{{$document->id}}">
+                                <i class="fa fa-trash" style="padding: 10px;"></i> 
+                            </a>
+
                         </td>
                     </tr>
                     @endforeach
@@ -136,8 +141,8 @@
                         <th>ID</th>
                         <th>Document Name</th>
                         <th>Description</th>
-                        <th>File Size</th>
-                        <th>Date Created</th>
+                        {{-- <th>File Size</th> --}}
+                        {{-- <th>Date Created</th> --}}
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -190,6 +195,26 @@
 </script>  
 <script>
     $(document).ready(function() {
+        $('.deletbtn').click(function(e){
+            e.preventDefault();
+            var id = $(this).attr('id')
+            console.log(id)
+            Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: `Cancel`,
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        axios.delete(`/delete_document/${id}`).then(()=>{
+                            location.reload()
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+        })
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {
           $tr = $(this).closest('tr');

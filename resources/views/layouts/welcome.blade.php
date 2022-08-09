@@ -8,6 +8,7 @@
 
     <!-- ==== STYLE.CSS ==== -->
     <link rel="stylesheet" href="{{ asset('new_welcome_assets/css/style.css') }}" />
+    <link rel="icon" href="{{ asset('admin_assets/dist/img/icon.ico') }}">
 
     <!-- ====  REMIXICON CDN ==== -->
     <link
@@ -27,7 +28,7 @@
       <!-- ==== NAVBAR ==== -->
       <nav class="nav">
         <div class="logo">
-          <h2>BCRV.</h2>
+          <h2> <img src="{{ asset('admin_assets/dist/img/bcrv.png') }}" class="img" style="max-height:100px; max-width:50px; margin-bottom: -5px"> BCRV.</h2>
         </div>
 
         <div class="nav_menu" id="nav_menu">

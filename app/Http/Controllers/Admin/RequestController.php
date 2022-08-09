@@ -30,15 +30,20 @@ class RequestController extends Controller
     public function show_respond_to_request($id){
         $requests = RequestModel::findOrfail($id);
         $students = StudentInfoModel::all();
-        return view('admin.requests.respond_request')->with('requests', $requests)
-                                                ->with('students', $students);
+        $role = Sentinel::findRoleBySlug('admin');
+        $users = $role->users()->with('roles')->get();
+        return view('admin.requests.respond_request')
+                        ->with('users', $users)
+                        ->with('requests', $requests)
+                        ->with('students', $students);
     }
 
     // respond to request
     public function respond_to_request(Request $request, $id) {
         // upload file
+        $requestModel = RequestModel::findOrFail($id);
         $dt = Carbon::now();
-        $folder_name= 'responses';
+        $folder_name= 'responses/' . str_replace(" ","", $requestModel->student_id);
         $file_description = $request->file_description;
         $date_time = $dt->toDayDateTimeString();
         \Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
@@ -59,7 +64,15 @@ class RequestController extends Controller
                 ];
 
                 \Storage::disk('local')->put($folder_name.'/'.$file_name,file_get_contents($touploadfile->getRealPath()));
-                DB::table('response_table')->insert($upload_file);
+                // DB::table('response_table')->insert($upload_file);
+                $requestModel->update([
+                    'is_responded' => true,
+                    'processing_officer'=>$request->processing_officer_name,
+                    'release_date'=>now(),
+                    'status' => 'Sent',
+                    'path' => $destinationPath.$file_name
+                ]);
+
             }
         }
 
