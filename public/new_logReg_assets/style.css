@@ -391,3 +391,37 @@ main.sign-up-mode .carousel {
     padding: 1rem 2rem 1.5rem;
   }
 }
+
+
+.input-icons button {
+  position: absolute;
+  right: 0;
+  background: transparent;
+  border: none;
+  z-index: 1000;
+  color: #151111;
+  cursor: pointer;
+}
+
+.input-icons button:hover{
+  color: #77eea9;
+  transition: .3s ease-in;
+}
+
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.icon {
+  padding: 10px;
+  color: green;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
