@@ -20,15 +20,11 @@ class DashboardController extends Controller
 {
     // function to not let guest users access the admin panel
     public function dashboard() {
-        if(Sentinel::check()){
-            // return redirect('/dashboard');
-            if(Sentinel::getUser()->roles->first()->name == 'Admin'){
-                return redirect(url('/show_dashboard'));
-            }else{
-                return redirect(url('/show_dashboard_students'));
-            }
+
+        if(Sentinel::getUser()->roles->first()->name == 'Admin'){
+            return redirect(url('/show_dashboard'));
         }else{
-            return view('security.login');
+            return redirect(url('/show_dashboard_students'));
         }
     }
 
