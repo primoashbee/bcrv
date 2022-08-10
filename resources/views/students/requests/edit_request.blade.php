@@ -31,14 +31,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="exampleInputRounded0">Number of Copies</label>
                                     <input name="number_of_copies" type="number" class="form-control rounded-0" id="exampleInputRounded0" value="{{ $request_document->number_of_copies }}">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-footer">
                     <button type="submit" class="btn btn-block btn-warning float-right">Edit Course</button>

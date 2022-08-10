@@ -136,7 +136,7 @@ Route::get('guest', function () {
     //Route for adding a new document
     Route::post('/add_request_to', 'Admin\RequesttoStudentsController@add_request_to'); 
     //Route to download documents
-    Route::get('/download_response_from_student/{file_name}', 'Admin\RequesttoStudentsController@download_response_from_student'); 
+    Route::get('/download_response_from_student/{id}', 'Admin\RequesttoStudentsController@download_response_from_student'); 
 
 
 // ============================= Routes for requests page - STUDENT ============================= //

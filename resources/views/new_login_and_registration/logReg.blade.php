@@ -64,13 +64,14 @@
 
                 <div class="input-wrap input-icons">
 
-                  <button class="icon">
-                    <i class="fa-solid fa-eye"></i>
+                  <button type="button" class="icon" id="btn-show-password">
+                    <i class="fa-solid fa-eye" id="password-icon"></i>
+                
                     </button>
                   <input
                     type="password"
                     name="password"
-                    class="input-field"
+                    class="input-field password-field"
                     autocomplete="off"
                     required
                   />
@@ -103,7 +104,8 @@
                   <input
                     type="text"
                     name="first_name"
-                    class="input-field"
+                    class="input-field active"
+                    placeholder="Lastname, Firstname, MI, Suffix"
                   />
                   <label>Complete Name</label>
                 </div>
@@ -196,5 +198,19 @@
     <!-- Javascript file -->
 
     <script src="{{ asset('new_logReg_assets/app.js') }}"></script>
+    <script>
+        const showPass = document.getElementById('btn-show-password');
+        showPass.addEventListener('click',function(){
+          const field = document.getElementsByClassName('password-field')[0]
+        
+          const type  = field.getAttribute("type") == "text" ? "password" : "text";
+          const icon_class = type=="text" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
+
+          document.getElementById('password-icon').setAttribute("class", icon_class);
+          field.setAttribute("type", type)
+
+        })
+
+    </script>
   </body>
 </html>

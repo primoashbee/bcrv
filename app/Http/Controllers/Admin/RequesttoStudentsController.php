@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\PrimaryModels\RequeststoStudents as RequeststoStudents;
-use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
-use Sentinel;
-use Session;
-use Illuminate\Support\Carbon;
 use DB;
+use Session;
+use Sentinel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
+use App\Models\PrimaryModels\RequeststoStudents as RequeststoStudents;
 
 class RequesttoStudentsController extends Controller
 {
@@ -46,8 +47,18 @@ class RequesttoStudentsController extends Controller
     }
 
     // download file
-    public function download_response_from_student(Request $request, $file_name) {
-        return response()->download(storage_path('app/upload/'.$file_name));
+    public function download_response_from_student(Request $request, $id) {
+        $file = RequeststoStudents::findOrFail($id);
+                
+        $headers = array(
+            'Content-Type: application/pdf',
+          );
+        // $arr = explode("/", $file->path);
+
+        // $filename = $arr[count($arr)-1];
+        //   $file = $requirement->directory;
+        //   $filename = $requirement->filename;
+          return Storage::disk('local')->download($file->path);
     }
 
 
@@ -55,10 +66,13 @@ class RequesttoStudentsController extends Controller
 
     // show requests to students page
     public function show_requests_from_admins() {
-        $requests_toStudents = RequeststoStudents::all();
+        $requests_toStudents = RequeststoStudents::where('student_id', auth()->user()->id)->get();
+        $student_info = auth()->user()->studentInfo;
         $current_user  = Sentinel::getUser();
-        return view('students.student_response.student_response')->with('requests_toStudents', $requests_toStudents)
-                                                            ->with('current_user', $current_user);
+        return view('students.student_response.student_response')
+        ->with('requests_toStudents', $requests_toStudents)
+        ->with('student_info', $student_info)
+        ->with('current_user', $current_user);
     }
 
     //  show the page to respond to the admin request
@@ -70,7 +84,9 @@ class RequesttoStudentsController extends Controller
     // respond to request
     public function respond_to_request_from_admins(Request $request, $id) {
         // upload file
-        $folder_name= 'responses';
+        $request_to_students = RequeststoStudents::find($id);
+        $folder_name= 'to_admin/' . $request_to_students->user->studentInfo->alternate_id ;
+
         \Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
         if ($request->hasFile('fileupload')) {
             foreach ($request->fileupload as $touploadfile) {

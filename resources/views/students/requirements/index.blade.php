@@ -1,7 +1,7 @@
 @extends('layouts.master_student')
 
 @section('title')
-    Admin | Requirements
+    Student | Requirements
 @endsection
 
 @section('content')
@@ -103,20 +103,24 @@
                 {{-- <li class="list-group-item">  --}}
                 <div class="form-group">
                     <label> {{$item->requirement->name  }}
-                        @if($item->requirement->mandatory)<span style="color:red">*</span> @endif 
+                        @if($item->requirement->mandatory)<span style="color:red">*</span> @endif  
+                        
                     </label>
+                    @if($item->status != 3)
+                      <a href="{{route('requirements.view', $item->id)}}" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
+                      <a href="{{route('requirements.download', $item->id)}}"  class="badge badge-success"><i class="fa fa-download"></i></a>
+                    @endif
 
-                    {{-- <input type="file" name="requirement_{{$item->id}}" id="requirement_{{$item->id}}"> --}}
                     <div class="custom-file">
 
                         <input type="file" class="custom-file-input {{$item->html['class']}}"  name="requirement[{{$item->requirement_id}}]" id="requirement[{{$item->requirement_id}}]"  @if($item->status == 2) readonly @endif>
-                        
               
                     
                         <label class="custom-file-label" for="requirement[{{$item->requirement_id}}]" required> Choose File</label>
                         <div class="{{$item->html['feedback_class']}}">
                           {{$item->html['message']}}
-                      </div>
+                        </div>
+
                     </div>
                 </div>
                 {{-- </li> --}}

@@ -1,7 +1,7 @@
 @extends('layouts.master_student')
 
 @section('title')
-    Admin | Requests
+    Student | Requests from Admin
 @endsection
 
 @section('content')
@@ -30,7 +30,7 @@
                     @foreach($requests_toStudents->where('student_id', $current_user->id) as $request)
                     <tr>
                         <td>{{ $request->id }}</td>
-                        <td>STDNT-{{ $request->student_id }}</td>
+                        <td>STDNT-{{ $student_info->alternate_id }}</td>
                         <td>{{ $request->document_name }}</td>
                         <td>{{ $request->date_of_request }}</td>
                         <td>{{ $request->request_from }}</td>

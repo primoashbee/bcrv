@@ -33,14 +33,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label for="exampleInputRounded0">Number of Copies</label>
-                                            <input name="number_of_copies" type="number" class="form-control rounded-0" id="exampleInputRounded0">
+                                    {{-- <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputRounded0">Number of Copies</label>
+                                                <input name="number_of_copies" type="number" class="form-control rounded-0" id="exampleInputRounded0" value="1">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> --}}
                             </div>
                             <div class="card-footer">
                             <button type="submit" class="btn btn-block btn-info float-right">Add Request</button>
@@ -76,7 +76,7 @@
                         <th>Processing Officer</th>
                         <th>Is Signed</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th style="max-width: 200px">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,7 +99,7 @@
                             @endif
                             @if ($item->is_responded == "1")
                                 <strong>
-                                    <td style="width: 100px" class="text-success">
+                                    <td class="text-success">
                                         {{-- Finished Transaction --}}
                                         <a href="{{route('request.preview', $item->id)}}" type="button" target ="_blank" class="btn-sm btn-primary bg-info">
                                             <i class="fa fa-eye" style="padding: 10px;"></i>
@@ -107,21 +107,30 @@
                                         <a href="{{route('request.download', $item->id)}}" type="button" class="btn-sm btn-primary bg-success">
                                             <i class="fa fa-download" style="padding: 10px;"></i>
                                         </a>
+                                        <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-danger">
+                                            <i class="fa fa-trash" style="padding: 10px;"></i>
+                                        </a>
                                     </td>
                                 </strong>
  
                             @else 
-                                <td style="width: 1500px;">
+                                <td >
                                     
     
                                     <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-info">
                                         <i class="fa fa-pen" style="padding: 10px;"></i>
+                                    </a>
+                                    <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-danger">
+                                        <i class="fa fa-trash" style="padding: 10px;"></i>
                                     </a>
                                     {{-- <a href="/receive_request/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-success">
                                         <i class="fa fa-download" style="padding: 10px;"></i> 
                                     </a>    --}}
                                 </td>
                             @endif
+
+                                    
+                               
                         </tr>
                         @endforeach
                 </tbody>

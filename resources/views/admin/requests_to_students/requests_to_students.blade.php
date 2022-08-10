@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Requests
+    Admin | Requests to Students
 @endsection
 
 @section('content')
@@ -81,6 +81,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
+                        <th>Student Name</th>
+
                         <th>Document Name</th>
                         <th>Request Date</th>
                         <th>Request from</th>
@@ -93,7 +95,8 @@
                     @foreach($requests_toStudents as $request)
                     <tr>
                         <td>{{ $request->id }}</td>
-                        <td>STDNT-{{ $request->student_id }}</td>
+                        <td>STDNT-{{ $request->user->studentInfo->alternate_id }}</td>
+                        <td>{{ $request->user->studentInfo->name }}</td>
                         <td>{{ $request->document_name }}</td>
                         <td>{{ $request->date_of_request }}</td>
                         <td>{{ $request->request_from }}</td>
@@ -109,7 +112,7 @@
                         @endif
                         <td style="width: 210px;">
                             @if ($request->response_status == 'responded')
-                                <a href="{{ url('/download_response_from_student', $request->file_name) }}" type="button" class="btn btn-sm btn-primary bg-warning">
+                                <a href="{{ url('/download_response_from_student', $request->id) }}" type="button" class="btn btn-sm btn-primary bg-warning">
                                     <i class="fa fa-download" style="padding: 10px;"></i> Download
                                 </a>
                             @else 
@@ -123,6 +126,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
+                        <th>Student Name</th>
                         <th>Document Name</th>
                         <th>Request Date</th>
                         <th>Request from</th>

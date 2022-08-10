@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Requests
+    Admin | Users
 @endsection
 
 @section('content')
@@ -42,7 +42,7 @@
     <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Requests table</h3>
+            <h3 class="card-title">Users table</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -51,10 +51,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Complete Name</th>
-                        <th>Designation</th>
+                        {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>
-                        <th>Role</th>
+                        {{-- <th>Role</th> --}}
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -64,7 +64,7 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->first_name }}</td>
-                        <td>{{ $user->designation }}</td>
+                        {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>
                         @foreach($user->roles as $roles)
@@ -91,10 +91,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Complete Name</th>
-                        <th>Designation</th>
+                        {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>
-                        <th>Role</th>
+                        {{-- <th>Role</th> --}}
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
