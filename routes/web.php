@@ -150,6 +150,8 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/notifications','NotificationController@index'); 
         Route::get('/notifications/{notification}','NotificationController@view')->name('notification.view');  
         Route::post('/logout', 'Security\LoginController@logout');
+        Route::get('/requirements', 'RequirementController@index')->name('requirements');
+        Route::post('/requirements', 'RequirementController@store')->name('requirements.store');
      
     });
 
@@ -166,8 +168,7 @@ use App\Http\Middleware\StudentMiddleware;
         });
             Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
 
-            Route::get('/requirements', 'RequirementController@index')->name('requirements');
-            Route::post('/requirements', 'RequirementController@store')->name('requirements.store');
+            
             Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
             Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
