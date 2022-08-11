@@ -113,10 +113,10 @@
                         <td>STDNT-{{ $student->alternate_id }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->name }}</td>
-                        <td>{{ $student->course }}</td>
+                        <td>{{ $student->user->courseList}}</td>
                         {{-- <td>{{ $student->year }}</td> --}}
-                        <td> Batch</td>
-                        <td> School Year</td>
+                        <td> {{$student->batch}}</td>
+                        <td> {{$student->school_year}}</td>
                         <td>{{ $student->contact_number }}</td>
                         @if ($student->status == 0)
                             <b><td class="text-danger">Inactive</td></b>

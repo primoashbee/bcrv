@@ -13,7 +13,7 @@ class StudentController extends Controller
 {
     // show students page
     public function show_students() {
-        $students = StudentInfoModel::all();
+        $students = StudentInfoModel::with('user')->get();
         $courses = CourseModel::all();
         return view('admin.students.students')->with('students', $students)
                                             ->with('courses', $courses);

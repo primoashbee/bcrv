@@ -64,10 +64,6 @@
 
                 <div class="input-wrap input-icons">
 
-                  <button type="button" class="icon" id="btn-show-password">
-                    <i class="fa-solid fa-eye" id="password-icon"></i>
-                
-                    </button>
                   <input
                     type="password"
                     name="password"
@@ -75,6 +71,11 @@
                     autocomplete="off"
                     required
                   />
+                  
+                  <button type="button" class="icon" id="btn-show-password">
+                    <i class="fa-solid fa-eye" id="password-icon"></i>
+                
+                    </button>
                   <label>Password</label>
                 </div>
 

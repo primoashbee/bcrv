@@ -17,9 +17,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'user_name', 'email', 'password',
-    ];
+    // protected $fillable = [
+    //     'user_name', 'email', 'password',
+    // ];
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -53,5 +55,32 @@ class User extends Authenticatable
     public function announcement()
     {
         return $this->hasMany(Announcement::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(StudentCourse::class,'student_id','id');
+
+    }
+
+    public function getCourseListAttribute()
+    {
+        $courses = $this->courses;
+        $str = "";
+
+        if(is_null($courses)){
+            return "";
+        }
+        $total = count($courses)-1;
+        foreach($courses as $key=>$course)
+        {
+            if($key==$total){
+                $str.=$course->course->course_name ."";
+            }else{
+                $str.=$course->course->course_name ." , ";
+            }
+        }
+
+        return $str;
     }
 }
