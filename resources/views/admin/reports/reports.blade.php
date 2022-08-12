@@ -80,13 +80,13 @@
                             <td>Pending</td>
                             <td>{{ $countpending }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td>Ongoing</td>
                             <td>{{ $countongoing }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
-                            <td>Received</td>
-                            <td>{{ $countreceived }}</td>
+                            <td>Sent</td>
+                            <td>{{ $countsent }}</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -186,20 +186,18 @@
       //- DONUT CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
       var countpending = {{ $countpending }};
-      var countongoing = {{ $countongoing }};
-      var countreceived = {{ $countreceived }};
+      var countsent = {{ $countsent }};
       var donutData        = {
         labels: [
             'Pending',
-            'Ongoing',
             'Received',
         ],
         datasets: [
           {
-            data: [countpending, countongoing, countreceived],
-            backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
+            data: [countpending, countsent],
+            backgroundColor : ['#f56954', '#f39c12'],
           }
         ]
       }

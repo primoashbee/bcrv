@@ -33,25 +33,25 @@ class ReportController extends Controller
                                 });
                             })
                             ->count();
-        $countongoing = RequestModel::where('status', 'ongoing')
-                            ->when($request->has('batch'), function($q,$data){
-                                $q->whereHas('studentInfo', function($sq) use ($data){
-                                    $sq->where('batch', $data);
-                                });
-                            })
-                            ->when($request->has('course'), function($q,$data){
-                                $q->whereHas('studentInfo', function($sq) use ($data){
-                                    $sq->where('course', $data);
-                                });
-                            })
-                            ->when($request->has('school_year'), function($q,$data){
-                                $q->whereHas('studentInfo', function($sq) use ($data){
-                                    $sq->where('school_year', $data);
-                                });
-                            })
-                            ->count();
+        // $countongoing = RequestModel::where('status', 'ongoing')
+        //                     ->when($request->has('batch'), function($q,$data){
+        //                         $q->whereHas('studentInfo', function($sq) use ($data){
+        //                             $sq->where('batch', $data);
+        //                         });
+        //                     })
+        //                     ->when($request->has('course'), function($q,$data){
+        //                         $q->whereHas('studentInfo', function($sq) use ($data){
+        //                             $sq->where('course', $data);
+        //                         });
+        //                     })
+        //                     ->when($request->has('school_year'), function($q,$data){
+        //                         $q->whereHas('studentInfo', function($sq) use ($data){
+        //                             $sq->where('school_year', $data);
+        //                         });
+        //                     })
+        //                     ->count();
 
-        $countreceived = RequestModel::where('status', 'received')
+        $countsent = RequestModel::where('status', 'sent')
                             ->when($request->has('batch'), function($q,$data){
                                 $q->whereHas('studentInfo', function($sq) use ($data){
                                     $sq->where('batch', $data);
@@ -76,8 +76,8 @@ class ReportController extends Controller
         $school_year = StudentInfo::whereNotNull('school_year')->distinct()->get(['id','school_year']);
         return view('admin.reports.reports')
                                         ->with('countpending', $countpending)
-                                        ->with('countongoing', $countongoing)
-                                        ->with('countreceived', $countreceived)
+                                        // ->with('countongoing', $countongoing)
+                                        ->with('countsent', $countsent)
                                         ->with('courses', $courses)
                                         ->with('batches', $batches)
                                         ->with('school_year', $school_year);
