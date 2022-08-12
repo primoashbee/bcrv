@@ -13,6 +13,7 @@ class ReportController extends Controller
 {
     // show show_reports page
     public function show_reports() {
+        dd('wtf');
         $requests = RequestModel::all();
         $countpending = RequestModel::where('status', 'pending')->count();
         $countongoing = RequestModel::where('status', 'ongoing')->count();
