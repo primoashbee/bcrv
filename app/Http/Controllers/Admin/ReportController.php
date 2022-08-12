@@ -12,13 +12,13 @@ use Session;
 class ReportController extends Controller
 {
     // show show_reports page
-    public function show_reports() {
-        dd('wtf');
-        $requests = RequestModel::all();
+    public function show_reports(Request $request) {
+        
+        // $requests = RequestModel::all();
         $countpending = RequestModel::where('status', 'pending')->count();
         $countongoing = RequestModel::where('status', 'ongoing')->count();
         $countreceived = RequestModel::where('status', 'received')->count();
-        return view('admin.reports.reports')->with('requests', $requests)
+        return view('admin.reports.reports')
                                         ->with('countpending', $countpending)
                                         ->with('countongoing', $countongoing)
                                         ->with('countreceived', $countreceived);

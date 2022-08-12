@@ -120,7 +120,7 @@
           <li class="nav-item">
             <a href="{{ route('announcement.index') }}" class="nav-link {{ 'announcement' == request()->path() ? 'active' : '' }}">
               <i class="fa fa-bullhorn nav-icon"></i>
-              <p>Annoucement</p>
+              <p>Announcement</p>
             </a>
           </li>
 
