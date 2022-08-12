@@ -79,12 +79,13 @@
             </div>
             <!-- /. tools -->
           </div>
-          <!-- /.card-header -->
           <div class="card-body pt-0">
             <!--The calendar -->
             <div id="" style="width: 100%">
               <h4 > <i> {{$announcement->title }} </i></h4>
-              <p class="pb-1 pt-1 text-white"> {{$announcement->description }}</p>
+              <p class="pb-1 pt-1 "> {{$announcement->description }}</p>
+
+              <p>{{$announcement->created_at->diffForHumans()}}</p>
             </div>
           </div>
           <!-- /.card-body -->

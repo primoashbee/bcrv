@@ -71,12 +71,12 @@
                     autocomplete="off"
                     required
                   />
+                  <label>Password</label>
                   
                   <button type="button" class="icon" id="btn-show-password">
                     <i class="fa-solid fa-eye" id="password-icon"></i>
                 
-                    </button>
-                  <label>Password</label>
+                  </button>
                 </div>
 
                 <input type="submit" name="signin" value="Sign In" class="sign-btn" />

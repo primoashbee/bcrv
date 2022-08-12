@@ -128,7 +128,7 @@
                             <a href="/show_edit_document/{{ $document->id }}" type="button" class="btn btn-sm btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i>
                             </a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-primary bg-danger deletbtn" id="{{$document->id}}">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary bg-danger deletbtn" id="{{$document->id}}" document_name="{{$document->filename}}">
                                 <i class="fa fa-trash" style="padding: 10px;"></i> 
                             </a>
 
@@ -198,9 +198,10 @@
         $('.deletbtn').click(function(e){
             e.preventDefault();
             var id = $(this).attr('id')
+            const record_name = $(this).attr('document_name')
             console.log(id)
             Swal.fire({
-                    title: 'Do you want to save the changes?',
+                    title: `Are you sure you want to delete this record? (${record_name})`,
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     cancelButtonText: `Cancel`,

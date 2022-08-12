@@ -111,7 +111,7 @@
                             <a href="/show_edit_course/{{ $course->id }}" type="button" class="btn btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> Edit
                             </a>
-                            <a href="javascript:void(0)" class="btn btn-primary bg-danger deletbtn">
+                            <a href="#" class="btn btn-primary bg-danger btn-delete" course_id="{{ $course->id }}">
                                 <i class="fa fa-trash" style="padding: 10px;"></i> Delete
                             </a>
                         </td>
@@ -158,29 +158,15 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
-</script>
-<script>
     $(document).ready(function() {
-      $('#example1').DataTable();
-      $('#example1').on('click', '.deletbtn', function() {
-          $tr = $(this).closest('tr');
-  
-          var data = $tr.children("td").map(function() {
-            return $(this).text();
-          }).get(); 
-  
-          // console.log(data);
-  
-          $('#get_course_id').val(data[0]);
-          $('#deleteModalForm').attr('action', '/delete_course/'+data[0]);
-          $('#deleteModalPop').modal('show');
-      });
-    });
-  </script>
+        $('.btn-delete').click(function(e) {
+            e.preventDefault();
+            const course_id = $(this).attr('course_id')
+            $('#deleteModalForm').attr('action', '/delete_course/'+course_id);
+            $('#deleteModalPop').modal('show');
+        })
+    })
+</script>
+
+
 @endsection

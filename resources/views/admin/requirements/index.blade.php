@@ -89,145 +89,122 @@
   </div>
   </div>
 </div>
-<div class="">
-    <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Requirements</h3>
-          <a class="btn btn-app bg-orange float-right" data-toggle="modal" data-target="#modal-lg"  id="addButton">
-            <i class="fas fa-plus"></i> Add
-        </a>
-        </div>
-        <div class="card-body">
-          <div class="accordion" id="accordionExample">
-            <div class="card">
-              <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <h4 style="color:black">College Level </h4>
-                  </button>
-                </h2>
-              </div>
-          
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <th> Requirement</th>
-                        <th> Description</th>
-                        <th class="text-center" > Mandatory</th>
-                        <th class="text-center"> Active</th>
-                        <th class="text-center"> Actions</th>
-                      </thead>
-                      <tbody>
-                        @foreach($college as $key=>$item)
-                        <tr>
-                          <td>
-                            {{$item->name}}
-                          </td>
-                          <td>
-                            {{$item->description}}
-                          </td>
-                          <td class="text-center">
-                            @if($item->mandatory)
-                            <span class="badge badge-success">{{$item->mandatory_name}}</span>
-                            @else
-                            <span class="badge badge-danger">{{$item->mandatory_name}}</span>
-                            @endif
-        
-                          </td>
-                          <td class="text-center">
-                            @if($item->active)
-                            <span class="badge badge-success">{{$item->active_name}}</span>
-                            @else
-                            <span class="badge badge-danger">{{$item->active_name}}</span>
-                            @endif
-                          </td>
-        
-                          <td class="text-center">
-                            <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
-                              <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            </a>
-                            <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}} " type="button" class="btn btn-sm btn-primary bg-info">
-                              <i class="fa fa-eye" style="padding: 10px;"></i> 
-                            </a>
-                          </td>
-                        </tr>
-                        @endforeach
-        
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" id="headingTwo">
-                <h2 class="mb-0">
-                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    
-                    <h4 style="color:black">High School Level </h4>
 
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="card-body">
-            
-                  <table class="table">
-                    <thead>
-                      <th> Requirement</th>
-                      <th> Description</th>
-                      <th class="text-center"> Mandatory</th>
-                      <th class="text-center"> Active </th>
-                      <th class="text-center"> Actions</th>
-      
-                    </thead>
-                    <tbody>
-                      @foreach($high_school as $key=>$item)
-                      <tr>
-                        <td>
-                          {{$item->name}}
-                        </td>
-                        <td>
-                          {{$item->description}}
-                        </td>
-                        <td class="text-center">
-                          @if($item->mandatory)
-                          <span class="badge badge-success">{{$item->mandatory_name}}</span>
-                          @else
-                          <span class="badge badge-danger">{{$item->mandatory_name}}</span>
-                          @endif
-      
-                        </td>
-                        <td class="text-center">
-                          @if($item->active)
-                          <span class="badge badge-success">{{$item->active_name}}</span>
-                          @else
-                          <span class="badge badge-danger">{{$item->active_name}}</span>
-                          @endif
-                        </td>
-                        <td class="text-center">
-                          <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
-                            <i class="fa fa-pen" style="padding: 10px;"></i> 
-                          
-                          </a>
-                          <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
-                            <i class="fa fa-pen" style="padding: 10px;"></i> 
-                            {{-- View Uploaded Requirements  --}}
-                          </a>
-                        </td>
-                      </tr>
-                      @endforeach
-      
-                    </tbody>
-                  </table>                
-                </div>
-              </div>
-            </div>
+<div class="card">
+  <div class="card-header">
+    <h3>College Requirements</h3>
+    <a class="btn btn-app bg-orange float-right"  style="margin-top: -35px" data-toggle="modal" data-target="#modal-lg"  id="addButton">
+      <i class="fas fa-plus"></i> Add
+  </a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th> Requirement</th>
+          <th> Description</th>
+          <th class="text-center" > Mandatory</th>
+          <th class="text-center"> Active</th>
+          <th class="text-center"> Actions</th>
+        </thead>
+        <tbody>
+          @foreach($college as $key=>$item)
+          <tr>
+            <td>
+              {{$item->name}}
+            </td>
+            <td>
+              {{$item->description}}
+            </td>
+            <td class="text-center">
+              @if($item->mandatory)
+              <span class="badge badge-success">{{$item->mandatory_name}}</span>
+              @else
+              <span class="badge badge-danger">{{$item->mandatory_name}}</span>
+              @endif
 
-          </div>
-        </div>
+            </td>
+            <td class="text-center">
+              @if($item->active)
+              <span class="badge badge-success">{{$item->active_name}}</span>
+              @else
+              <span class="badge badge-danger">{{$item->active_name}}</span>
+              @endif
+            </td>
+
+            <td class="text-center">
+              <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                <i class="fa fa-pen" style="padding: 10px;"></i> 
+              </a>
+              <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}} " type="button" class="btn btn-sm btn-primary bg-info">
+                <i class="fa fa-eye" style="padding: 10px;"></i> 
+              </a>
+            </td>
+          </tr>
+          @endforeach
+
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>High School Requirements</h3>
+    <a class="btn btn-app bg-orange float-right" style="margin-top: -35px" data-toggle="modal" data-target="#modal-lg"  id="addButton">
+      <i class="fas fa-plus"></i> Add
+  </a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th> Requirement</th>
+          <th> Description</th>
+          <th class="text-center" > Mandatory</th>
+          <th class="text-center"> Active</th>
+          <th class="text-center"> Actions</th>
+        </thead>
+        <tbody>
+          @foreach($high_school as $key=>$item)
+          <tr>
+            <td>
+              {{$item->name}}
+            </td>
+            <td>
+              {{$item->description}}
+            </td>
+            <td class="text-center">
+              @if($item->mandatory)
+              <span class="badge badge-success">{{$item->mandatory_name}}</span>
+              @else
+              <span class="badge badge-danger">{{$item->mandatory_name}}</span>
+              @endif
+
+            </td>
+            <td class="text-center">
+              @if($item->active)
+              <span class="badge badge-success">{{$item->active_name}}</span>
+              @else
+              <span class="badge badge-danger">{{$item->active_name}}</span>
+              @endif
+            </td>
+
+            <td class="text-center">
+              <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                <i class="fa fa-pen" style="padding: 10px;"></i> 
+              </a>
+              <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}} " type="button" class="btn btn-sm btn-primary bg-info">
+                <i class="fa fa-eye" style="padding: 10px;"></i> 
+              </a>
+            </td>
+          </tr>
+          @endforeach
+
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 @endsection
 

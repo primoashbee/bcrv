@@ -56,9 +56,9 @@
       </div>
     </div>
     <div class="row">
-      <section class="col-lg-8 connectedSortable">
+      <section class="col-lg-12 connectedSortable">
         <!-- Calendar -->
-        <div class="card bg-gradient-danger">
+        <div class="card " style="background-color: #fd7e14">
           <div class="card-header border-0">
   
             <h3 class="card-title" >
@@ -81,7 +81,9 @@
             <!--The calendar -->
             <div id="" style="width: 100%">
               <h4 > <i> {{$announcement->title }} </i></h4>
-              <p class="pb-1 pt-1 text-white"> {{$announcement->description }}</p>
+              <p class="pb-1 pt-1 "> {{$announcement->description }}</p>
+
+              <p>{{$announcement->created_at->diffForHumans()}}</p>
             </div>
           </div>
           <!-- /.card-body -->
@@ -89,7 +91,7 @@
         <!-- /.card -->
       </section>
 
-      <div class="col-md-12 col-lg-7 col-xl-4">
+      {{-- <div class="col-md-12 col-lg-7 col-xl-4">
         <div class="card mb-2">
           <img class="card-img-top" src="{{ asset('admin_assets/dist/img/gallery/4.avif') }}" alt="Dist Photo 3" style="height: 310px;">
           <div class="card-img-overlay">
@@ -101,7 +103,7 @@
               day ahead! </p></strong> 
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
     
    

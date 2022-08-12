@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Requests
+    Admin | Reports
 @endsection
 
 @section('content')

@@ -21,6 +21,12 @@
 
     <!-- ==== ANIMATE ON SCROLL CSS CDN  ==== -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      .footer-icon {
+        color: inherit;
+      }
+    </style>
   </head>
   <body>
     <!-- ==== HEADER ==== -->
@@ -160,7 +166,13 @@
         color: white;
         text-align: center;"
       >
-      <p> Footer Here </p>
+      <p> 
+        <a href="https://www.facebook.com/bcrvtvi.edu.ph" class="footer-icon"> <i class="fa fa-facebook-square" aria-hidden="true"></i> BCRV Tech-Voc, Inc. </a> | 
+        <a href="mailto:info@bcrvtvi.edu.ph" class="footer-icon"> <i class="fa fa-envelope" aria-hidden="true"></i>  E-mail us. </a> | 
+        <a href="tel:(043)2887655" class="footer-icon"> <i class="fa fa-phone" aria-hidden="true"></i> Landline</a> |
+        <a href="tel:09099742515" class="footer-icon"> <i class="fa fa-mobile" aria-hidden="true"></i> Mobile </a>  |
+      </p>
+
     </footer>
 
     <!-- ==== ANIMATE ON SCROLL JS CDN -->
