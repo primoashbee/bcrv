@@ -15,6 +15,6 @@ class Announcement extends Model
     }
     public static function latest()
     {
-        return self::orderBy('id','desc')->firstOrFail();
+        return self::orderBy('id','desc')->first();
     }
 }
