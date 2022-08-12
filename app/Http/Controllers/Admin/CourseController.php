@@ -50,7 +50,7 @@ class CourseController extends Controller
         $courses = CourseModel::findOrfail($id);    
         $courses->delete();
 
-        Session::flash('statuscode', 'error');
+        Session::flash('statuscode', 'Success');
         return redirect('show_courses')->with('status', 'Course Deleted!');
     }
 

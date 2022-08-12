@@ -12,13 +12,15 @@ class NotificationController extends Controller
     {
 
         $notifications = auth()->user()->notifications()->orderBy('id','desc')->get();
-
         return view('notifications', compact('notifications'));
     }
     public function list()
     {
+
+        $list = auth()->user()->notifications()->orderBy('id','desc')->limit(5)->get();
+        $data = count($list) > 0 ?  $list : [];
         return response()->json([
-            'data'=>auth()->user()->notifications()->orderBy('id','desc')->limit(5)->get()
+            'data'=>  $data
         ],200);
     }
 

@@ -31,7 +31,7 @@
                             <div class="col-sm-12">
                             <!-- textarea -->
                             <div class="form-group">
-                                <label>Textarea</label>
+                                <label>Duration of Training (Hours)</label>
                                 <textarea class="form-control" name="course_description" rows="3">{{ $courses->course_description }}</textarea>
                             </div>
                             </div>

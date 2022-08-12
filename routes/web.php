@@ -145,13 +145,26 @@ use App\Http\Middleware\StudentMiddleware;
     //Route to view the dashboard panel
     //Route to view the dashboard panel
 
-
+    Route::get('/notifications/list',function(){
+       
+        $list = auth()->user()->notifications()->orderBy('id','desc')->limit(5)->get();
+        $data = count($list) > 0 ?  $list : [];
+        return response()->json([
+            'data'=>  $data
+        ],200);
+    });
     Route::middleware([LoggedInMiddleware::class])->group(function () {
         Route::get('/notifications','NotificationController@index'); 
         Route::get('/notifications/{notification}','NotificationController@view')->name('notification.view');  
         Route::post('/logout', 'Security\LoginController@logout');
         Route::get('/requirements', 'RequirementController@index')->name('requirements');
         Route::post('/requirements', 'RequirementController@store')->name('requirements.store');
+        Route::get('/notifications/list', 'NotificationController@list')->name('notifications.list');
+        Route::get('/notifications/listahan', function(){
+            dd('hey');
+        });
+
+
      
     });
 
@@ -180,7 +193,6 @@ use App\Http\Middleware\StudentMiddleware;
             Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
 
 
-            Route::get('/notifications/list', 'NotificationController@list')->name('notifications.list');
             Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
 
             //Route to show requests page
