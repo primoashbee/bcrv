@@ -83,7 +83,7 @@
               <h4 > <i> {{$announcement->title }} </i></h4>
               <p class="pb-1 pt-1 "> {{$announcement->description }}</p>
 
-              <p>{{$announcement->created_at->diffForHumans()}}</p>
+              <p>{{$announcement->created_at}}</p>
             </div>
           </div>
           <!-- /.card-body -->
