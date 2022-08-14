@@ -169,6 +169,8 @@ use App\Http\Middleware\StudentMiddleware;
 
         Route::get('/notification/{notification}','NotificationController@view')->name('notification.view');  
         Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
+        Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
+        Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
 
      
     });
@@ -192,8 +194,7 @@ use App\Http\Middleware\StudentMiddleware;
             Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
             // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
-            Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
-            Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
+
 
             Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
 
