@@ -23,14 +23,14 @@
                         <!-- textarea -->
                         <div class="form-group">
                             <label>File Name</label>
-                            <input type="text" class="form-control @error('filename') is-invalid @enderror" name="filename" value="{{$documents->filename}}">
+                            <input type="text" class="form-control @error('filename') is-invalid @enderror" name="filename" value="{{$documents->filename}}" required>
                             @error('filename')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>File Description</label>
-                            <textarea class="form-control  @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $documents->description }}</textarea>
+                            <textarea class="form-control  @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ..." required>{{ $documents->description }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

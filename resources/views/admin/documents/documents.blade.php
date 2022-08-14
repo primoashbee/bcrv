@@ -24,7 +24,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="file_name">File Name</label>
-                                        <input  type="text" name="filename" class="form-control" id="filename" placeholder="File Name">
+                                        <input  type="text" name="filename" class="form-control" id="filename" placeholder="File Name" required>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <!-- textarea -->
                                 <div class="form-group">
                                     <label>File Description</label>
-                                    <textarea class="form-control" name="description" rows="3" placeholder="Enter ..."></textarea>
+                                    <textarea class="form-control" name="description" rows="3" placeholder="Enter ..." required></textarea>
                                 </div>
                                 </div>
                             </div>

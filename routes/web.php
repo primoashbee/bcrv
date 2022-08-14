@@ -171,6 +171,7 @@ use App\Http\Middleware\StudentMiddleware;
         Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
         Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
         Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
+        Route::get('/preview_request/{id}', 'Admin\StudentRequestController@view')->name('request.preview');
 
      
     });
@@ -202,7 +203,6 @@ use App\Http\Middleware\StudentMiddleware;
 
             //Route to show requests page
             Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
-            Route::get('/preview_request/{id}', 'Admin\StudentRequestController@view')->name('request.preview');
             Route::get('/download_request/{id}', 'Admin\StudentRequestController@download')->name('request.download');
             //Route for adding a new request 
             Route::post('/add_request_students', 'Admin\StudentRequestController@add_request_students');  
