@@ -20,7 +20,9 @@
                 
                         <form id="deleteModalForm" method="POST">
                         {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
+
+                        @method('delete')
+
                         <div class="modal-body">
                         <div class="form-group">
                             <h5>Are you sure you want to delete this record?</h5>
@@ -80,7 +82,7 @@
                             <a href="/show_edit_user/{{ $user->id }}" type="button" class="btn btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> Edit
                             </a>
-                            <a href="javascript:void(0)" class="btn btn-primary bg-danger deletbtn">
+                            <a href="#" class="btn btn-primary bg-danger deletbtn">
                                 <i class="fa fa-trash" style="padding: 10px;"></i> Delete
                             </a>
                         </td>

@@ -1,0 +1,63 @@
+Sign up
+- Eye icon sa pag sisign up ng account
+- yung pag set po ng name dapat po letters lang po hndi sya malalagyan ng numbers saka symbol (ex. !@#$, 1234)
+- doon po sana sa college level is pwede po padagrag ng ALS and College Undergrad po
+
+Login
+•  Pakibura po ako nung lorem ipsum doon sa pagfoforgot ng password kung saan po seset yung bagong password po
+
+ADMIN 
+Announcement
+-needs delete button
+
+x Notification
+	NOTE: nung pag pagselect ko po dun sa file na respond ni student sa request ni admin is nag error
+
+
+x Requirements:
+   -view and downloadable is forbidden
+   -doon po sa college level po is di po nakikita kung may college level po na nag upload nung docx po (yung account ko po kasi na ginamit ko po is nasa college level po tas nagsubmit na sya ng docx sa requirements pero di po sya makita sa admin yung requirement na ni upload po)
+   -doon sa highschool level po naging puro form 137 sya po. Isa lang po dapat po. At di na po sya mauulit po
+   -yung sa edit po is kapag nisubmit na yung ni edit is naging forbidden na po
+
+Document|edit
+x file name:Certificate of training - can not save changes if the description field is empty
+x *note- The description field is required
+x - delete button is functional
+x -add document name is functional
+x Requests
+-view icon(eye icon) and download- output is "forbidden"
+
+x User
+-delete icon -  not functional
+
+x Responses
+   -di po sya gumagana, dapat po kasi kapag na response na ni admin yung request ni student is lalabas po dito sa responses po
+
+x Request to students
+x   - pwede po magpalagay ng delete button po
+x  - and dun  po sa part na “actions” po is download lang po, pwede po palagyan din po ng view file/icon po?
+x -pwede po palagyan na rin po ng delete po
+
+
+
+STUDENT
+x Dashboard
+  -di po sya gumagana po kahit na may request na si students
+
+x Requirements
+  -doon sa sa view (eye emoticon is na automatic download sya kahit view lang po dapat tas ibang file po yung nadownload)
+- after po mag upload ni student ng file po is nag FORM 137 po lahat files po
+
+Request 
+-yung delete po is nag same function as edit po, bali di po nadedelete si file
+
+
+Responses
+ -di po sya nagana dat rin po dapat po nagshow po doon yung docx na nisent ni admin para kay students doon po sa nirequest nya po
+
+Profile 
+ -Pwede Po palagayn po ng another set of batch and school year for courses 2 and so on na nitake ni students po
+
+Notification
+   - error po

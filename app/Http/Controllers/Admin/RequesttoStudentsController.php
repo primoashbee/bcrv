@@ -67,6 +67,22 @@ class RequesttoStudentsController extends Controller
         //   $filename = $requirement->filename;
           return Storage::disk('local')->download($file->path);
     }
+    public function view_response_from_student(Request $request, $id) {
+        $file = RequeststoStudents::findOrFail($id);
+                
+        $headers = array(
+            'Content-Type: application/pdf',
+          );
+        // $arr = explode("/", $file->path);
+
+        // $filename = $arr[count($arr)-1];
+        //   $file = $requirement->directory;
+        //   $filename = $requirement->filename;
+        //   return Storage::disk('local')->download($file->path);
+
+          $path = Storage::disk('local')->path($file->path);
+          return response()->file($path, $headers);
+    }
 
 
     // STUDENTS 
@@ -114,6 +130,13 @@ class RequesttoStudentsController extends Controller
 
         Session::flash('statuscode', 'success');
         return redirect('show_requests_from_admins')->with('status', 'Request Respond Success!');
+    }
+
+    public function delete($id)
+    {
+        RequeststoStudents::find($id)->delete();
+        Session::flash('statuscode', 'success');
+
     }
 
 }

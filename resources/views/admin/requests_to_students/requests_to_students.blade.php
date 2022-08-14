@@ -112,12 +112,18 @@
                         @endif
                         <td style="width: 210px;">
                             @if ($request->response_status == 'responded')
+                                <a href="{{ url('/view_response_from_student', $request->id) }}" type="button" class="btn btn-sm btn-primary bg-warning">
+                                    <i class="fa fa-eye" style="padding: 10px;"></i> 
+                                </a>
                                 <a href="{{ url('/download_response_from_student', $request->id) }}" type="button" class="btn btn-sm btn-primary bg-warning">
-                                    <i class="fa fa-download" style="padding: 10px;"></i> Download
+                                    <i class="fa fa-download" style="padding: 10px;"></i> 
                                 </a>
                             @else 
                                 <strong><p style="width: 100px" class="text-success">Waiting for Response</p></strong>
                             @endif
+                            <a href=#" type="button" class="btn btn-sm btn-primary bg-danger deletbtn" id="{{$request->id}}">
+                                <i class="fa fa-trash" style="padding: 10px;"></i> 
+                            </a>
                         </td>
                     </tr>
                     @endforeach
@@ -153,9 +159,9 @@
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('admin_assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/jszip/jszip.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
@@ -167,12 +173,12 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
+//   $(function () {
+//     $("#example1").DataTable({
+//       "responsive": true, "lengthChange": false, "autoWidth": false,
+//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+//   });
 </script>
 <script>
     $(document).ready(function() {
@@ -183,6 +189,25 @@
                 @json($current->status()['status'])
             )
         @endif
+        $('.deletbtn').click(function(){
+            const id = $(this).attr('id')
+            Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: `Cancel`,
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        axios.delete(`/show_requests_to_students/delete/${id}`).then(()=>{
+                            location.reload()
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+        
+        })
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {
           $tr = $(this).closest('tr');
@@ -190,13 +215,26 @@
           var data = $tr.children("td").map(function() {
             return $(this).text();
           }).get(); 
-  
+          alert('wtf');
           // console.log(data);
-  
+        //   Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         // axios.delete('/show_requests_to_students/delete/'+data[0])).then(()=> {location.reload()})
+        //     }
+        // })
           $('#get_course_id').val(data[0]);
-          $('#deleteModalForm').attr('action', '/delete_course/'+data[0]);
+          $('#deleteModalForm').attr('action', '/show_requests_to_students/delete/'+data[0]);
           $('#deleteModalPop').modal('show');
       });
+
     });
   </script>
 @endsection

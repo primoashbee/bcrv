@@ -120,6 +120,8 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/show_edit_user/{id}', 'Admin\UserController@show_edit_user_view');
         //Route to edit the user 
         Route::put('/edit_user/{id}', 'Admin\UserController@edit_user');
+
+        
         //Route to delete the user 
         Route::delete('/delete_user/{id}', 'Admin\UserController@delete_user');
 
@@ -134,10 +136,12 @@ use App\Http\Middleware\StudentMiddleware;
         //Routes for the requests to students
         //Route to show requests page
         Route::get('/show_requests_to_students', 'Admin\RequesttoStudentsController@show_requests_to_students')->name('request.admin.to.student');
+        Route::delete('/show_requests_to_students/delete/{id}', 'Admin\RequesttoStudentsController@delete')->name('request.admin.to.student.delete');
         //Route for adding a new document
         Route::post('/add_request_to', 'Admin\RequesttoStudentsController@add_request_to'); 
         //Route to download documents
         Route::get('/download_response_from_student/{id}', 'Admin\RequesttoStudentsController@download_response_from_student'); 
+        Route::get('/view_response_from_student/{id}', 'Admin\RequesttoStudentsController@view_response_from_student'); 
         Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
         Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
 
@@ -173,7 +177,8 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
         Route::get('/preview_request/{id}', 'Admin\StudentRequestController@view')->name('request.preview');
 
-     
+        Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
+
     });
 
 
@@ -185,9 +190,6 @@ use App\Http\Middleware\StudentMiddleware;
     // ============================= Routes for requests page - STUDENT ============================= //
 
     Route::middleware([StudentMiddleware::class])->group(function () {
-        Route::get('/hey/student', function(){
-            return 'hey';
-        });
             Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
 
             
@@ -197,7 +199,6 @@ use App\Http\Middleware\StudentMiddleware;
             // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
 
 
-            Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
 
 
 

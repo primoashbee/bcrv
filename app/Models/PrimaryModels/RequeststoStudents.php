@@ -15,6 +15,19 @@ class RequeststoStudents extends Model
     {
         return $this->hasOne(User::class,'id','student_id');
     }
+    
+
+    public function studentInfo()
+    {
+        return $this->hasOneThrough(
+            StudentInfo::class, 
+            User::class, 
+            'id', 
+            'email', //student_info.email
+            'student_id',
+            'email', //users.email
+        );
+    }
 
     public function notificationData($to_admin = false)
     {
