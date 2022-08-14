@@ -139,6 +139,8 @@ use App\Http\Middleware\StudentMiddleware;
         //Route to download documents
         Route::get('/download_response_from_student/{id}', 'Admin\RequesttoStudentsController@download_response_from_student'); 
         Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+        Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
+
 
     });
 //Routes for the admin panel - dashboard
@@ -165,10 +167,10 @@ use App\Http\Middleware\StudentMiddleware;
             dd('hey');
         });
 
+        Route::get('/notification/{notification}','NotificationController@view')->name('notification.view');  
 
      
     });
-    Route::get('/notification/{notification}','NotificationController@view')->name('notification.view');  
 
 
 
@@ -191,7 +193,6 @@ use App\Http\Middleware\StudentMiddleware;
             // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
             Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
             Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
-            Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
 
             Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
 

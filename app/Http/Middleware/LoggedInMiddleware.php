@@ -16,7 +16,6 @@ class LoggedInMiddleware
      */
     public function handle($request, Closure $next)
     {
-        dd(Sentinel::check());
         if(!Sentinel::check()){
             abort(403);
         }
