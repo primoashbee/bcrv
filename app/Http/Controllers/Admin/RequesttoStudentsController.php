@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use Session;
+use App\User;
 use Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,17 +12,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 use App\Models\PrimaryModels\RequeststoStudents as RequeststoStudents;
+use App\Notifications\AdminToStudentRequestNotification;
+use App\Notifications\StudentRespondedToAdminRequestNotification;
 
 class RequesttoStudentsController extends Controller
 {
     // show requests to students page
-    public function show_requests_to_students() {
+    public function show_requests_to_students(Request $request) {
         $requests_toStudents = RequeststoStudents::all();
         $role = Sentinel::findRoleBySlug('User');
         $users = $role->users()->with('roles')->get();
         $students = StudentInfoModel::all();
+        $current = $request->has('id') ? RequeststoStudents::with('user')->findOrFail($request->id) : null;
         return view('admin.requests_to_students.requests_to_students')->with('requests_toStudents', $requests_toStudents)
                                                             ->with('users', $users)
+                                                            ->with('current', $current)
                                                             ->with('students', $students);
     }
 
@@ -33,15 +38,17 @@ class RequesttoStudentsController extends Controller
         $role = Sentinel::findRoleBySlug('User');
         $users = $role->users()->with('roles')->get();
         $requested_student = $users->where('email', $request->student_email);
-        
         $skips = ["[","]","\""];
-        $requeststoStudents->student_id = str_replace($skips, ' ',$requested_student->pluck('id'));
+        $student_id = str_replace($skips, '',$requested_student->pluck('id'));
+        $requeststoStudents->student_id = $student_id;
         $requeststoStudents->request_from = Sentinel::getUser()->first_name;
         $requeststoStudents->document_name = $request->document_name;
         $requeststoStudents->date_of_request = $date_time;
         $requeststoStudents->message = $request->message;
 
         $requeststoStudents->save();
+        User::find($student_id)->notify(new AdminToStudentRequestNotification($requeststoStudents));
+        return; 
         Session::flash('statuscode', 'success');
         return redirect('show_requests_to_students')->with('status', 'Data Added Successfully!');
     }
@@ -86,7 +93,6 @@ class RequesttoStudentsController extends Controller
         // upload file
         $request_to_students = RequeststoStudents::find($id);
         $folder_name= 'to_admin/' . $request_to_students->user->studentInfo->alternate_id ;
-
         \Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
         if ($request->hasFile('fileupload')) {
             foreach ($request->fileupload as $touploadfile) {
@@ -104,6 +110,7 @@ class RequesttoStudentsController extends Controller
                 DB::table('request_to_students')->where('id', $id)->update($upload_file);
             }
         }
+        User::find(1)->notify(new StudentRespondedToAdminRequestNotification(RequeststoStudents::find($id)));
 
         Session::flash('statuscode', 'success');
         return redirect('show_requests_from_admins')->with('status', 'Request Respond Success!');

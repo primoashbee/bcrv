@@ -1959,11 +1959,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     }
                   });
 
+                  console.log(e);
+
                   _this.notifications.unshift(e.data);
                 });
               } else {
                 Echo.channel('user.notifications.' + _this.user_id).listen('.requirement-updated', function (e) {
                   var payload = e;
+                  console.log(e, 'ashbee');
 
                   _this.$toast(e.message.message + '[' + e.message.title + ']', {
                     timeout: 5000,
@@ -1972,6 +1975,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     }
                   });
 
+                  console.log(e, 'ashbee');
                   console.log('admin has updated your uploaded');
 
                   _this.notifications.unshift(e.data);

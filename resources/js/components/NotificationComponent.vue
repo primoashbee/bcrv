@@ -49,18 +49,22 @@ export default {
                     },
                 
                 });
+                console.log(e)
                 this.notifications.unshift(e.data)
             });
         }else{
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.requirement-updated', (e) => {
                 const payload = e;
+                console.log(e , 'ashbee')
                 this.$toast(e.message.message + '['+e.message.title+']', {
                         timeout: 5000,
                         onClick: ()=> {
                             this.goToNotification(payload.data.id)
                         },
                 });
+                console.log(e , 'ashbee')
+
                 console.log('admin has updated your uploaded')
 
                 this.notifications.unshift(e.data)

@@ -133,7 +133,7 @@ use App\Http\Middleware\StudentMiddleware;
 
         //Routes for the requests to students
         //Route to show requests page
-        Route::get('/show_requests_to_students', 'Admin\RequesttoStudentsController@show_requests_to_students');
+        Route::get('/show_requests_to_students', 'Admin\RequesttoStudentsController@show_requests_to_students')->name('request.admin.to.student');
         //Route for adding a new document
         Route::post('/add_request_to', 'Admin\RequesttoStudentsController@add_request_to'); 
         //Route to download documents
@@ -168,6 +168,7 @@ use App\Http\Middleware\StudentMiddleware;
         });
 
         Route::get('/notification/{notification}','NotificationController@view')->name('notification.view');  
+        Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
 
      
     });
@@ -197,7 +198,6 @@ use App\Http\Middleware\StudentMiddleware;
             Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
 
 
-            Route::patch('/notification/{notification}', 'NotificationController@update')->name('notifications.update');
 
             //Route to show requests page
             Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
@@ -238,9 +238,9 @@ use App\Http\Middleware\StudentMiddleware;
 
             //Requests from Admins
             //Route to show requests page
-            Route::get('/show_requests_from_admins', 'Admin\RequesttoStudentsController@show_requests_from_admins');
+            Route::get('/show_requests_from_admins', 'Admin\RequesttoStudentsController@show_requests_from_admins')->name('student.request.from.admin');
             //Route to show the page to respond to the request
-            Route::get('/respond_to_request_from_admin/{id}', 'Admin\RequesttoStudentsController@respond_to_request_from_admin');
+            Route::get('/respond_to_request_from_admin/{id}', 'Admin\RequesttoStudentsController@respond_to_request_from_admin')->name('request.from.admin.view');
             //Route for responding to request from  admin
             Route::post('/respond_to_request_from_admins/{id}', 'Admin\RequesttoStudentsController@respond_to_request_from_admins');  
 

@@ -15,4 +15,44 @@ class RequeststoStudents extends Model
     {
         return $this->hasOne(User::class,'id','student_id');
     }
+
+    public function notificationData($to_admin = false)
+    {
+ 
+        if($to_admin){
+            $user = $this->user;
+            // if($this->status == 'pending'){
+            //     return [
+            //         'message' => $user->firstname . ' uploaded a document (' . $this->document_name . ')',
+            //         'title' => 'BCRV Request'
+            //     ];
+            // }
+            // if($this->status == 'finished'){
+            return [
+                'message' => $user->first_name . ' uploaded a document (' . $this->document_name . ')',
+                'title' => 'BCRV Request'
+            ];
+            // }
+        }
+        return [
+            'message' => 'BCRV needs you to upload a document (' . $this->document_name . ')',
+            'title' => 'BCRV Request'
+        ];
+
+    }
+
+    public function status()
+    {
+        if($this->status == 'pending' ){
+            return [
+                'message' => $this->user->first_name . ' has not yet responded to this request',
+                'status' => 'information'
+            ];
+        }
+        return [
+            'message' => $this->user->first_name . ' already responded to this request',
+            'status' => 'success'
+
+        ];
+    }
 }

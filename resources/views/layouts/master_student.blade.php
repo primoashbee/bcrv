@@ -70,7 +70,7 @@
           @if (Sentinel:: check())
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <img src="{{ asset('admin_assets/dist/img/user2-160x160.jpg') }}" class="nav-icon img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('admin_assets/dist/img/user.png') }}" class="nav-icon img-circle elevation-2" alt="User Image">
                 <p class="text-sm">
                   {{ Sentinel::getUser()->first_name }}
                   <i class="right fas fa-angle-left"></i>
@@ -116,7 +116,7 @@
           <li class="nav-item">
             <a href="{{ url('/show_responses_students') }}" class="nav-link {{ 'show_responses_students' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-inbox nav-icon"></i>
-              <p>Responses</p>
+              <p>Responses from </p>
             </a>
           </li>
 

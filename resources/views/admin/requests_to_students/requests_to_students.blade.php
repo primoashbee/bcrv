@@ -176,6 +176,13 @@
 </script>
 <script>
     $(document).ready(function() {
+        @if(!is_null($current))
+            Swal.fire(
+                @json($current->status()['message']),
+                'Document: ' + @json($current->document_name),
+                @json($current->status()['status'])
+            )
+        @endif
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {
           $tr = $(this).closest('tr');
