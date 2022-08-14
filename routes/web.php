@@ -138,6 +138,8 @@ use App\Http\Middleware\StudentMiddleware;
         Route::post('/add_request_to', 'Admin\RequesttoStudentsController@add_request_to'); 
         //Route to download documents
         Route::get('/download_response_from_student/{id}', 'Admin\RequesttoStudentsController@download_response_from_student'); 
+        Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+
     });
 //Routes for the admin panel - dashboard
     //Route for the function not to allow guest users in dashboard panel
@@ -186,7 +188,7 @@ use App\Http\Middleware\StudentMiddleware;
             Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
             Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
-            Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
+            // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
             Route::get('/requirements/view/{id}', 'StudentRequirementController@view')->name('requirements.view');
             Route::get('/requirements/download/{id}', 'StudentRequirementController@download')->name('requirements.download');
             Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
