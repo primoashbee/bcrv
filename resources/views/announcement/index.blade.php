@@ -62,6 +62,7 @@
             <thead>
               <th> Title</th>
               <th> Description</th>
+              <th> Status</th>
               <th> Actions </th>
             </thead>
             <tbody>
@@ -69,6 +70,13 @@
               <tr>
                 <td>{{$item->title}}</td>
                 <td>{{$item->description}}</td>
+                <td>
+                  @if($item->pinned)
+                    Pinned
+                  @else
+                    -
+                  @endif
+                </td>
                 <td>
                   <a href="#" type="button" class="btn btn-sm btn-primary bg-warning btn-edit" data="{{json_encode($item)}}">
                       <i class="fa fa-pen" style="padding: 10px;"></i> 
