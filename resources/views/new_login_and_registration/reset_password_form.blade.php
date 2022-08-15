@@ -7,7 +7,7 @@
     <title>BCRV Tech-Voc, Inc.</title>
     <link rel="stylesheet" href="{{ asset('new_logReg_assets/style.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
+ 
 </head>
 <body>
     <main>
@@ -26,19 +26,20 @@
               </div>
 
               <div class="actual-form">
+                
                 <div class="input-wrap input-icons">
                     <input
                       type="password"
                       name="password"
                       class="input-field password-field"
                       autocomplete="off"
+                      placeholder="Password"
                       required
                     />
                     <button type="button" class="icon" id="btn-show-password-new">
                       <i class="fa-solid fa-eye" id="password-icon-new"></i>
                   
                     </button>
-                    <label>Password</label>
                   </div>
                   
                   <div class="input-wrap input-icons">
@@ -48,13 +49,14 @@
                       class="input-field password-field"
                       autocomplete="off"
                       required
+                      placeholder="Password Confirmation"
+
 
                     />
                     <button type="button" class="icon" id="btn-show-password-confirm">
                       <i class="fa-solid fa-eye" id="password-icon-confirm"></i>
                   
                     </button>
-                    <label>Confirm Password</label>
                   </div>
 
                 <input type="submit" name="signin" value="Change" class="sign-btn" />
