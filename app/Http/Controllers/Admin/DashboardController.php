@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $requests_count = RequestModel::count();
         $requests_count = RequestModel::count();
         $pending_count = RequestModel::where('status', 'pending')->count();
-        $completed_count = RequestModel::where('status', 'received')->count();
+        $completed_count = RequestModel::where('status', 'sent')->count();
         $announcement = Announcement::pinned();
 
         return view('admin.dashboard.dashboard')->with('student_count', $student_count)
@@ -67,7 +67,7 @@ class DashboardController extends Controller
             DB::raw("SELECT 
                     COUNT(CASE WHEN requests.status = 'pending' THEN requests.status END) as student_pending_count,
                     COUNT(CASE when requests.status = 'ongoing' THEN requests.status END) as student_ongoing_count,
-                    COUNT(CASE when requests.status = 'received' THEN requests.status END) as student_received_count
+                    COUNT(CASE when requests.status = 'sent' THEN requests.status END) as student_received_count
                 FROM requests
                 JOIN student_info ON requests.student_id = student_info.alternate_id
                 JOIN users ON student_info.email = users.email

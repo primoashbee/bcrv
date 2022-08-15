@@ -72,8 +72,11 @@ class ReportController extends Controller
         // $countreceived = RequestModel::where('status', 'received')->count();
 
         $courses = CourseModel::select('id','course_name')->orderBy('course_name','asc')->get();
-        $batches = StudentInfo::whereNotNull('batch')->distinct()->get(['id','batch']);
-        $school_year = StudentInfo::whereNotNull('school_year')->distinct()->get(['id','school_year']);
+        $batches = StudentInfo::whereNotNull('batch')->distinct()->orderBy('batch','desc')->get(['batch']);
+        // $batches = StudentInfo::whereNotNull('batch')->distinct()->get(['batch']);
+        // $school_year = StudentInfo::whereNotNull('school_year')->distinct()->get(['id','school_year']);
+        $school_year = StudentInfo::whereNotNull('school_year')->distinct()->orderBy('school_year','desc')->get(['school_year']);
+
         return view('admin.reports.reports')
                                         ->with('countpending', $countpending)
                                         // ->with('countongoing', $countongoing)
