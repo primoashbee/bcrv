@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $requests_count = RequestModel::count();
         $pending_count = RequestModel::where('status', 'pending')->count();
         $completed_count = RequestModel::where('status', 'received')->count();
-        $announcement = Announcement::latest();
+        $announcement = Announcement::pinned();
 
         return view('admin.dashboard.dashboard')->with('student_count', $student_count)
                                             ->with('requests_count', $requests_count)
@@ -61,7 +61,7 @@ class DashboardController extends Controller
     public function show_dashboard_students() {
         $student_email = Sentinel::getUser()->email;
         $roles_student = 2;
-        $announcement = Announcement::latest();
+        $announcement = Announcement::pinned();
 
         $request_students = DB::select(
             DB::raw("SELECT 

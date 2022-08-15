@@ -15,7 +15,7 @@
       </button>
       </div>
       <div class="modal-body">
-          <form action="{{route('announcement.store')}}" method="POST" class="form-horizontal" id="formSubmit">
+          <form action="{{route('announcement.store')}}" method="POST" class="form-horizontal" id="formSubmit" mode="create">
             {{ csrf_field() }}
             <div class="card-body">
                 <div class="row">
@@ -42,7 +42,7 @@
 
             </div>
             <div class="card-footer">
-              <button type="submit" class="btn btn-block btn-info float-right">Submit</button>
+              <button type="submit" class="btn btn-block btn-info float-right"><span id="btn-label">Submit</span></button>
             </div>
           </form>
       </div>
@@ -62,13 +62,25 @@
             <thead>
               <th> Title</th>
               <th> Description</th>
-              <th class="text-center"> Actions </th>
+              <th> Actions </th>
             </thead>
             <tbody>
               @foreach($announcements as $key=>$item)
               <tr>
                 <td>{{$item->title}}</td>
                 <td>{{$item->description}}</td>
+                <td>
+                  <a href="#" type="button" class="btn btn-sm btn-primary bg-warning btn-edit" data="{{json_encode($item)}}">
+                      <i class="fa fa-pen" style="padding: 10px;"></i> 
+                  </a>
+                  <a href="#" type="button" class="btn btn-sm btn-primary bg-info btn-pin" id="{{$item->id}}">
+                      <i class="fa fa-bullhorn" style="padding: 10px;"></i> 
+                  </a>
+                  {{-- <a href="#" type="button" class="btn btn-sm btn-primary bg-danger" >
+                      <i class="fa fa-trash" style="padding: 10px;"></i> 
+                  </a> --}}
+
+                </td>
               </tr>
               @endforeach
 
@@ -103,6 +115,50 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
+  $(function(){
+    $(".btn-edit").click(function(){
+      const data = JSON.parse($(this).attr('data'));
+      $('#title').val(data.title)
+      $('#description').html(data.description)
+      $('#modal_title').html('Update Announcement')
+      $('#btn-label').html('Update')
+      $("#formSubmit").attr('action',`/annoucement/${data.id}`)
+      $("#formSubmit").attr('mode','update')
+      $('#modal-lg').modal('show')
+    })
 
+    $('#addButton').click(function(){
+      $('#title').val( '')
+      $('#description').html('')
+      $('#modal_title').html('Add Announcement')
+      $('#btn-label').html('Submit')
+      $("#formSubmit").attr('action',`/announcement`)
+      $("#formSubmit").attr('mode','create')
+
+      $('#modal-lg').modal('show')
+    })
+
+    $('.btn-pin').click(function(){
+        const id = $(this).attr('id')
+        console.log(id)
+        Swal.fire({
+                    title: `Are you sure you wanna pin this announcement?`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: `Cancel`,
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        axios.post(`/announcement/pin/${id}`).then(()=>{
+                            location.reload()
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+    })
+
+
+  })
 </script>
 @endsection

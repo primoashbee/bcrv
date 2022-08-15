@@ -31,4 +31,34 @@ class AnnouncementController extends Controller
         
         return redirect()->back();
     }
+
+
+    public function edit()
+    {
+        return view('announcement.edit');
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        Announcement::findOrFail($id)
+            ->update([
+                'title'=>$request->title,
+                'description'=>$request->description,
+        ]);
+
+        Session::flash('status','Success!');
+        Session::flash('statuscode','Annoucement Added!');
+        
+        return redirect()->route('announcement.index');
+    }
+    public function pin($id){
+        
+        Announcement::findOrFail($id)->markAsPinned();
+        Session::flash('status','Success!');
+        Session::flash('statuscode','Annoucement Pinned!');
+        return response()->json([],200);
+        // return view('announcement.index', compact('announcements'));
+
+    }
 }

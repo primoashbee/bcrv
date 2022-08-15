@@ -61,8 +61,18 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/dashboard', 'Admin\DashboardController@dashboard');
         Route::get('/show_dashboard','Admin\DashboardController@show_dashboard');
 
-        Route::get('/annoucement','AnnouncementController@index')->name('announcement.index');
-        Route::post('/annoucement','AnnouncementController@store')->name('announcement.store');
+        Route::get('/announcement','AnnouncementController@index')->name('announcement.index');
+        Route::post('/announcement','AnnouncementController@store')->name('announcement.store');
+
+
+        Route::get('/announcement/{id}','AnnouncementController@edit')->name('announcement.edit');
+
+        Route::post('/annoucement/{id}','AnnouncementController@update')->name('announcement.update');
+        Route::get('/annoucement/{id}','AnnouncementController@update')->name('announcement.delete');
+
+        Route::post('/announcement/pin/{id}','AnnouncementController@pin')->name('announcement.pin');
+        // Route::get('/annoucement/{id}','AnnouncementController@update')->name('announcement.delete');
+
 
         //Routes for courses page
         //Route to show courses page

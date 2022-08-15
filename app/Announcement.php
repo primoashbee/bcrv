@@ -17,4 +17,20 @@ class Announcement extends Model
     {
         return self::orderBy('id','desc')->first();
     }
+
+
+    public static function pinned()
+    {
+        return self::where('pinned', true)->orderBy('id','desc')->first();
+
+    }
+
+    public function markAsPinned()
+    {
+        self::query()->update(['pinned'=>false]);
+        // return $this->update(['pinned', true]);
+        return $this->update([
+            'pinned'=> true
+        ]);
+    }
 }
