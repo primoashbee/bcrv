@@ -42,6 +42,7 @@ export default {
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.student-uploaded-requirement', (e) => {
                 const payload = e;
+                console.log(payload)
                 this.$toast(e.data.data.message, {
                     timeout: 5000,
                     onClick: ()=> {

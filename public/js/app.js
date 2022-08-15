@@ -1951,6 +1951,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (_this.is_admin == "1") {
                 Echo.channel('user.notifications.' + _this.user_id).listen('.student-uploaded-requirement', function (e) {
                   var payload = e;
+                  console.log(payload);
 
                   _this.$toast(e.data.data.message, {
                     timeout: 5000,

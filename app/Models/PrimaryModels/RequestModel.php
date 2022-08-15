@@ -23,4 +23,40 @@ class RequestModel extends Model
     {
         return $this->hasOne(StudentInfo::class,'alternate_id','student_id');
     }
+
+    public function notificationData($to_admin = false)
+    {
+        // if(!$to_admin){
+        //     if($this->status == self::APPROVED){
+        //         return [
+        //             'message'=>'Your submitted requirement is approved!',
+        //             'title'  => 'Requirement: ' . $this->requirement->name
+        //         ];
+        //     }
+        //     if($this->status == self::REJECTED){
+        //         return [
+        //             'message'=>'Your submitted requirement is Rejected!',
+        //             'title'  => 'Requirement: ' . $this->requirement->name
+        //         ];
+        //     }
+        //     if($this->status == self::PENDING){
+        //         return [
+        //             'message'=>'Your submitted requirement is Pending!',
+        //             'title'  => 'Requirement: ' . $this->requirement->name
+        //         ];
+        //     }
+        // }
+
+        if($to_admin){
+            return [
+                'message'=> $this->studentInfo->name . ' request a document (' . $this->document->filename . ')',
+                'title'=> 'Document Request'
+            ];
+        }
+
+        return [
+            'message' => 'BCRV has responded to your request (' . $this->document->filename . ')',
+            'title'=> 'Document Request'
+        ];
+    }
 }

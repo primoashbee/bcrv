@@ -28,7 +28,7 @@
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
-                        {{-- <th>Response Status</th> --}}
+                        <th>Response Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -99,6 +99,7 @@
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
+                        <th>Response Status</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>

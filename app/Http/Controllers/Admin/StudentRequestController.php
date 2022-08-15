@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Session;
+use App\User;
 use Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PrimaryModels\ResponseModel;
 use App\Models\PrimaryModels\StudentsModel;
+use App\Notifications\StudentToAdminRequestNotification;
 use App\Models\PrimaryModels\RequestModel as RequestModel;
 use App\Models\PrimaryModels\DocumentModel as DocumentModel;
 use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
@@ -30,6 +32,9 @@ class StudentRequestController extends Controller
 
     // adding new request
     public function add_request_students(Request $request) {
+        
+
+
         $request_document = new RequestModel(); 
         $current_user  = Sentinel::getUser()->email;
         $student = DB::table('student_info')
@@ -54,7 +59,7 @@ class StudentRequestController extends Controller
         $request_document->status = 'Pending';
 
         $request_document->save();
-
+        User::find(1)->notify(new StudentToAdminRequestNotification(($request_document)));
         Session::flash('statuscode', 'success');
         return redirect('show_requests_students')->with('status', 'Request Added Successfully!');
     }

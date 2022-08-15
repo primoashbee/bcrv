@@ -117,7 +117,7 @@ use App\Http\Middleware\StudentMiddleware;
         //Route to edit the request
         Route::put('/edit_request/{id}', 'Admin\RequestController@edit_request');
         //Route to edit the request
-        Route::get('/show_respond_to_request/{id}', 'Admin\RequestController@show_respond_to_request');
+        Route::get('/show_respond_to_request/{id}', 'Admin\RequestController@show_respond_to_request')->name('admin.response.to.request');
         //Route for responding to request
         Route::post('/respond_to_request/{id}', 'Admin\RequestController@respond_to_request');  
         //Route to delete the request 

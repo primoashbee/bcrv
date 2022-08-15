@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\PrimaryModels\StudentsModel as StudentsModel;
-use App\Models\PrimaryModels\CourseModel as CourseModel;
-use App\Models\PrimaryModels\RequestModel as RequestModel;
-use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 use Session;
+use App\User;
 use Sentinel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;      
+use App\Models\PrimaryModels\CourseModel as CourseModel;
+use App\Notifications\AdminToStudentRequestNotification;
+use App\Notifications\StudentToAdminRequestNotification;
+use App\Models\PrimaryModels\RequestModel as RequestModel;
+use App\Models\PrimaryModels\StudentsModel as StudentsModel;
+use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 
 class RequestController extends Controller
 {
@@ -42,8 +45,10 @@ class RequestController extends Controller
 
     // respond to request
     public function respond_to_request(Request $request, $id) {
+
         // upload file
         $requestModel = RequestModel::findOrFail($id);
+
         $dt = Carbon::now();
         $folder_name= 'responses/' . str_replace(" ","", $requestModel->student_id);
         $file_description = $request->file_description;
@@ -81,6 +86,8 @@ class RequestController extends Controller
         $requests = RequestModel::findOrfail($id);
         $requests->is_responded = 1;
         $requests->save();
+        User::find($requestModel->studentInfo->id)->notify(new StudentToAdminRequestNotification($requestModel, false));
+
         Session::flash('statuscode', 'success');
         return redirect('show_requests')->with('status', 'Request Respond Success!');
     }
