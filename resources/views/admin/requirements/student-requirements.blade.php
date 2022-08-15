@@ -113,7 +113,6 @@
               </thead>
               <tbody>
                 @foreach($list as $item)
-                  @dd($list)
                     <tr>
                         <td class="">{{$item->requirement->name}}</td>
                         <td class="">{{$item->student->first_name}}</td>
