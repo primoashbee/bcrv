@@ -39,8 +39,8 @@
                         <td>STDNT-{{ $request->student_id }}</td>
                         <td>{{ $request->studentInfo->name }}</td>
                         <td>{{ $request->studentInfo->course }}</td>
-                        <td> Batch here</td>
-                        <td> School Year HEre</td>
+                        <td>{{ $request->studentInfo->batch }}</td>
+                        <td>{{ $request->studentInfo->school_year }}</td>
                         <td>{{ $request->document->filename }}</td>
                         <td >{{ $request->document->signed_name }}</td>
                         {{-- <td>{{ $request->number_of_copies }}</td> --}}

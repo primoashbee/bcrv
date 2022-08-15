@@ -128,7 +128,7 @@
                             @endif
                         </td>
                         <td class="text-center">                          
-                            <a href="{{route("requirements.view", $item->id)}}" type="button" class="btn btn-sm btn-primary bg-info showUpdate"  >
+                            <a href="{{route("requirements.view", $item->id)}}" type="button" target="_blank" class="btn btn-sm btn-primary bg-info showUpdate"  >
                                 <i class="fa fa-eye" style="padding: 10px;"></i> 
                             </a>
 
