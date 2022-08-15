@@ -18,34 +18,34 @@ class ReportController extends Controller
         // $requests = RequestModel::all();
         $countpending = RequestModel::where('status', 'Pending')
                             ->when($request->has('batch'), function($q,$data) use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('batch', $request->batch);
                                 });
                             })
                             ->when($request->has('course'), function($q,$data)  use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('course', $request->course);
                                 });
                             })
                             ->when($request->has('school_year'), function($q,$data) use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('school_year', $request->school_year);
                                 });
                             })
                             ->count();
         $countsent = RequestModel::where('status', 'Sent')
                             ->when($request->has('batch'), function($q,$data) use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('batch', $request->batch);
                                 });
                             })
                             ->when($request->has('course'), function($q,$data)  use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('course', $request->course);
                                 });
                             })
                             ->when($request->has('school_year'), function($q,$data) use($request){
-                                $q->orWhereHas('studentInfo', function($sq) use ($request){
+                                $q->whereHas('studentInfo', function($sq) use ($request){
                                     $sq->where('school_year', $request->school_year);
                                 });
                             })
