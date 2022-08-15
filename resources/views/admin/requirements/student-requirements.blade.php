@@ -3,7 +3,6 @@
 @section('title')
     Admin | Requirements
 @endsection
-
 @section('content')
 <div class="modal fade" id="modal-lg">
   <div class="modal-dialog modal-m">
@@ -114,6 +113,7 @@
               </thead>
               <tbody>
                 @foreach($list as $item)
+                  @dd($list)
                     <tr>
                         <td class="">{{$item->requirement->name}}</td>
                         <td class="">{{$item->student->first_name}}</td>
@@ -206,8 +206,12 @@
         const q_status = $('#q_status').val();
 
         var s_url = new URL('{{route('requirements.uploaded')}}');
+        const requirement_id = {{request()->requirement_id}}
         if(q!=""){
           s_url.searchParams.append('q', q);
+        }
+        if(requirement_id!=""){
+          s_url.searchParams.append('requirement_id', requirement_id);
         }
         if(q_status != "all"){
           s_url.searchParams.append('status', q_status);

@@ -58,14 +58,14 @@ class StudentRequirementController extends Controller
     public function index(Request $request)
     {
         $list = StudentRequirement::with('requirement','student')
-        ->when($request->has('requirement_id'), function($q, $data){
-            $q->where('requirement_id', $data);
+        ->when($request->has('requirement_id'), function($q, $data) use ($request){
+            $q->where('requirement_id', $request->requirement_id);
         })
-        ->when($request->has('q'), function($q, $data){
-            $q->orWhere('filename', 'like', '%' . $data . '%');
+        ->when($request->has('q'), function($q, $data)  use ($request){
+            $q->orWhere('filename', 'like', '%' . $request->q . '%');
         })
-        ->when($request->has('status'), function($q, $data){
-            $q->where('status', $data);
+        ->when($request->has('status'), function($q, $data)  use ($request){
+            $q->where('status', $request->status);
         })
         ->paginate(10);
 
