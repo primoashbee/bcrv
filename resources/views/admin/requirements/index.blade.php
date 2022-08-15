@@ -224,7 +224,7 @@
 <!-- ALS  -->
 <div class="card">
   <div class="card-header">
-    <h3>ALS Requirements</h3>
+    <h3>ALS Graduate Requirements</h3>
     <a class="btn btn-app bg-orange float-right"  style="margin-top: -35px" data-toggle="modal" data-target="#modal-lg"  id="addButton">
       <i class="fas fa-plus"></i> Add
   </a>

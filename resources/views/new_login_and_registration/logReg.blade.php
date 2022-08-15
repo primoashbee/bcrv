@@ -133,7 +133,7 @@
                     <option value="High School"> High School Graduate </option>
                     <option value="College"> College Graduate </option>
                     <option value="College Undergrad"> College Undergrad </option>
-                    <option value="ALS"> ALS </option>
+                    <option value="ALS"> ALS Graduate </option>
                   </select>
                   <label>Education Level</label>
                 </div>
