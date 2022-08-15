@@ -107,7 +107,7 @@
                                         <a href="{{route('request.download', $item->id)}}" type="button" class="btn-sm btn-primary bg-success">
                                             <i class="fa fa-download" style="padding: 10px;"></i>
                                         </a>
-                                        <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-danger">
+                                        <a href="#" type="button" class="btn-sm btn-primary bg-danger btn-delete" id="{{$item->id}}">
                                             <i class="fa fa-trash" style="padding: 10px;"></i>
                                         </a>
                                     </td>
@@ -120,7 +120,7 @@
                                     <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-info">
                                         <i class="fa fa-pen" style="padding: 10px;"></i>
                                     </a>
-                                    <a href="/show_edit_request_students/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-danger">
+                                    <a href="#" type="button" class="btn-sm btn-primary bg-danger btn-delete" id="{{$item->id}}">
                                         <i class="fa fa-trash" style="padding: 10px;"></i>
                                     </a>
                                     {{-- <a href="/receive_request/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-success">
@@ -169,9 +169,9 @@
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('admin_assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/jszip/jszip.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
@@ -184,10 +184,33 @@
 <!-- Page specific script -->
 <script>
   $(function () {
+    $('.btn-delete').click(function(){
+            const id = $(this).attr('id')
+            Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: `Cancel`,
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        console.log(axios);
+                        axios.delete(`/delete_request/${id}`).then((res)=>{
+                            location.reload();
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+        
+        })
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+
   });
+
 </script>
 @endsection

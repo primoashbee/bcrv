@@ -108,4 +108,13 @@ class RequestController extends Controller
         return redirect('show_requests')->with('status', 'Data Updated Successfully!');
     }
 
+    public function delete_request(Request $request, $id){
+        RequestModel::findOrFail($id)->delete();
+        Session::flash('statuscode', 'info');
+
+        return response()->json([], 200);
+        return redirect('show_requests')->with('status', 'Request Deleted!');
+
+    }
+
 }

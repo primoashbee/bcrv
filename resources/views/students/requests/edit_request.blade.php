@@ -23,9 +23,9 @@
                                 <div class="form-group">
                                     <label>Select Document</label>
                                     <select name="document_name" class="form-control select2" style="width: 100%; height: 100%;">
-                                        <option selected value="{{ $request_document->document_name }}">{{ $request_document->document_name }}</option>
+                                        <option selected value="{{ $request_document->document_name }}">{{ $request_document->document->filename }}</option>
                                         @foreach ($documents as $document)
-                                            <option value="{{ $document->file_name }}">{{ $document->file_name }}</option>
+                                            <option value="{{ $document->id }}">{{ $document->filename }}</option>
                                         @endforeach
                                     </select>
                                 </div>

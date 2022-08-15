@@ -3,9 +3,11 @@
 namespace App\Models\PrimaryModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RequestModel extends Model
 {
+    use SoftDeletes;
     protected $table = "requests";
     // protected $fillable = ['student_id', 'course', 'document_name', 
     //     'number_of_copies', 'date_of_request', 'release_date', 

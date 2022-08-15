@@ -46,12 +46,19 @@
                         @endif
                         <td style="width: 210px;">
                             @if ($request->response_status == 'responded')
-                                <strong><p style="width: 100px" class="text-success">You Responded</p></strong>
+                                {{-- <strong><p style="width: 100px" class="text-success">You Responded</p></strong> --}}
+
                             @else 
-                                <a href="/respond_to_request_from_admin/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-info">
-                                    <i class="fa fa-pen" style="padding: 10px;"></i> Respond
+                                <a href="/respond_to_request_from_admin/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-warning">
+                                    <i class="fa fa-check" style="padding: 10px;"></i>
                                 </a>
                             @endif
+                            <a href="{{route('request.to.student.view', $request->id)}}" type="button" target ="_blank" class="btn-sm btn-primary bg-info">
+                                <i class="fa fa-eye" style="padding: 10px;"></i>
+                            </a>
+                            <a href="{{route('request.to.student.download', $request->id)}}" type="button" class="btn-sm btn-primary bg-success">
+                                <i class="fa fa-download" style="padding: 10px;"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

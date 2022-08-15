@@ -111,7 +111,6 @@ use App\Http\Middleware\StudentMiddleware;
         //Route for responding to request
         Route::post('/respond_to_request/{id}', 'Admin\RequestController@respond_to_request');  
         //Route to delete the request 
-        Route::delete('/delete_request/{id}', 'Admin\RequestController@delete_request');
             
         //Routes for users page
         //Route to show users page
@@ -178,6 +177,10 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/preview_request/{id}', 'Admin\StudentRequestController@view')->name('request.preview');
 
         Route::post('/student/delete/{id}', 'Admin\StudentController@delete')->name('student.delete');
+        Route::delete('/delete_request/{id}', 'Admin\RequestController@delete_request');
+
+        Route::get('/request/admin/view/{id}', 'Admin\RequesttoStudentsController@view')->name('request.to.student.view');
+        Route::get('/request/admin/download/{id}', 'Admin\RequesttoStudentsController@download')->name('request.to.student.download');
 
     });
 

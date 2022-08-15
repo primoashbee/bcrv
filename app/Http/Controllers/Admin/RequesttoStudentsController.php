@@ -139,4 +139,32 @@ class RequesttoStudentsController extends Controller
 
     }
 
+    public function view($id){
+        $file = RequeststoStudents::findOrFail($id);
+          
+        $headers = array(
+          'Content-Type: application/pdf',
+        );
+  
+        $path = Storage::disk('local')->path($file->path);
+
+        return response()->file($path, $headers);
+
+    }
+
+    
+    public function download($id){
+        $file = RequeststoStudents::findOrFail($id);
+          
+        $headers = array(
+          'Content-Type: application/pdf',
+        );
+        $arr = explode("/",$file->path);
+
+        $filename = $arr[count($arr)-1];
+        $path = Storage::disk('local')->path($file->path);
+
+        return response()->download($path, $filename, $headers);
+    }
+
 }

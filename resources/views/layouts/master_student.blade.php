@@ -113,12 +113,12 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_responses_students') }}" class="nav-link {{ 'show_responses_students' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-inbox nav-icon"></i>
               <p>Responses from </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{ url('/show_requests_from_admins') }}" class="nav-link {{ 'show_requests_from_admins' == request()->path() ? 'active' : '' }}">
