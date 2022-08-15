@@ -181,6 +181,7 @@ use App\Http\Middleware\StudentMiddleware;
 
         Route::get('/request/admin/view/{id}', 'Admin\RequesttoStudentsController@view')->name('request.to.student.view');
         Route::get('/request/admin/download/{id}', 'Admin\RequesttoStudentsController@download')->name('request.to.student.download');
+        Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
 
     });
 
@@ -196,7 +197,6 @@ use App\Http\Middleware\StudentMiddleware;
             Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
 
             
-            Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
             Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
 
             // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
