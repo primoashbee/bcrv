@@ -73,9 +73,11 @@
                   <a href="#" type="button" class="btn btn-sm btn-primary bg-warning btn-edit" data="{{json_encode($item)}}">
                       <i class="fa fa-pen" style="padding: 10px;"></i> 
                   </a>
+                  @if(!$item->pinned)
                   <a href="#" type="button" class="btn btn-sm btn-primary bg-info btn-pin" id="{{$item->id}}">
                       <i class="fa fa-bullhorn" style="padding: 10px;"></i> 
                   </a>
+                  @endif
                   {{-- <a href="#" type="button" class="btn btn-sm btn-primary bg-danger" >
                       <i class="fa fa-trash" style="padding: 10px;"></i> 
                   </a> --}}
