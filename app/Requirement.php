@@ -15,6 +15,12 @@ class Requirement extends Model
     public function scopeHighSchool($query){
         return $query->where('education_level','High School');
     }
+    public function scopeUndergrad($query){
+        return $query->where('education_level','College Undergrad');
+    }
+    public function scopeAls($query){
+        return $query->where('education_level','ALS');
+    }
 
     public function scopeActive($query)
     {

@@ -38,12 +38,13 @@ class ForgotPassword extends Controller
 
     //function for sending email to user - for reset password purpose
     public function sendEmail($user, $code) {
+     
         Mail::send(
             'email.forgot',
             ['user' => $user, 'code' => $code],
             function($message) use ($user){
                 $message->to($user->email);
-                $message->subject("$user->name, Here is your reset password link.");
+                $message->subject("$user->first_name, Here is your reset password link.");
             }
         );
     }

@@ -23,8 +23,10 @@ class RequirementController extends Controller
         if($is_admin){
             $college = Requirement::college()->get();
             $high_school = Requirement::highSchool()->get();
+            $college_undergrad = Requirement::undergrad()->get();
+            $als = Requirement::als()->get();
             
-            return view('admin.requirements.index',compact('college','high_school'));
+            return view('admin.requirements.index',compact('college','high_school','college_undergrad','als'));
         }
 
         $user_id = $user->id;
@@ -61,7 +63,6 @@ class RequirementController extends Controller
 
         $mandatory  = $request->has('mandatory');
         $active  = $request->has('active');
-
         Requirement::create([
             'name'=>$request->name,
             'description'=>$request->description,

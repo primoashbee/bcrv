@@ -106,7 +106,7 @@
                     type="text"
                     name="first_name"
                     class="input-field active"
-                    placeholder="Lastname, Firstname, MI, Suffix"
+                    placeholder="Lastname, Firstname MI, Suffix"
                   />
                   <label>Complete Name</label>
                 </div>
@@ -132,29 +132,39 @@
                     <option> </option>
                     <option value="High School"> High School Graduate </option>
                     <option value="College"> College Graduate </option>
+                    <option value="College Undergrad"> College Undergrad </option>
+                    <option value="ALS"> ALS </option>
                   </select>
                   <label>Education Level</label>
                 </div>
 
-                <div class="input-wrap">
+                <div class="input-wrap input-icons">
                   <input
                     type="password"
                     name="password"
-                    class="input-field"
+                    class="input-field password-field"
                     autocomplete="off"
                     required
                   />
+                  <button type="button" class="icon" id="btn-show-password-new">
+                    <i class="fa-solid fa-eye" id="password-icon-new"></i>
+                
+                  </button>
                   <label>Password</label>
                 </div>
                 
-                <div class="input-wrap">
+                <div class="input-wrap input-icons">
                   <input
                     type="password"
                     name="password_confirmation"
-                    class="input-field"
+                    class="input-field password-field"
                     autocomplete="off"
                     required
                   />
+                  <button type="button" class="icon" id="btn-show-password-confirm">
+                    <i class="fa-solid fa-eye" id="password-icon-confirm"></i>
+                
+                  </button>
                   <label>Confirm Password</label>
                 </div>
 
@@ -208,6 +218,28 @@
           const icon_class = type=="text" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
 
           document.getElementById('password-icon').setAttribute("class", icon_class);
+          field.setAttribute("type", type)
+
+        })
+        const showPassNew = document.getElementById('btn-show-password-new');
+        showPassNew.addEventListener('click',function(){
+          const field = document.getElementsByClassName('password-field')[1]
+        
+          const type  = field.getAttribute("type") == "text" ? "password" : "text";
+          const icon_class = type=="text" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
+
+          document.getElementById('password-icon-new').setAttribute("class", icon_class);
+          field.setAttribute("type", type)
+
+        })
+        const showPassConfirm = document.getElementById('btn-show-password-confirm');
+        showPassConfirm.addEventListener('click',function(){
+          const field = document.getElementsByClassName('password-field')[2]
+        
+          const type  = field.getAttribute("type") == "text" ? "password" : "text";
+          const icon_class = type=="text" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"
+
+          document.getElementById('password-icon-confirm').setAttribute("class", icon_class);
           field.setAttribute("type", type)
 
         })

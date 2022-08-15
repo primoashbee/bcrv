@@ -12,7 +12,7 @@ class StudentInfo extends Model
     protected $table = "student_info";
     // protected $fillable = ['alternate_id', 'email', 'name', 'course', 'year', 'contact_number','education_level'];
     protected $guarded  = [];
-    const EDUCATION_LEVEL = ['High School','College'];
+    const EDUCATION_LEVEL = ['High School','College','College Undergrad','ALS'];
     
 
     public function user()
