@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row" id="content">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -54,6 +54,7 @@
                         <br>
                         <input type="submit" class="btn btn-primary" value="Filter"/>
                         <button type="button" class="btn btn-" id="btnClear"> Clear </button>
+                        <button type="button" class="btn btn-default" id="btnPrint"> Print </button>
                     </div>
                 </div>
                 </form>
@@ -131,7 +132,7 @@
     
 @section('scripts')
 <!-- jQuery -->
-<script src="{{ asset('admin_assets/plugins/jquery/jquery.min.js') }}"></script>
+{{-- <script src="{{ asset('admin_assets/plugins/jquery/jquery.min.js') }}"></script> --}}
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -167,6 +168,26 @@
         const course = @json(request()->course);
         const school_year = @json(request()->school_year);
         const status = @json(request()->status);
+
+        $('#btnPrint').click(function(){
+            const fileName = String(new Date().valueOf());
+            const element = document.getElementById('content');
+            const regionCanvas = element.getBoundingClientRect();
+            html2canvas(element, { scale: 3 }).then(async canvas => {
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                // const pdf = new jsPDF({
+                //     orientation: "portrait",
+                //     unit: "in",
+                //     format: [4, 2]
+                // });
+                // pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 0, 205, (205 / regionCanvas.width) * regionCanvas.height);
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 205, (205 / regionCanvas.width) * regionCanvas.height);
+                await pdf.save(fileName, { returnPromise: true });
+                window.open(pdf.output('bloburl', { filename: fileName }), '_blank');
+                // window.open().document.write('<img src="' + canvas.toDataURL() + '" />');
+
+            });
+        })
 
         $('#batch').val(batch)
         $('#course').val(course)

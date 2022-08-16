@@ -8,6 +8,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.Swal = require('sweetalert2')
+window.html2canvas = require('html2canvas')
+import { jsPDF } from "jspdf";
+window.jsPDF = jsPDF;
+
+
+
 
 /**
  * The following block of code may be used to automatically register your

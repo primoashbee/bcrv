@@ -56,7 +56,7 @@
                         {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>
-                        {{-- <th>Role</th> --}}
+                        <th>Role</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -96,7 +96,7 @@
                         {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>
-                        {{-- <th>Role</th> --}}
+                        <th>Role</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>

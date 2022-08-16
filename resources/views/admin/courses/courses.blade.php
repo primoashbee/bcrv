@@ -158,7 +158,9 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
+    $.noConflict();
     $(document).ready(function() {
+        $('#example1').DataTable()
         $('.btn-delete').click(function(e) {
             e.preventDefault();
             const course_id = $(this).attr('course_id')

@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.7.7"
     },
     "dependencies": {
+        "html2canvas": "^1.4.1",
+        "jspdf": "^2.5.1",
         "laravel-echo": "^1.12.1",
         "pusher-js": "^7.3.0",
         "sweetalert2": "^11.4.23",
