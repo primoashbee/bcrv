@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Admin | Requirements
+  Admin | Requirements - Uploaded Requirements
 @endsection
 @section('content')
 <div class="modal fade" id="modal-lg">
@@ -77,12 +77,13 @@
   </div>
 </div>
 <div class="col-12">
+    <a href="{{route('requirements')}}" style="color:black;font-size:25px"> <i class="fa fa-arrow-left"></i> Go Back</a>
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">Requirements</h3>
         </div>
         <div class="card-body">
-          <div class="row">
+          {{-- <div class="row">
             <div class="form-group col-lg-4 col-sm-12">
               <label for="search">Search</label>
               <input type="text" name="q" id="q" class="form-control">
@@ -103,10 +104,10 @@
               <label for="submit">&nbsp;</label><br>
               <input type="submit" class="btn btn-primary" id="btnSearch" value="Search">
             </div>
-          </div>
+          </div> --}}
           <div class="clearfix"></div>
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="example1">
               <thead>
                 <th class="" > Requirement</th>
                 <th class="" > Student Name</th>
@@ -148,10 +149,10 @@
                 @endforeach
               </tbody>
             </table>
-            {{$list->links()}}
+            {{-- {{$list->links()}} --}}
           </div>
         </div>
-    </div>1
+    </div>
 </div>
 @endsection
 
@@ -180,10 +181,7 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $("#example1").DataTable();
   });
 </script>
 <script>
@@ -209,7 +207,7 @@
         const q_status = $('#q_status').val();
 
         var s_url = new URL('{{route('requirements.uploaded')}}');
-        const requirement_id = {{request()->id}}
+        const requirement_id = @if(request()->has('requirement_id')) {{request()->requirement_id}} @else null @endif ;
         if(q!=""){
           s_url.searchParams.append('q', q);
         }

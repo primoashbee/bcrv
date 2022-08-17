@@ -69,7 +69,7 @@ class StudentRequirementController extends Controller
                                   ->when($request->has('status'), function($q, $data)  use ($request){
                                       $q->where('status', $request->status);
                                   })
-                                  ->paginate(10);
+                                  ->get();
 
         $requirement = $request->has('id') ? StudentRequirement::with('student','requirement')->findOrFail($request->id) : null ;
         return view('admin.requirements.student-requirements', compact('list','requirement'));
