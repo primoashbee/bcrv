@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
 use App\Models\PrimaryModels\StudentInfo;
+use App\Rules\RequirementExistRule;
 use App\StudentRequirement;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
@@ -55,7 +56,7 @@ class RequirementController extends Controller
     {
         $request->validate(
             [
-                'name'=>'required',
+                'name'=>['required', new RequirementExistRule($request->education_level)],
                 'description'=>'required',
                 'education_level'=>['required',Rule::in(StudentInfo::EDUCATION_LEVEL)],
             ]

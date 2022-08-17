@@ -22,7 +22,8 @@
               <div class="row">
                   <div class="col-sm-12">
                       <div class="form-group">
-                          <label for="exampleInputFile">Name</label>
+                          <label for="exampleInputFile">Name  
+                          </label>
                           <div class="input-group">
                             <div class="custom-file">
                               {{-- <input type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile"> --}}
@@ -57,7 +58,9 @@
                             </div>
                           </div>
                       </div>
-
+                      <a href="#" type="button" target="_blank" class="btn btn-sm btn-primary bg-info" id="span-view" >
+                        <i class="fa fa-eye" style="padding: 10px;"></i> 
+                      <a>
 
 
                      
@@ -188,16 +191,17 @@
 
       @if($requirement != null)
         const data = @json($requirement);
-        console.log(data)
         const URL  = `/requirements/${data.id}`
         const type = data.student.first_name +  ' - ' + data.requirement.name
-
+        $('#span-view').attr('hidden',false)
+        $('#span-view').attr('href', `/requirements/view/${data.id}`)
         $('#formSubmit').attr('action',URL)
         $('#name').val(data.filename);
         $('#created_at').val(data.created_at);
         $('#status').val(data.status);
         $('#modal_title').html(type);
         $('#modal-lg').modal('show')
+        
 
       @endif
       $('#btnSearch').click(function(){
@@ -205,12 +209,12 @@
         const q_status = $('#q_status').val();
 
         var s_url = new URL('{{route('requirements.uploaded')}}');
-        const requirement_id = {{request()->requirement_id}}
+        const requirement_id = {{request()->id}}
         if(q!=""){
           s_url.searchParams.append('q', q);
         }
         if(requirement_id!=""){
-          s_url.searchParams.append('requirement_id', requirement_id);
+          s_url.searchParams.append('requirement_id', id);
         }
         if(q_status != "all"){
           s_url.searchParams.append('status', q_status);
@@ -219,6 +223,8 @@
         
       });
       $('.showUpdate').click(function(){
+        $('#span-view').attr('hidden',true)
+
         const data = JSON.parse($(this).attr('data'))
         const URL  = `/requirements/${data.id}`
         const type = $(this).attr('student') + ' - ' + $(this).attr('requirement_type')

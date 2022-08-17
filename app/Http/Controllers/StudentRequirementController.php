@@ -57,20 +57,21 @@ class StudentRequirementController extends Controller
 
     public function index(Request $request)
     {
-        $list = StudentRequirement::with('requirement','student')
-        ->when($request->has('requirement_id'), function($q, $data) use ($request){
-            $q->where('requirement_id', $request->requirement_id);
-        })
-        ->when($request->has('q'), function($q, $data)  use ($request){
-            $q->orWhere('filename', 'like', '%' . $request->q . '%');
-        })
-        ->when($request->has('status'), function($q, $data)  use ($request){
-            $q->where('status', $request->status);
-        })
-        ->paginate(10);
+        $list = StudentRequirement::has('requirement')
+                                  ->has('student')
+                                  ->with('requirement','student')
+                                  ->when($request->has('requirement_id'), function($q, $data) use ($request){
+                                      $q->where('requirement_id', $request->requirement_id);
+                                  })
+                                  ->when($request->has('q'), function($q, $data)  use ($request){
+                                      $q->orWhere('filename', 'like', '%' . $request->q . '%');
+                                  })
+                                  ->when($request->has('status'), function($q, $data)  use ($request){
+                                      $q->where('status', $request->status);
+                                  })
+                                  ->paginate(10);
 
         $requirement = $request->has('id') ? StudentRequirement::with('student','requirement')->findOrFail($request->id) : null ;
-
         return view('admin.requirements.student-requirements', compact('list','requirement'));
     }
 
