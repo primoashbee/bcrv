@@ -192,7 +192,7 @@
         $('.deletbtn').click(function(){
             const id = $(this).attr('id')
             Swal.fire({
-                    title: 'Do you want to save the changes?',
+                    title: 'Do you want to delete this record?',
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     cancelButtonText: `Cancel`,
@@ -215,7 +215,6 @@
           var data = $tr.children("td").map(function() {
             return $(this).text();
           }).get(); 
-          alert('wtf');
           // console.log(data);
         //   Swal.fire({
         //     title: 'Are you sure?',

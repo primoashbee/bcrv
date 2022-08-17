@@ -200,7 +200,7 @@
             var id = $(this).attr('student_id')
             console.log(id)
             Swal.fire({
-                    title: 'Do you want to save the changes?',
+                    title: 'Do you want to delete this record?',
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     cancelButtonText: `Cancel`,

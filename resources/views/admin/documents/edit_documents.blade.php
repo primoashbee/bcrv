@@ -10,7 +10,7 @@
         <div class="callout callout-info">
             <h5><i class="fas fa-info"></i> Note:</h5>
             You are about to edit a a document
-            <a href="/show_students" type="button" class="btn btn-info bg-info float-right" style="text-decoration: none;">
+            <a href="/show_documents" type="button" class="btn btn-info bg-info float-right" style="text-decoration: none;">
                 <i class="fa fa-arrow-left" style="padding: 10px;"></i> Return
             </a>
             <div class="modal-body">

@@ -48,9 +48,8 @@ class RequesttoStudentsController extends Controller
 
         $requeststoStudents->save();
         User::find($student_id)->notify(new AdminToStudentRequestNotification($requeststoStudents));
-        return; 
         Session::flash('statuscode', 'success');
-        return redirect('show_requests_to_students')->with('status', 'Data Added Successfully!');
+        return redirect('show_requests_to_students')->with('status', 'Request Added Successfully!');
     }
 
     // download file
