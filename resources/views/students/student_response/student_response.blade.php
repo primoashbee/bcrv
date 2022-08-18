@@ -120,6 +120,15 @@
 </script>
 <script>
     $(document).ready(function() {
+        $('#push-menu-hamburger').click(function(e){
+          const el = $('body'); 
+          if(el.hasClass('sidebar-collapse')){
+            el.removeClass('sidebar-collapse')
+          }else{
+            el.addClass('sidebar-collapse')
+
+          }
+        })
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {
           $tr = $(this).closest('tr');
