@@ -124,4 +124,12 @@ class RequestController extends Controller
 
     }
 
+    public function unsend(Request $request, $id){
+        RequestModel::findOrFail($id)->unsend();
+        Session::flash('statuscode', 'success');
+        Session::flash('status', 'Request usent!');
+
+        return response()->json([], 200);
+    }
+
 }

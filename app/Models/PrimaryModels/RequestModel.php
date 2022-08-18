@@ -59,4 +59,14 @@ class RequestModel extends Model
             'title'=> 'Document Request'
         ];
     }
+
+    public function unsend()
+    {
+        $this->update([
+            'status'=>'Pending',
+            'is_responded'=> false,
+        ]);
+
+        return $this;
+    }
 }

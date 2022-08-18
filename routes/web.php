@@ -114,6 +114,7 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/show_requests', 'Admin\RequestController@show_requests');
         //Route to show the page to edit the request
         Route::get('/show_edit_request/{id}', 'Admin\RequestController@show_edit_request');
+        Route::post('/admin-request/unsend/{id}', 'Admin\RequestController@unsend');
         //Route to edit the request
         Route::put('/edit_request/{id}', 'Admin\RequestController@edit_request');
         //Route to edit the request

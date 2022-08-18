@@ -30,16 +30,23 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label for="exampleSelectBorder">Year</label>
-                                    <select name="year" class="custom-select form-control-border" id="exampleSelectBorder">
-                                    <option selected value="{{ $students->year }}">{{ $students->year }}</option>
-                                    <option value="1st Year">1st Year</option>
-                                    <option value="2nd Year">2nd Year</option>
-                                    <option value="3rd Year">3rd Year</option>
-                                    <option value="4th Year">4th Year</option>
-                                    <option value="5th Year">5th Year</option>
+                                    <label for="school_year">Year</label>
+                                    <select  class="custom-select form-control" id="school_year" name="school_year">
+                                        @foreach($years as $year)
+                                        <option value="{{$year}}"> {{$year}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="batch">Batch</label>
+                                    <select class="custom-select form-control" id="batch" name="batch">
+                                        @foreach($batches as $batch)
+                                        <option value="{{$batch}}"> {{$batch}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -68,4 +75,10 @@
 @section('scripts')
 <!-- AdminLTE App -->
 <script src="{{ asset('admin_assets/dist/js/adminlte.js') }}"></script>
+<script>
+    $(function(){
+        $("#batch").val(@json($students->batch))
+        $("#school_year").val(@json($students->school_year))
+    })
+</script>
 @endsection

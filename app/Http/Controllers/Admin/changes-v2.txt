@@ -1,0 +1,48 @@
+Good afternoon po sir ashbee
+
+ADMIN ACCOUNT
+
+
+Admin|Requirements (Yung may Add function)
+
+x -yung eye icon po sa Diploma sa College req. Error po
+? -Yung eye icon po dito na nagdadirect sa page ng uploaded requirements, pwede pagawa na lang po ulit na View uploaded requirements  na button para yung eye icon is sa preview 
+x -Pwede po parestrict ng pag add ng requirement, yung bawal po maduplicate.. I mean for example, pag may naadd na nga pong form 137 hindi na po sya dapat maiadd ulit on the same education level, parang lalabas na po Already exist. (Ang goal po kasi dito is maavoid na ang human error)
+
+x * Doon po sa transcript of records inedit ko po yun doon para ichange into approved pero nag error po sya
+x * pag nag upload si trainees ng requirement documents po kapag niclick po sya mula sa notifications is nag error po sya
+may problema po kapag ni edit yung requirements (either approved or pending) is nag error po)
+
+
+Admin|Requirements (yung may search function)
+
+x -Parename po eto ng Admin|Requirements-Uploaded Requirements
+x -paadd po ng return button(one page backward to Admin|Requirements na may Add function
+
+
+x Admin Students
+-yung delete warning message po ang nakalagay "Do you want to save the changes?" 
+
+
+x Admin|Students -Edit
+-Paremove po ng year(yung may 1st year,2nd year...)
+-Palagyan po ng Batch (nakaset po ng int ang value tas hanggang 10 lang since 10 batches per year lang po ang meron sa bcrv)
+-palagyan rin po ng School year (nakaset po sa year ang value)
+
+
+x Admin|Documents-Edit
+-yung Return button nagdadirect po sa Admin|Students dapat po sa Admin|Documents 
+
+
+x Admin|Requests
+-Pwede po ba mag unsend si admin? Kasi pano po pag nagkamali sya ng naisend na document or pwede po yon kung mag add ng edit function?
+
+
+x Admin|Request - Response
+-yung return button po pagniclick sa Admin|Students napupunta dapat po one page backward lang papunta ulit sa Admin|Request
+x -Yung hamburger icon po to view the side bar hindi po gumagana sa page neto
+
+
+Admin|Request to students
+x -Paayos po ng delete warning message 
+x -yung pag add po ng request dito, blank page lang po lumalabas dapat po "Request added successfully" tas di po sya agad nagdidisplay sa table unless irefresh ang page. Sa ibang may add function hindi naman po ganon

@@ -100,4 +100,9 @@ class StudentRequirement extends Model
 
     }
 
+    public function hasUploaded()
+    {
+        return in_array($this->status, [self::PENDING, self::APPROVED]); 
+    }
+
 }

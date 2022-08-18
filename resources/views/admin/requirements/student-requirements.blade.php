@@ -131,7 +131,8 @@
 
                             @endif
                         </td>
-                        <td class="text-center">                          
+                        <td class="text-center">
+                          @if($item->hasUploaded())                  
                             <a href="{{route("requirements.view", $item->id)}}" type="button" target="_blank" class="btn btn-sm btn-primary bg-info showUpdate"  >
                                 <i class="fa fa-eye" style="padding: 10px;"></i> 
                             </a>
@@ -144,6 +145,7 @@
                                 <i class="fa fa-pen" style="padding: 10px;"></i> 
                                 {{-- Edit --}}
                             </a>
+                          @endif
                         </td>
                     </tr>
                 @endforeach

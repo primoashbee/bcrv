@@ -146,11 +146,12 @@
                     autocomplete="off"
                     required
                   />
+                  <label>Password</label>
+
                   <button type="button" class="icon" id="btn-show-password-new">
                     <i class="fa-solid fa-eye" id="password-icon-new"></i>
                 
                   </button>
-                  <label>Password</label>
                 </div>
                 
                 <div class="input-wrap input-icons">
@@ -161,11 +162,12 @@
                     autocomplete="off"
                     required
                   />
+                  <label>Confirm Password</label>
+
                   <button type="button" class="icon" id="btn-show-password-confirm">
                     <i class="fa-solid fa-eye" id="password-icon-confirm"></i>
                 
                   </button>
-                  <label>Confirm Password</label>
                 </div>
 
                 <input type="submit" name="signup" value="Sign Up" class="sign-btn" />

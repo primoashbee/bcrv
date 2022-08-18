@@ -23,7 +23,11 @@ class StudentController extends Controller
     public function show_edit_student($id){
         $students = StudentInfoModel::findOrfail($id);
         $courses = CourseModel::all();
+        $batches = range(1,10);
+        $years = range(now()->subYears(20)->year,now()->year);
         return view('admin.students.edit_student')->with('students', $students)
+                                                ->with('batches', $batches)
+                                                ->with('years', $years)
                                                 ->with('courses', $courses);
     }
 
@@ -33,8 +37,10 @@ class StudentController extends Controller
     {
         $students = StudentInfoModel::findOrfail($id);    
         $students->course = $request->input('course');
-        $students->year = $request->input('year');
+        // $students->year = $request->input('year');
         $students->status = $request->input('status');
+        $students->batch = $request->input('batch');
+        $students->school_year = $request->input('school_year');
 
         $students->update();
         Session::flash('statuscode', 'info');

@@ -76,6 +76,9 @@
                                 <a href="{{route('request.download', $request->id)}}" type="button" class="btn-sm btn-primary bg-success">
                                     <i class="fa fa-download" style="padding: 10px;"></i>
                                 </a>
+                                <a href="#" type="button" class="btn-sm btn-primary bg-danger btn-unsend" id="{{$request->id}}">
+                                    <i class="fa fa-undo" style="padding: 10px;"></i>
+                                </a>
                             @else 
                                 <a href="/show_respond_to_request/{{ $request->id }}" type="button" class="btn-sm btn-primary bg-warning">
                                     <i class="fa fa-file" style="padding: 10px;"></i>
@@ -135,12 +138,12 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
+//   $(function () {
+//     $("#example1").DataTable({
+//       "responsive": true, "lengthChange": false, "autoWidth": false,
+//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+//   });
 </script>
 <script>
     $(document).ready(function() {
@@ -157,6 +160,12 @@
           $('#get_course_id').val(data[0]);
           $('#deleteModalForm').attr('action', '/delete_course/'+data[0]);
           $('#deleteModalPop').modal('show');
+      });
+      $(".btn-unsend").click(async function(e){
+        e.preventDefault();
+        const id = $(this).attr('id')
+        const res = await axios.post(`/admin-request/unsend/${id}`);
+        location.reload();
       });
     });
   </script>
