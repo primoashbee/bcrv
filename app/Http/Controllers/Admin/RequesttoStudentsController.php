@@ -166,4 +166,15 @@ class RequesttoStudentsController extends Controller
         return response()->download($path, $filename, $headers);
     }
 
+
+    public function unsend($id)
+    {
+        RequeststoStudents::findOrFail($id)->unsend();
+        Session::flash('statuscode', 'success');
+        Session::flash('status', 'Request usent!');
+
+        return response()->json([], 200);
+    }
+
+
 }

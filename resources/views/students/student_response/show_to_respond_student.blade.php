@@ -216,7 +216,7 @@
 <!-- Page specific script -->
 <script>
     $(function () {
-      alert()
+    //   alert()
       // bsCustomFileInput.init();
     });
 </script>

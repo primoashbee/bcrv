@@ -17,7 +17,7 @@
         <div class="info-box">
           <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">Pending Requests</span>
+            <span class="info-box-text"><a href="/show_requests_students">Pending Requests</a></span>
             <span class="info-box-number">
               @foreach($request_students as $request_student)
                 {{$request_student->student_pending_count}}
@@ -48,7 +48,7 @@
         <div class="info-box mb-3">
           <span class="info-box-icon bg-success elevation-1"><i class="fas fa-clock"></i></span>
           <div class="info-box-content">
-            <span class="info-box-text">Received Documents</span>
+            <span class="info-box-text"><a href="/show_requests_from_admins">Received Documents</a></span>
             <span class="info-box-number">
               @foreach($request_students as $request_student)
                 {{$request_student->student_received_count}}

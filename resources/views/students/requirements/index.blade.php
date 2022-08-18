@@ -89,12 +89,54 @@
   </div>
   </div>
 </div>
+<div class="modal fade" id="document_guidelines">
+  <div class="modal-dialog modal-lg">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h4 class="modal-title" id="modal_title">Document Guidelines</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+        <h5> <b>Scanned Document Guidelines: </b> </h5>
+        <ul>
+        <li> Documents must be colour scans of the original. </li>
+        <li> Academic transcripts or copy of grades must be must be colour scans of the official transcript (digital e-records are not accepted). </li>
+        <li> Scans from a photocopy or a faxed copy are not accepted. </li>
+        <li> Documents must be scanned at the original size. </li>
+        <li> Trainees must ensure no part or pages of the document are missing. </li>
+        <li> Where a document has stamps, seals or text on both sides of the page then both sides must be scanned. </li>
+        <li> Scanned documents must be in one of the following formats: pdf, jpg, jpeg, or png. </li>
+        <li> Documents saved in the following file types will not be accepted: dot, gif, ppt or zip. </li>
+        
+        </ul>
+        <hr>
+        <span><i> Alternatively, you may use a mobile device to take a digital photograph of your documents. </i> </span> <br> <br>
+        <h5> <b>Photographed Document Guidelines: </b> </h5>
+        <li> Documents must be photographed from the original and in colour. </li>
+        <li> Documents must be placed on a flat background when photographed. </li>
+        <li> Documents must be placed on a plain background when photographed. </li>
+        <li> Information in the photograph must be clear and legible. </li>
+        <li> Information in the photograph must not be obstructed (for example, by your fingers or a shadow). </li>
+        <li> Trainees must ensure no part or pages of the document are missing. </li>
+        <li> Where a document has stamps, seals or text on both sides of the page then both sides must be photographed. </li>
+        <li> Photographed documents must be in one of the following formats: pdf, jpg, jpeg, png. </li>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+  </div>
+</div>
 <div class="">
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">Requirements - {{$level}}</h3>
           <br>
-          <span><i> <span style="color:red">*</span> is required </i> </span>
+          <span><i> <span style="color:red">*</span> is required </i> </span><br>
+          <span><i> <b>IMPORTANT</b>: To avoid rejection, please make sure that the scanned copy of your document is clear and legible." (Click <a href="#" id="linkToGuidelines"> Here </a> about document guidelines)  </i> </span>
         </div>
         <div class="card-body">
             <form action ="{{route('requirements.student.store')}}" enctype="multipart/form-data" method="POST">
@@ -106,9 +148,10 @@
                         @if($item->requirement->mandatory)<span style="color:red">*</span> @endif  
                         
                     </label>
-                    @if($item->status != 3)
+                    @if($item->hasUploaded())
                       <a href="{{route('requirements.view', $item->id)}}" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
                       <a href="{{route('requirements.download', $item->id)}}"  class="badge badge-success"><i class="fa fa-download"></i></a>
+                      <span> Submitted on: {{$item->updated_at->diffForHumans()}}</span>                    
                     @endif
 
                     <div class="custom-file">
@@ -175,8 +218,20 @@
               //replace the "Choose a file" label
               $(this).next('.custom-file-label').html(fileName);
         })
+        $('#push-menu-hamburger').click(function(e){
+          const el = $('body'); 
+          if(el.hasClass('sidebar-collapse')){
+            el.removeClass('sidebar-collapse')
+          }else{
+            el.addClass('sidebar-collapse')
 
+          }
+        })
+      $("#linkToGuidelines").click(function(){
+        $('#document_guidelines').modal('show')
+      });
     })
+
     //   $('#addButton').click(function(){
     //     $('#formSubmit').attr('action','{{route('requirements.store')}}')
     //     $('#name').val('')

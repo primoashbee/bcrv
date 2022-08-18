@@ -35,7 +35,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button" id="push-menu-hamburger"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
 
@@ -100,7 +100,7 @@
           
           <li class="nav-item">
             <a href="{{ route('requirements') }}" class="nav-link {{ 'requirements' == request()->path() ? 'active' : '' }}">
-              <i class="far fa-list nav-icon"></i>
+              <i class="fa fa-list nav-icon"></i>
               <p>Requirements</p>
             </a>
           </li>

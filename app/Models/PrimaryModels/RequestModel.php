@@ -60,6 +60,11 @@ class RequestModel extends Model
         ];
     }
 
+
+    public function isUnSendable(){
+
+    }
+
     public function unsend()
     {
         $this->update([

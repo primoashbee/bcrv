@@ -74,10 +74,20 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    $('#push-menu-hamburger').click(function(e){
+          const el = $('body'); 
+          if(el.hasClass('sidebar-collapse')){
+            el.removeClass('sidebar-collapse')
+          }else{
+            el.addClass('sidebar-collapse')
+
+          }
+        })
+    // $("#example1").DataTable({
+    //   "responsive": true, "lengthChange": false, "autoWidth": false,
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
 </script>
 @endsection

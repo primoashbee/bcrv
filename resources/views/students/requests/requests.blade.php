@@ -123,6 +123,8 @@
                                     <a href="#" type="button" class="btn-sm btn-primary bg-danger btn-delete" id="{{$item->id}}">
                                         <i class="fa fa-trash" style="padding: 10px;"></i>
                                     </a>
+
+                                    
                                     {{-- <a href="/receive_request/{{ $item->id }}" type="button" class="btn-sm btn-primary bg-success">
                                         <i class="fa fa-download" style="padding: 10px;"></i> 
                                     </a>    --}}
@@ -163,9 +165,6 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- AdminLTE App -->
-<script src="{{ asset('admin_assets/dist/js/adminlte.js') }}"></script>
-
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('admin_assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -184,10 +183,19 @@
 <!-- Page specific script -->
 <script>
   $(function () {
+    $('#push-menu-hamburger').click(function(e){
+        const el = $('body'); 
+        if(el.hasClass('sidebar-collapse')){
+          el.removeClass('sidebar-collapse')
+        }else{
+          el.addClass('sidebar-collapse')
+
+        }
+      })
     $('.btn-delete').click(function(){
             const id = $(this).attr('id')
             Swal.fire({
-                    title: 'Do you want to save the changes?',
+                    title: 'Are you sure you want to delete this request?',
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     cancelButtonText: `Cancel`,

@@ -255,6 +255,9 @@ use App\Http\Middleware\StudentMiddleware;
             //Requests from Admins
             //Route to show requests page
             Route::get('/show_requests_from_admins', 'Admin\RequesttoStudentsController@show_requests_from_admins')->name('student.request.from.admin');
+            
+            
+            Route::post('/admin-request-to-student/unsend/{id}', 'Admin\RequesttoStudentsController@unsend');
             //Route to show the page to respond to the request
             Route::get('/respond_to_request_from_admin/{id}', 'Admin\RequesttoStudentsController@respond_to_request_from_admin')->name('request.from.admin.view');
             //Route for responding to request from  admin

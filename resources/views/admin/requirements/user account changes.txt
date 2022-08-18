@@ -1,0 +1,70 @@
+USER ACCOUNT
+
+x Dashboard
+-yung mga dynamic summary box dapat po clickable rin and madadirect rin sa page accordingly gaya sa dashboard ni admin
+
+
+? Notification
+-pag galing po sa BCRV Request, may lumalabas pa pong "bcrvschooldocs.online says" ok
+// needs sample
+x Logout
+-Nawawala po yung logout pag nasa pages ng List of Requests, Requests from Admin saka Profile
+
+
+Student|Requirements
+
+x -Pwede po bang lalabas lang ang preview at download button kapag nakapagsubmit na si student ng requirement? Para hindi po nag eerror pag tinatry iclick ang mga buttons na yon pag wala pang upload
+x -tas pwede po bang pag nakapagsubmit na ng requirement, makikita po yung date of submission tas lalabas na po parang ganito po,
+Submitted 1 file, (Date of submission), (Status) preview button, download button
+x-Di po gumagana yung hamburger icon dito to show the side bar
+
+-Yung sa may *required po pwede padagdag po etong note na ito po:
+
+"IMPORTANT: To avoid rejection, please make sure that the scanned copy of your document is clear and legible." (See scanned document guidelines.-Italic, clickable) 
+-will go to another page, pure text lang po eto:
+
+
+Scanned Document Guidelines:
+
+●Documents must be colour scans of the original.
+●Academic transcripts or copy of grades must be must be colour scans of the official transcript (digital e-records are not accepted).
+●Scans from a photocopy or a faxed copy are not accepted.
+●Documents must be scanned at the original size.
+●Trainees must ensure no part or pages of the document are missing.
+●Where a document has stamps, seals or text on both sides of the page then both sides must be scanned.
+●Scanned documents must be in one of the following formats: pdf, jpg, jpeg, or png
+●Documents saved in the following file types will not be accepted: dot, gif, ppt or zip
+
+Alternatively, you may use a mobile device to take a digital photograph of your documents.
+
+Photographed Document Guidelines:
+
+●Documents must be photographed from the original and in colour.
+
+●Documents must be placed on a flat background when photographed.
+
+●Documents must be placed on a plain background when photographed.
+
+●Information in the photograph must be clear and legible.
+
+●Information in the photograph must not be obstructed (for example, by your fingers or a shadow).
+
+●Trainees must ensure no part or pages of the document are missing.
+
+●Where a document has stamps, seals or text on both sides of the page then both sides must be photographed.
+
+●Photographed documents must be in one of the following formats: pdf, jpg, jpeg, png
+
+
+
+x Student|Request
+-Paayos po ng Delete warning message 
+
+
+x Student|Request-Edit
+-Return button is not functional
+-Hamburger icon is not functional
+
+
+wip Student|Request from Admin
+-pwede po ba mag unsend dito?

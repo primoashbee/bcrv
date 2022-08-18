@@ -42,7 +42,8 @@ class StudentRequirementController extends Controller
             $student_requirement->update([
                 'status' => StudentRequirement::PENDING,
                 'path'   => $email,
-                'filename' => "$user->first_name - $requirement.png"
+                'filename' => "$user->first_name - $requirement.png",
+                'updated_at' => now()
             ]);
             $admin->notify(new StudentRequirementUploadedNotification($student_requirement, true));
 
