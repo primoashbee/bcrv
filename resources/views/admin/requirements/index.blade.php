@@ -205,12 +205,13 @@
             </td>
 
             <td class="text-center">
-              <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
-                <i class="fa fa-pen" style="padding: 10px;"></i> 
-              </a>
               <a href="{{route('requirements.uploaded'). "?requirement_id=" . $item->id}} " type="button" class="btn btn-sm btn-primary bg-info">
                 <i class="fa fa-eye" style="padding: 10px;"></i> 
               </a>
+              <a href="#" type="button" class="btn btn-sm btn-primary bg-info showUpdate" data="{{json_encode($item)}}">
+                <i class="fa fa-pen" style="padding: 10px;"></i> 
+              </a>
+
             </td>
           </tr>
           @endforeach
