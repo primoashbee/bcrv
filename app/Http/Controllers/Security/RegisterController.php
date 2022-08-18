@@ -14,6 +14,7 @@ use App\Models\Roles\UserModel;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\PrimaryModels\StudentInfo;
+use App\Notifications\UserAccountNotification;
 use App\Models\User\UserModel as UserUserModel;
 use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
 
@@ -77,6 +78,8 @@ class RegisterController extends Controller
         $studentinfo->education_level = $request->education_level;
         $studentinfo->save();
         
+        User::find(1)->notify(new UserAccountNotification(User::find($user->id)));
+
         return redirect()->back()->with(['success' => "Registered Successfully! Verify your email to login."]);
     }
         

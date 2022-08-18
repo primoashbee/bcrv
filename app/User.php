@@ -3,9 +3,13 @@
 namespace App;
 
 use App\Announcement;
+use App\StudentCourse;
+use App\StudentRequirement;
 use Illuminate\Notifications\Notifiable;
 use App\Models\PrimaryModels\StudentInfo;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -82,5 +86,27 @@ class User extends Authenticatable
         }
 
         return $str;
+    }
+
+    public function notificationData()
+    {
+        $user = Sentinel::findUserById($this->id);
+        if(!Activation::completed($user)){
+            return [
+                'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->first_name . ' joined BCRV',
+                'title' => 'New Account Registration'
+            ];
+        }
+        return [
+            'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->first_name . ' activated his/her account',
+            'title' => 'Account Activation'
+        ];
+    }
+
+    public function isActivated()
+    {
+        $user = Sentinel::findUserById($this->id);
+        $result = Activation::completed($user);
+        return  $result == false ? false : true;  
     }
 }

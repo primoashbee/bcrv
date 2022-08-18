@@ -68,3 +68,7 @@ x Student|Request-Edit
 
 x wip Student|Request from Admin
 -pwede po ba mag unsend dito?
+
+
+Add notification when new user arrived
+Regex on Firstname
