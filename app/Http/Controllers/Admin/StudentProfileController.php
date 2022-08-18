@@ -36,12 +36,16 @@ class StudentProfileController extends Controller
         $student_course = str_replace($skips, ' ',$student->pluck('student_course'));
         $student_year = str_replace($skips, ' ',$student->pluck('student_year'));
         $contact_number = str_replace($skips, ' ',$student->pluck('contact_number'));
-        
+        $batches = range(1,10);
+        $years = range(now()->subYears(20)->year,now()->year);
+
         return view('students.profile.profile')->with('student_name', $student_name)
                                             ->with('student_course', $student_course)
                                             ->with('student_year', $student_year)
                                             ->with('contact_number', $contact_number)
                                             ->with('courses', $courses)
+                                            ->with('batches', $batches)
+                                            ->with('years', $years)
                                             ->with('user', $user);
     }
 

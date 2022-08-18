@@ -71,18 +71,31 @@
 
                 </div>
               </div>
+
+
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label>Batch</label>
-                  <input name="batch" type="text" class="form-control" value="{{ $user->batch }}">
+                    <label for="school_year">Year</label>
+                    <select  class="custom-select form-control" id="school_year" name="school_year">
+                        @foreach($years as $year)
+                        <option value="{{$year}}"> {{$year}}</option>
+                        @endforeach
+                    </select>
                 </div>
-              </div>
-              <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
                 <div class="form-group">
-                  <label>School Year</label>
-                  <input name="school_year" type="text" class="form-control" value="{{ $user->school_year }}">
+                    <label for="batch">Batch</label>
+                    <select class="custom-select form-control" id="batch" name="batch">
+                        @foreach($batches as $batch)
+                        <option value="{{$batch}}"> {{$batch}}</option>
+                        @endforeach
+                    </select>
                 </div>
-              </div>
+            </div>
+
+
+
             </div>
             <div class="row">
               <div class="col-sm-6">
@@ -138,6 +151,8 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <script>
     $(function () {
+      $("#batch").val(@json($user->batch))
+      $("#school_year").val(@json($user->school_year))
       $('#push-menu-hamburger').click(function(e){
         const el = $('body'); 
         if(el.hasClass('sidebar-collapse')){

@@ -4,9 +4,9 @@ x Dashboard
 -yung mga dynamic summary box dapat po clickable rin and madadirect rin sa page accordingly gaya sa dashboard ni admin
 
 
-? Notification
+x Notification
 -pag galing po sa BCRV Request, may lumalabas pa pong "bcrvschooldocs.online says" ok
-// needs sample
+
 x Logout
 -Nawawala po yung logout pag nasa pages ng List of Requests, Requests from Admin saka Profile
 
@@ -66,5 +66,5 @@ x Student|Request-Edit
 -Hamburger icon is not functional
 
 
-wip Student|Request from Admin
+x wip Student|Request from Admin
 -pwede po ba mag unsend dito?
