@@ -26,7 +26,7 @@ class CreateStudentinfoTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('student_info')->insert(['alternate_id' => 1000000, 'name' => 'default_Student','education_level'=>'College']);
+        // DB::table('student_info')->insert(['alternate_id' => 1000000, 'name' => 'default_Student','education_level'=>'College']);
     }
 
     /**

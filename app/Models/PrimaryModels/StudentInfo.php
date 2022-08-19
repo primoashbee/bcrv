@@ -13,6 +13,9 @@ class StudentInfo extends Model
     // protected $fillable = ['alternate_id', 'email', 'name', 'course', 'year', 'contact_number','education_level'];
     protected $guarded  = [];
     const EDUCATION_LEVEL = ['High School','College','College Undergrad','ALS'];
+    const STARTING_ALTERNATE_ID = 1000000;
+
+    
     protected static function boot()
     {
         parent::boot();
@@ -36,5 +39,13 @@ class StudentInfo extends Model
     public function getNameAttribute()
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    public static function generateAlternateID()
+    {
+        if(self::count() > 0){
+            return self::orderBy('id','desc')->first()->alternate_id + 1;
+        }
+        return self::STARTING_ALTERNATE_ID;
     }
 }

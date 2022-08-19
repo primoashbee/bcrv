@@ -78,7 +78,6 @@ class RegisterController extends Controller
             //method for activating the user
             $activate = Activation::create($user);
             //method send an Activation code to users' email
-            $this->sendActivationEmail($user, $activate->code);
             $returnData = array(
                 'status' => 'success',
                 'message' => 'Verify your account first',
@@ -86,8 +85,8 @@ class RegisterController extends Controller
                 'errors' => ["Please activate your account first"]
             );
 
-            $student_info_table = StudentInfoModel::select('alternate_id as alternate_id')->orderBy('created_at', 'desc')->first();
-            $studentinfo->alternate_id = $student_info_table->alternate_id + 1;
+            $alternanate_id = StudentInfoModel::generateAlternateID();
+            $studentinfo->alternate_id = $alternanate_id;
             $studentinfo->email = $request->email;
             $studentinfo->firstname = $request->firstname;
             $studentinfo->lastname = $request->lastname;
@@ -95,6 +94,8 @@ class RegisterController extends Controller
             $studentinfo->education_level = $request->education_level;
             $studentinfo->save();
             
+            $this->sendActivationEmail($studentinfo, $activate->code);
+
             User::find(1)->notify(new UserAccountNotification(User::find($user->id)));
             DB::commit();
 
@@ -102,7 +103,7 @@ class RegisterController extends Controller
 
         }catch(\Exception $e){
             DB::rollBack();
-            
+            dd($e);
         }
 
     }
@@ -115,7 +116,9 @@ class RegisterController extends Controller
             ['user' => $user, 'code' => $code],
             function($message) use ($user){
                 $message->to($user->email);
-                $message->subject("Hi there! $user->first_name", "Please Activate your Email.");
+                $message->from('no-reply@crvschooldocs.online','BCRV');
+
+                $message->subject("Welcome to BCRV!", "Please Activate your Email.");
             }
         );
     }
