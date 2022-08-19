@@ -15,7 +15,7 @@
                  src="{{ asset('admin_assets/dist/img/user.png') }}"
                  alt="User profile picture">
           </div>
-          <h3 class="profile-username text-center">{{  Sentinel::getUser()->first_name }}</h3>
+          <h3 class="profile-username text-center">{{  Sentinel::getUser()->name }}</h3>
           <p class="text-muted text-center">STDNT-{{ $user->alternate_id }}</p>
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
@@ -44,12 +44,19 @@
           {{ csrf_field() }} 
           {{ method_field('PUT') }}
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-6">
                 <div class="form-group">
-                  <label>Full Name</label>
-                  <input type="text" name="full_name" class="form-control" value="{{ Sentinel::getUser()->first_name }}">
+                  <label>First Name</label>
+                  <input type="text" name="firstname" class="form-control" value="{{ $user->firstname }}">
                 </div>
               </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input type="text" name="lastname" class="form-control" value="{{ $user->lastname }}">
+                </div>
+              </div>
+
             </div>
             <div class="row">
               <div class="col-sm-6">

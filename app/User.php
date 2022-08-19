@@ -109,4 +109,10 @@ class User extends Authenticatable
         $result = Activation::completed($user);
         return  $result == false ? false : true;  
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'role_users');
+        // return $this->hasManyThrough(Role::class, RoleUser::class, 'role_id','id','thirdkey','role_id');
+    }
 }

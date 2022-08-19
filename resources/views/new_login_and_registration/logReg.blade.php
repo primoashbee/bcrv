@@ -104,11 +104,18 @@
                 <div class="input-wrap">
                   <input
                     type="text"
-                    name="first_name"
-                    class="input-field active"
-                    placeholder="Lastname, Firstname MI, Suffix"
+                    name="firstname"
+                    class="input-field"
                   />
-                  <label>Complete Name</label>
+                  <label> First Name</label>
+                </div>
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    name="lastname"
+                    class="input-field"
+                  />
+                  <label> Last Name</label>
                 </div>
 
                 <div class="input-wrap">

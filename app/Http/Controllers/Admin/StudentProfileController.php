@@ -38,7 +38,6 @@ class StudentProfileController extends Controller
         $contact_number = str_replace($skips, ' ',$student->pluck('contact_number'));
         $batches = range(1,10);
         $years = range(now()->subYears(20)->year,now()->year);
-
         return view('students.profile.profile')->with('student_name', $student_name)
                                             ->with('student_course', $student_course)
                                             ->with('student_year', $student_year)
@@ -88,7 +87,9 @@ class StudentProfileController extends Controller
             ]);
           }
           $user->studentInfo->update([
-            'name' => $request->input('full_name'),
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'name' => "{$request->input('firstname')} {$request->input('lastname')}",
             'school_year' => $request->input('school_year'),
             'batch' => $request->input('batch'),
             'contact_number' => $request->input('contact_number'),

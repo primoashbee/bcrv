@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use App\Http\Controllers\Controller;
+use App\Models\PrimaryModels\StudentInfo;
 use App\Models\Roles\RoleModel;
 use App\Models\RoleUser\RoleUsers;
 use Sentinel;
@@ -17,6 +18,7 @@ class UserController extends Controller
     // show users page
     public function show_users() {
         $users = Sentinel::getUserRepository()->with('roles')->get();
+        $users = User::has('studentInfo')->with('roles','studentInfo')->get();
         return view('admin.users.users')->with('users', $users);
     }
 

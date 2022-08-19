@@ -138,6 +138,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Student No.</th>
+                        <th>E-mail</th>
                         <th>Complete Name</th>
                         <th>Course</th>
                         <th>Year</th>

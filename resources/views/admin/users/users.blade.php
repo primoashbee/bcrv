@@ -65,7 +65,7 @@
                     @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->first_name }}</td>
+                        <td>{{ $user->studentInfo->name }}</td>
                         {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>

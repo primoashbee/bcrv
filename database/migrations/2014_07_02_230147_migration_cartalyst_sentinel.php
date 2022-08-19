@@ -137,7 +137,8 @@ class MigrationCartalystSentinel extends Migration
         $user = Sentinel::register(array(
             'email'    => 'admin@bcrv.com.ph',
             'password' => 'p@ssw0rd',
-            'first_name' => 'Administrator',
+            'firstname' => 'Administrator',
+            'lastname' => 'Account',
         ));
 
         $role = Sentinel::findRoleByID($roleID);
