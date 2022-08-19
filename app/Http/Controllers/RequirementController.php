@@ -31,8 +31,8 @@ class RequirementController extends Controller
         }
 
         $user_id = $user->id;
-        $level = StudentInfo::find($user_id)->education_level;
-
+        $level = StudentInfo::where('email', $user->email)->first()->education_level;
+        
         $list  = Requirement::active()->where('education_level',$level)->get();
         $requirements = $list->pluck('id')->toArray();
         $existing     = User::find($user->id)->studentRequirements->pluck('requirement_id')->toArray();
