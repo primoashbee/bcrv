@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="modal fade" id="modal-lg">
-  <div class="modal-dialog modal-m">
+  <div class="modal-dialog modal-lg">
   <div class="modal-content">
       <div class="modal-header">
       <h4 class="modal-title" id="modal_title">Add New Announcement</h4>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label for="description">Description</label>
                               {{-- <input type="file" name="fileupload[]" class="custom-file-input" id="exampleInputFile"> --}}
-                              <textarea type="textarea" class="form-control" name="description" id="description" rows="5" required>
+                              <textarea type="textarea" class="form-control" name="description" id="description" rows="15" required>
 
                               </textarea>
                         </div>
