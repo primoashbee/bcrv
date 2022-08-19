@@ -93,7 +93,7 @@
               <a href="#" class="nav-link">
                 <img src="{{ asset('admin_assets/dist/img/admin.jpg') }}" class="nav-icon img-circle elevation-2" alt="User Image">
                 <p class="text-sm">
-                  {{ Sentinel::getUser()->first_name }}
+                  {{ 'Administrator' }}
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
