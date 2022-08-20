@@ -81,7 +81,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
-                        <th>Student Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
 
                         <th>Document Name</th>
                         <th>Request Date</th>
@@ -96,7 +97,8 @@
                     <tr>
                         <td>{{ $request->id }}</td>
                         <td>STDNT-{{ $request->user->studentInfo->alternate_id }}</td>
-                        <td>{{ $request->user->studentInfo->name }}</td>
+                        <td>{{ $request->user->studentInfo->firstname }}</td>
+                        <td>{{ $request->user->studentInfo->lastname }}</td>
                         <td>{{ $request->document_name }}</td>
                         <td>{{ $request->date_of_request }}</td>
                         <td>{{ $request->request_from }}</td>
@@ -132,7 +134,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
-                        <th>Student Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+
                         <th>Document Name</th>
                         <th>Request Date</th>
                         <th>Request from</th>

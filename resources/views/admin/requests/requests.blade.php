@@ -18,7 +18,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
-                        <th>Student Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Course</th>
                         <th>Batch</th>
                         <th>School Year</th>
@@ -37,7 +38,8 @@
                     <tr>
                         <td>{{ $request->id }}</td>
                         <td>STDNT-{{ $request->student_id }}</td>
-                        <td>{{ $request->studentInfo->name }}</td>
+                        <td>{{ $request->studentInfo->firstname }}</td>
+                        <td>{{ $request->studentInfo->lastname }}</td>
                         <td>{{ $request->studentInfo->course }}</td>
                         <td>{{ $request->studentInfo->batch }}</td>
                         <td>{{ $request->studentInfo->school_year }}</td>
@@ -92,7 +94,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
-                        <th>Student Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Course</th>
                         <th>Batch</th>
                         <th>School Year</th>
