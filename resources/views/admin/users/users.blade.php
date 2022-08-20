@@ -66,10 +66,11 @@
                     @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
+                        <td>{{ $user->email }}</td>
+
                         <td>{{ $user->studentInfo->firstname }}</td>
                         <td>{{ $user->studentInfo->lastname }}</td>
                         {{-- <td>{{ $user->designation }}</td> --}}
-                        <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>
                         @foreach($user->roles as $roles)
                             <td>- {{ $roles->name }}</td>
@@ -94,10 +95,11 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
+                        <th>Email</th>
+
                         <th>First Name</th>
                         <th>Last Name</th>
                         {{-- <th>Designation</th> --}}
-                        <th>Email</th>
                         <th>Phone Number</th>
                         <th>Role</th>
                         <th>Status</th>
