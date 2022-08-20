@@ -24,7 +24,7 @@ class StudentController extends Controller
         $students = StudentInfoModel::findOrfail($id);
         $courses = CourseModel::all();
         $batches = range(1,10);
-        $years = range(now()->subYears(20)->year,now()->year);
+        $years = range(now()->year, 2019);
         return view('admin.students.edit_student')->with('students', $students)
                                                 ->with('batches', $batches)
                                                 ->with('years', $years)

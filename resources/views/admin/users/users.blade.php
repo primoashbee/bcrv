@@ -52,7 +52,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Complete Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>
@@ -65,7 +66,8 @@
                     @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->studentInfo->name }}</td>
+                        <td>{{ $user->studentInfo->firstname }}</td>
+                        <td>{{ $user->studentInfo->lastname }}</td>
                         {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>
@@ -92,7 +94,8 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Complete Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         {{-- <th>Designation</th> --}}
                         <th>Email</th>
                         <th>Phone Number</th>

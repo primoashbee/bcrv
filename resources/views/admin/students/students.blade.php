@@ -96,7 +96,8 @@
                         <th>ID</th>
                         <th>Student No.</th>
                         <th>Email</th>
-                        <th>Complete Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Course</th>
                         {{-- <th>Year</th> --}}
                         <th>Batch</th>
@@ -112,7 +113,8 @@
                         <td>{{ $student->id }}</td>
                         <td>STDNT-{{ $student->alternate_id }}</td>
                         <td>{{ $student->email }}</td>
-                        <td>{{ $student->name }}</td>
+                        <td>{{ $student->firstname }}</td>
+                        <td>{{ $student->lastname }}</td>
                         <td>{{ $student->user->courseList}}</td>
                         {{-- <td>{{ $student->year }}</td> --}}
                         <td> {{$student->batch}}</td>
@@ -139,7 +141,8 @@
                         <th>ID</th>
                         <th>Student No.</th>
                         <th>E-mail</th>
-                        <th>Complete Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Course</th>
                         <th>Year</th>
                         <th>Contact</th>
