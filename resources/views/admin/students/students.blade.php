@@ -95,7 +95,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Student No.</th>
-                        <th>Email</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Course</th>
@@ -103,6 +102,8 @@
                         <th>Batch</th>
                         <th>School Year</th>
                         <th>Contact</th>
+                        <th>Email</th>
+
                         <th>Account</th>
                         <th>Actions</th>
                     </tr>
@@ -112,7 +113,6 @@
                     <tr>
                         <td>{{ $student->id }}</td>
                         <td>STDNT-{{ $student->alternate_id }}</td>
-                        <td>{{ $student->email }}</td>
                         <td>{{ $student->firstname }}</td>
                         <td>{{ $student->lastname }}</td>
                         <td>{{ $student->user->courseList}}</td>
@@ -120,6 +120,8 @@
                         <td> {{$student->batch}}</td>
                         <td> {{$student->school_year}}</td>
                         <td>{{ $student->contact_number }}</td>
+                        <td>{{ $student->email }}</td>
+
                         @if ($student->status == 0)
                             <b><td class="text-danger">Inactive</td></b>
                         @else
@@ -140,13 +142,14 @@
                     <tr>
                         <th>ID</th>
                         <th>Student No.</th>
-                        <th>E-mail</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Course</th>
+                        <th>Batch</th>
                         <th>Year</th>
                         <th>Contact</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
+
                         <th>Account</th>
                         <th>Actions</th>
                     </tr>
