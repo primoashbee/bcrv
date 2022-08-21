@@ -94,7 +94,7 @@ class StudentRequirement extends Model
         }
 
         return [
-            'message' => $this->student->first_name . ' uploaded a requirement - ' . $this->requirement->name  . ' ( '. $this->filename.' )',
+            'message' => $this->student->studentInfo->name . ' uploaded a requirement - ' . $this->requirement->name  . ' ( '. $this->filename.' )',
             'title' => 'Requirement Upload'
         ];
 

@@ -93,12 +93,12 @@ class User extends Authenticatable
         $user = Sentinel::findUserById($this->id);
         if(!Activation::completed($user)){
             return [
-                'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->first_name . ' joined BCRV',
+                'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->studentInfo->name . ' joined BCRV',
                 'title' => 'New Account Registration'
             ];
         }
         return [
-            'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->first_name . ' activated his/her account',
+            'message' => '[STDNT-'.$this->studentInfo->alternate_id.']'.$this->studentInfo->name. ' activated his/her account',
             'title' => 'Account Activation'
         ];
     }

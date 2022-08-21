@@ -42,7 +42,7 @@ class RequeststoStudents extends Model
             // }
             // if($this->status == 'finished'){
             return [
-                'message' => $user->first_name . ' uploaded a document (' . $this->document_name . ')',
+                'message' => $user->studentInfo->name . ' uploaded a document (' . $this->document_name . ')',
                 'title' => 'BCRV Request'
             ];
             // }
