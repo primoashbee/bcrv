@@ -119,7 +119,7 @@
                 @foreach($list as $item)
                     <tr>
                         <td class="">{{$item->requirement->name}}</td>
-                        <td class="">{{$item->student->first_name}}</td>
+                        <td class="">{{$item->student->name}}</td>
                         <td class="text-center">{{$item->student->studentInfo->education_level}}</td>
                         <td class="text-center">
                             @if($item->status == 1)
