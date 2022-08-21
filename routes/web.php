@@ -193,6 +193,8 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/request/admin/view/{id}', 'Admin\RequesttoStudentsController@view')->name('request.to.student.view');
         Route::get('/request/admin/download/{id}', 'Admin\RequesttoStudentsController@download')->name('request.to.student.download');
         Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
+        Route::get('/download_request/{id}', 'Admin\StudentRequestController@download')->name('request.download');
+
 
     });
 
@@ -218,7 +220,6 @@ use App\Http\Middleware\StudentMiddleware;
 
             //Route to show requests page
             Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
-            Route::get('/download_request/{id}', 'Admin\StudentRequestController@download')->name('request.download');
             //Route for adding a new request 
             Route::post('/add_request_students', 'Admin\StudentRequestController@add_request_students');  
             //Route to show the page to edit the request
