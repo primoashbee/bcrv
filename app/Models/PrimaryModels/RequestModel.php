@@ -80,7 +80,7 @@ class RequestModel extends Model
     {
         return Carbon::parse($this->date_of_request)->format('D, M-d-Y h:i A');
     }
-    public function getReleaseDateAttribute()
+    public function releaseDateFormat()
     {
         return Carbon::parse($this->release_date)->format('D, M-d-Y h:i A');
     }
