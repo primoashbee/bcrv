@@ -82,7 +82,9 @@ class RequestModel extends Model
     }
     public function getReleaseDateAttribute()
     {
-        // dd();
+        if(is_null($this->getOriginal('release_date'))){
+            return null;
+        }
         return Carbon::parse($this->getOriginal('release_date'))->format('D, M-d-Y h:i A');
     }
 }
