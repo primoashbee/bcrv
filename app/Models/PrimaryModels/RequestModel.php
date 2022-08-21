@@ -2,6 +2,7 @@
 
 namespace App\Models\PrimaryModels;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -73,5 +74,14 @@ class RequestModel extends Model
         ]);
 
         return $this;
+    }
+
+    public function requestDateFormat()
+    {
+        return Carbon::parse($this->date_of_request)->format('D, M-d-Y h:i A');
+    }
+    public function getReleaseDateAttribute()
+    {
+        return Carbon::parse($this->release_date)->format('D, M-d-Y h:i A');
     }
 }
