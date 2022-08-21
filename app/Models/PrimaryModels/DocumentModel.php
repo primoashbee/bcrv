@@ -14,6 +14,7 @@ class DocumentModel extends Model
 
     public function getSignedNameAttribute()
     {
-        return $this->signed ? "Signed" : "Non-signable";
+        // return $this->signed ? "Signed" : "Non-signable";
+        return $this->signed ? "Signed" : "Need not to be signed";
     }
 }
