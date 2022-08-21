@@ -76,12 +76,13 @@ class RequestModel extends Model
         return $this;
     }
 
-    public function requestDateFormat()
+    public function getDateOfRequestAttribute()
     {
-        return Carbon::parse($this->date_of_request)->format('D, M-d-Y h:i A');
+        return Carbon::parse($this->getOriginal('date_of_request'))->format('D, M-d-Y h:i A');
     }
-    public function releaseDateFormat()
+    public function getReleaseDateAttribute()
     {
-        return Carbon::parse($this->release_date)->format('D, M-d-Y h:i A');
+        // dd();
+        return Carbon::parse($this->getOriginal('release_date'))->format('D, M-d-Y h:i A');
     }
 }
