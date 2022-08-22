@@ -22,10 +22,10 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Course</label>
-                                    <select name="course" class="form-control select2" style="width: 100%; height: 100%;">
-                                        <option selected value="{{ $students->course }}">{{ $students->course }}</option>
+                                    
+                                    <select name="courses[]" id="courses" class="form-control select2" multiple style="width: 100%; height: 100%;">
                                         @foreach ($courses as $course)
-                                            <option value="{{ $course->course_name }}">{{ $course->course_name }}</option>
+                                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -79,6 +79,9 @@
     $(function(){
         $("#batch").val(@json($students->batch))
         $("#school_year").val(@json($students->school_year))
+        @if($students->user->courses->count() > 0)
+        $("#courses").val(@json($students->user->courses->pluck('course_id')->toArray()))
+        @endif
     })
 </script>
 @endsection

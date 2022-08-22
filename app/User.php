@@ -87,6 +87,7 @@ class User extends Authenticatable
 
         return $str;
     }
+    
 
     public function notificationData()
     {

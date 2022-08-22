@@ -36,13 +36,21 @@ class StudentController extends Controller
     public function edit_student(Request $request, $id)
     {
         $students = StudentInfoModel::findOrfail($id);    
-        $students->course = $request->input('course');
+        // $students->course = $request->input('course');
         // $students->year = $request->input('year');
         $students->status = $request->input('status');
         $students->batch = $request->input('batch');
         $students->school_year = $request->input('school_year');
 
         $students->update();
+        if(count($request->courses) > 0){
+            $students->user->courses()->delete();
+            foreach($request->courses as $course_id){
+                $students->user->courses()->create(
+                    ['course_id'=>$course_id]
+                );
+            }
+        }
         Session::flash('statuscode', 'info');
         return redirect('show_students')->with('status', 'Data Updated Successfully!');
     }
