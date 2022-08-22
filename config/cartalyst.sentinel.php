@@ -230,7 +230,7 @@ return [
 
         'global' => [
 
-            'interval' => 900,
+            'interval' => 300,
 
             'thresholds' => [
                 10 => 1,
@@ -245,7 +245,7 @@ return [
 
         'ip' => [
 
-            'interval' => 900,
+            'interval' => 300,
 
             'thresholds' => 5,
 
@@ -253,7 +253,7 @@ return [
 
         'user' => [
 
-            'interval' => 900,
+            'interval' => 300,
 
             'thresholds' => 5,
 
