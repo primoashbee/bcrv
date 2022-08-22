@@ -40,7 +40,7 @@
                         <td>STDNT-{{ $request->student_id }}</td>
                         <td>{{ $request->studentInfo->firstname }}</td>
                         <td>{{ $request->studentInfo->lastname }}</td>
-                        <td>{{ $request->studentInfo->course }}</td>
+                        <td>{{ $request->studentInfo->user->courseList }}</td>
                         <td>{{ $request->studentInfo->batch }}</td>
                         <td>{{ $request->studentInfo->school_year }}</td>
                         <td>{{ $request->document->filename }}</td>
