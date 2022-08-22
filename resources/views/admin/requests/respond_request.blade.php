@@ -28,7 +28,7 @@
                                   <select name="processing_officer_name" class="custom-select form-control-border" id="processing_officer">
                                     <option value=""> Please select </option>
                                       @foreach ($users as $user)
-                                          <option value="{{ $user->first_name }}">{{ $user->first_name }}</option>
+                                          <option value="{{ $user['value']}}">{{ $user['label'] }}</option>
                                       @endforeach
                                   </select>
                               </div>

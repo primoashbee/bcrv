@@ -35,8 +35,18 @@ class RequestController extends Controller
     public function show_respond_to_request($id){
         $requests = RequestModel::findOrfail($id);
         $students = StudentInfoModel::all();
-        $role = Sentinel::findRoleBySlug('admin');
-        $users = $role->users()->with('roles')->get();
+        // $role = Sentinel::findRoleBySlug('admin');
+        // $users = $role->users()->with('roles')->get();
+        $users = [
+            [
+                'value'=>'Admin',
+                'label'=>'Admin',
+            ],
+            [
+                'value'=>'Registrar',
+                'label'=>'Registrar'
+            ]
+        ];
         return view('admin.requests.respond_request')
                         ->with('users', $users)
                         ->with('requests', $requests)
