@@ -169,13 +169,16 @@
         position: relative;
         left: 0;
         bottom: 0;
-        padding-top:15px;
-        padding-bottom:10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
         height: 50px;
         width: 100%;
         color: white;
+        text-align: center;
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
+        align-content: space-around;
+        justify-content: space-between;
         "
       >
       <p> 
