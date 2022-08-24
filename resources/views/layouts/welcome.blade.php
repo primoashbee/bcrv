@@ -155,16 +155,28 @@
       </div>
     </section>
 
-    <footer style="
-        position: fixed;
+    {{-- <footer style="
+        position: relative;
         left: 0;
         bottom: 0;
         padding-top:5px;
-        padding-bottom:10px;
-        height: 30px;
+        height: 50px;
         width: 100%;
         color: white;
         text-align: center;"
+      > --}}
+    <footer style="
+        position: relative;
+        left: 0;
+        bottom: 0;
+        padding-top:15px;
+        padding-bottom:10px;
+        height: 50px;
+        width: 100%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        "
       >
       <p> 
         <a href="https://www.facebook.com/bcrvtvi.edu.ph" class="footer-icon"> <i class="fa fa-facebook-square" aria-hidden="true"></i> BCRV Tech-Voc, Inc. </a> | 
