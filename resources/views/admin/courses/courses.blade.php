@@ -118,14 +118,14 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>ID</th>
                         <th>Course Name</th>
                         <th>Duration of Training (Hours)</th>
                         <th>Actions</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
         </div>
         <!-- /.card-body -->

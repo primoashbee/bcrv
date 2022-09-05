@@ -1,0 +1,158 @@
+1. Paremove po lahat ng column names sa bottom ng lahat ng pages na may table.
+
+2. ADMIN ACCOUNT CHANGES
+
+Administrator
+   >Help?
+-Palagyan na lang po muna ng white blank page ito. Dito po ilalagay yung user manual for admin
+   
+•Dashboard (give colors)
+-As per client request, gawin na lang raw pong light colors lang ito. Siguro gawin na lang pong light blue and white
+
+•Requirements
+List of Requirements
+
+-as is
+
+Uploaded Requirements
+
+-As per panel, dapat raw po pag nagsearch ng isang name ng student, lalabas na lahat ng uploaded requirements nya at status (pending, approved or rejected) ng magkakasama. 
+-Search function by Name,Course,Batch, Schoolyear (nakadropdown button po lahat yan para magseselect na lang)
+-Tas eto po madidisplay sa table: Last Name, First Name, Middle Name, Type of Requirement, Date Uploaded, Status, Actions: Edit, View, Download
+-Once maapproved lahat ng requirements ng isang student, magiging visible na sa student account ang Learner's Profile Form (html form, editable) na required nyang ifill out. Pero pag hindi pa approved lahat hindi pa maaaccess o magiging visible kay student ang registration form (Leaner's Profile Form)
+
+•Students
+   >List of Students
+-Search function (x)
+-Table Column Arrangement: 
+(ID-hide), Learner's ID, Last Name, First Name, Middle Name, Extension Name, Course/Qualification, Batch, Schoolyear, Contact No., Email Address, Home Address, Actions: Edit, View Learner's Profile button (Clickable, direct view to the filled out Learner's Profile Form submitted by each student-Must be editable, downloadable and printable by the Admin (show only if learner's profile is completed)
+
+
+•Courses 
+   >Courses/Qualifications Offerings
+-As per client request, parename po ng Course into Course/Qualifications tas paexpand po ng column width neto then bawasan naman ang column width sa Duration of Training
+
+   >Create Batch (max slot, batch #, year)
+   >Batches Action
+
+   >Course (Batch) Enlistment
+
+-Adding form consists of:
+Dropdown buttons of: Name of Student, Course/Qualification, Batch, Schoolyear, then Enroll & Unenroll button
+-Dapat restricted sa 25 students lang ang pwede maiadd sa bawat course and batch, di na pwedeng mag add pa, lalabas "Full Slots", pero pag nag unenroll ng student pwede na ulit mag add hanggat di narireach ang 25 max number of students per course and batch. Tas di rin po pala pwede magduplicate ng same names on the same course.
+-Sa ibaba, Search function
+-Table:
+Courses/Qualifications, Batch (dropdown button), School year (drop down button), Slots (for example 18/25, *permanent ang denominator na 25), Actions: View Class list
+
+•Class Lists (Course Batch List)
+-Dropdown buttons of: Course, Batch, Schoolyear then View Class List button
+-Search function
+-Table: Learner's ID, LastName, FirstName, Training Status(Completed, Not Completed, Back out), Actions: Edit (Status)
+
+•Documents
+   >Documents for Requests
+-as is
+   >Issuance of Training Certificates (!)
+-Dapat lalabas lang po dito lahat ng may Completed status per course/batch
+-Dropdown buttons of: Course, Batch, Schoolyear then View Class List button (Filter)
+-Search function
+-Table: Learner's ID, LastName, FirstName, Middle Name, Extension Name, Training Status, Action: Upload Training Certificate
+-(Magiging visible lang po kay student account ang Training Certificates once maaccomplished nya lahat ng naunang steps
+
+
+•Requests
+    >Requests from Students
+-Table Column Arrangement:
+Learner's ID, Last Name, First Name, Middle Name, Course, Batch, Schoolyear, Document Name, Signature, Request Date, Release Date, Processing Officer, Response Status, Actions (as is)
+
+    >Requests to Students
+-Table Column Arrangement:
+Learner's ID, Last Name, First Name, Middle Name, Document Name, Request Date, Request from, Response Status, Actions (as is)
+
+•Users
+-Table Column Arrangement:
+Learner's ID, Last Name, First Name, Middle Name, Contact No., Email Address, Role, Status (Active, Deactivated) Actions (as is)
+
+
+ADMIN Sidebar
+
+Administrator
+   >Help?
+   >Logout
+•Dashboard
+•Announcement
+•Requirements
+   >List of Requirements
+   >Uploaded Requirements
+•Students
+•Courses
+   > Course/Qualifications Offerings
+   <!-- >Course Enlistment -->
+   > !Course Batches 
+<!-- •Class Lists -->
+•Documents
+   >Documents for Request
+   >Issuance of Certificates
+•Requests
+   >Requests from Students
+   >Request to Students
+•Reports
+•Users
+
+
+
+------------------------------
+
+USERS ACCOUNT
+
+Bale ganito po mangyayare dito sir, required na tapusin muna ng bawat user o trainee ang Step by step process. So hindi sya makakapagproceed sa Step 2 hanggat di niya natatapos yung Step 1 at ganon rin sa mga susunod na steps. Visible lang po sa sidebar menus nya ang lahat ng steps pero maaaccess nya lang isa isa pag naaccomplished nya na ang mga preceeding steps.
+
+
+Student name
+Help?- dito po lalagay yung users manual
+Logout
+
+
+Dashboard
+Pagawa na lang rin pong light colors na lang dito
+
+
+Step 1
+Update profile account
+
+ -kung ano po yung nasa table ng Admin | Students, yon rin po dito, minimal details lang such as:
+Upload profile picture (paadd po pala neto sa 2nd column ng Admin Students table),tas Learner's ID, Last Name, First Name, Middle Name, Extension Name, Course/Qualification, Batch, Schoolyear, Contact No., Email Address, Home Address
+
+Step 2
+Upload requirements
+
+-as is
+
+Step 3
+Learner's Profile Form
+
+-Dito po yung registration form o Learner's Profile Form na kailangan i-fill out ni student. 
+-NakaHTML form po eto and dapat editable kay student para masubmit nya.
+
+Step 4
+Complete training hours (Sidebar)
+
+-makikita po dito kung ilang hours yung training na kailangan tapusin ni student sa course nya, dito rin po makikita kung ongoing na yung training nya hanggang sa maging completed yung status tas don pa lang po sya makakapagproceed sa next step which is magiging visible na ang Training Certificate nya na inupload ni admin sa Issuance of Training Certs
+
+Step 5 (Sidebar)
+View training certificates
+
+-dito po kung saan lalabas yung training certificate na viewable and downloadable
+
+Step 6 x 
+Request other documents
+
+-as is
+
+Step 7 x 
+View other documents
+
+-dito same page sa requests para lang maview nya yung isesend ni admin na nirequest nyang ibang documents like Certificate of Enrollment, Cert of Attendance, etc.
+
+Request from BCRV admin
+As is

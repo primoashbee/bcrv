@@ -94,12 +94,12 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        {{-- <th>Designation</th> --}}
+                        <th>Designation</th>
                         <th>Phone Number</th>
                         
                         <th>Email</th>
@@ -107,7 +107,7 @@
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
         </div>
         <!-- /.card-body -->

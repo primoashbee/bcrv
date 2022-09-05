@@ -136,16 +136,14 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>ID</th>
                         <th>Document Name</th>
                         <th>Description</th>
-                        {{-- <th>File Size</th> --}}
-                        {{-- <th>Date Created</th> --}}
                         <th>Actions</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
         </div>
         <!-- /.card-body -->

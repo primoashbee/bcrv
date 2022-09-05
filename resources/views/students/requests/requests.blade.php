@@ -136,12 +136,12 @@
                         </tr>
                         @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>ID</th>
                         <th>Student ID</th>
                         <th>Document Name</th>
-                        {{-- <th>No. of Copies</th> --}}
+                        <th>No. of Copies</th>
                         <th>Request Date</th>
                         <th>Release Date</th>
                         <th>Processing Officer</th>
@@ -149,7 +149,7 @@
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
         </div>
         <!-- /.card-body -->

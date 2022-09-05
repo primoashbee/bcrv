@@ -97,7 +97,14 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
+              <ul class="nav nav-treeview ml-3" >
+                <li class="nav-item">
+                  <a href="/help" class="nav-link" >
+                    <i class="fas fa-question-circle nav-icon"></i>
+                    <p>Help</p>
+                  </a>
+
+                </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit()">
                     <i class="fas fa-sign-out-alt nav-icon"></i>
@@ -126,18 +133,35 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('requirements') }}" class="nav-link {{ 'requirements' == request()->path() ? 'active' : '' }}">
+            {{-- <a href="{{ route('requirements') }}" class="nav-link {{ 'requirements' == request()->path() ? 'active' : '' }}"> --}}
+            <a href="#" class="nav-link">
               <i class="fa fa-list nav-icon"></i>
               <p>Requirements</p>
+              <i class="right fas fa-angle-left"></i>
+
             </a>
+            <ul class="nav nav-treeview ml-3" >
+              <li class="nav-item">
+                <a href="{{route('requirements')}}" class="nav-link" >
+                  <i class="fas fa-list nav-icon"></i>
+                  <p>List of Requirements</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('requirements.uploaded')}}" class="nav-link" >
+                  <i class="fas fa-upload nav-icon"></i>
+                  <p>Uploaded Requirements</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_courses') }}" class="nav-link {{ 'show_courses' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-book-open nav-icon"></i>
               <p>Courses</p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{ url('/show_students') }}" class="nav-link {{ 'show_students' == request()->path() ? 'active' : '' }}">
@@ -147,19 +171,86 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ url('/show_documents') }}" class="nav-link {{ 'show_documents' == request()->path() ? 'active' : '' }}">
-              <i class="fas fa-file nav-icon"></i>
-              <p>Documents</p>
+            {{-- <a href="{{ url('/show_students') }}" class="nav-link {{ 'show_students' == request()->path() ? 'active' : '' }}"> --}}
+              <a href="#" class="nav-link" >
+              <i class="fas fa-book-open nav-icon"></i>
+              <p>Courses</p>
+              <i class="right fas fa-angle-left"></i>
+
             </a>
+            <ul class="nav nav-treeview ml-3" >
+              <li class="nav-item">
+                <a href="/show_courses" class="nav-link" >
+                  <i class="fas fa-list nav-icon"></i>
+                  <p> Course/Qual. Offering</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/batches" class="nav-link" >
+                  <i class="fas fa-layer-group nav-icon"></i>
+                  <p> Course Batches</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">
+            {{-- <a href="{{ url('/show_documents') }}" class="nav-link {{ 'show_documents' == request()->path() ? 'active' : '' }}"> --}}
+            <a href="#" class="nav-link {{ 'show_documents' == request()->path() ? 'active' : '' }}" >
+
+              <i class="fas fa-file nav-icon"></i>
+              <p>Documents</p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview ml-3" >
+              <li class="nav-item">
+                <a href="/show_documents" class="nav-link" >
+                  <i class="fas fa-list nav-icon"></i>
+                  <p> Documents for Request</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/issued_certificates" class="nav-link" >
+                  <i class="fas fa-stamp nav-icon"></i>
+                  <p> Issuance of Certificates </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-box nav-icon"></i>
+              <p>Requests</p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview ml-3">
+              <li class="nav-item">
+                <a href="/show_requests" class="nav-link" >
+                  <i class="fas fa-outdent nav-icon"></i>
+                  <p> Request from Students</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/show_requests_to_students" class="nav-link" >
+                  <i class="fas fa-indent nav-icon"></i>
+                  <p> Request from Students</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_requests') }}" class="nav-link {{ 'show_requests' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-box nav-icon"></i>
               <p>Requests</p>
             </a>
+          </li> --}}
+          <li class="nav-item">
+            <a href="{{ url('/show_reports') }}" class="nav-link {{ 'show_reports' == request()->path() ? 'active' : '' }}">
+              <i class="fas fa-chart-line nav-icon"></i>
+              <p>Reports</p>
+            </a>
           </li>
-
           <li class="nav-item">
             <a href="{{ url('/show_users') }}" class="nav-link {{ 'show_users' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-user nav-icon"></i>
@@ -167,12 +258,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="{{ url('/show_reports') }}" class="nav-link {{ 'show_reports' == request()->path() ? 'active' : '' }}">
-              <i class="fas fa-chart-line nav-icon"></i>
-              <p>Reports</p>
-            </a>
-          </li>
+
 
           {{-- <li class="nav-item">
             <a href="{{ url('/show_responses') }}" class="nav-link {{ 'show_responses' == request()->path() ? 'active' : '' }}">
@@ -181,13 +267,13 @@
             </a>
           </li> --}}
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_requests_to_students') }}" class="nav-link {{ 'show_requests_to_students' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-box nav-icon"></i>
               <p>Requests to Students</p>
             </a>
           </li>
-          
+           --}}
         </ul>
         
       </nav>

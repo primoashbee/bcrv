@@ -77,6 +77,9 @@ use App\Http\Middleware\StudentMiddleware;
         //Routes for courses page
         //Route to show courses page
         Route::get('/show_courses', 'Admin\CourseController@show_courses');
+        Route::get('/batches', 'BatchController@index');
+        Route::post('/batch', 'BatchController@store');
+        Route::get('/batch/manage/{id}', 'BatchController@showManage')->name('batch.manage.show');
         //Route for adding a new course
         Route::post('/add_course', 'Admin\CourseController@add_course');     
         //Route to show the page to edit the course

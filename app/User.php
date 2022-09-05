@@ -116,4 +116,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'role_users');
         // return $this->hasManyThrough(Role::class, RoleUser::class, 'role_id','id','thirdkey','role_id');
     }
+
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class,'batch_users');
+    }
 }
