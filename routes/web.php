@@ -79,7 +79,10 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/show_courses', 'Admin\CourseController@show_courses');
         Route::get('/batches', 'BatchController@index');
         Route::post('/batch', 'BatchController@store');
+        Route::put('/batch/{id}', 'BatchController@update');
         Route::get('/batch/manage/{id}', 'BatchController@showManage')->name('batch.manage.show');
+        Route::post('/batch/manage/{id}', 'BatchController@enlist')->name('batch.manage.enlist');
+        Route::put('/batch/manage/{id}', 'BatchController@updateManage')->name('batch.manage.update');
         //Route for adding a new course
         Route::post('/add_course', 'Admin\CourseController@add_course');     
         //Route to show the page to edit the course

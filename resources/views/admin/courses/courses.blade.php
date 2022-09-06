@@ -109,11 +109,15 @@
                         <td style="width: 700px;">{{ $course->course_description }}</td>
                         <td>
                             <a href="/show_edit_course/{{ $course->id }}" type="button" class="btn btn-primary bg-info">
-                                <i class="fa fa-pen" style="padding: 10px;"></i> Edit
+                                <i class="fa fa-pen" style="padding: 10px;"></i> 
+                            </a>
+                            <a href="/batches?course_id={{$course->id}}" class="btn btn-warning" course_id="{{ $course->id }}">
+                                <i class="fa fa-layer-group" style="padding: 10px;"></i>
                             </a>
                             <a href="#" class="btn btn-primary bg-danger btn-delete" course_id="{{ $course->id }}">
-                                <i class="fa fa-trash" style="padding: 10px;"></i> Delete
+                                <i class="fa fa-trash" style="padding: 10px;"></i> 
                             </a>
+
                         </td>
                     </tr>
                     @endforeach
