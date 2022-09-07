@@ -16,10 +16,10 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Student ID</th>
-                        <th>First Name</th>
+                        <th>Learner's ID</th>
                         <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
                         <th>Course</th>
                         <th>Batch</th>
                         <th>School Year</th>
@@ -36,10 +36,10 @@
                 <tbody>
                     @foreach($requests as $request)
                     <tr>
-                        <td>{{ $request->id }}</td>
-                        <td>STDNT-{{ $request->student_id }}</td>
+                        <td> LEARNER'S ID</td>
+                        <td>{{ $request->lastname }}</td>
                         <td>{{ $request->studentInfo->firstname }}</td>
-                        <td>{{ $request->studentInfo->lastname }}</td>
+                        <td>{{ $request->studentInfo->middlename }}</td>
                         <td>{{ $request->studentInfo->user->courseList }}</td>
                         <td>{{ $request->studentInfo->batch }}</td>
                         <td>{{ $request->studentInfo->school_year }}</td>

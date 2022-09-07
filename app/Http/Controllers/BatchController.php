@@ -142,8 +142,20 @@ class BatchController extends Controller
                 'user_ids.*'=>['required','exists:users,id']
             ]
         );
-
-        Batch::findOrFail($id)->users()->attach($request->user_ids, ['status'=>2]);
+        $batch = Batch::findOrFail($id);
+        $batch->users()->attach($request->user_ids, ['status'=>2]);
+        
+        if($batch->certificates()->count() > 0){
+            foreach($request->user_ids  as $user_id)
+            {
+                foreach($batch->certificates as $certificate){
+                    $to_add = $certificate->userCertificates()->where('user_id', $user_id)->count() == 0;
+                    if($to_add){
+                        $certificate->userCertificates()->create(['user_id'=>$user_id]);
+                    }
+                }
+            }
+        }
         return response()->json([], 200);
     }
     
@@ -160,7 +172,10 @@ class BatchController extends Controller
         $message = "Statuses successfully updated";
         if($request->status == 4){
             $message = "Student successfully removed";
-            Batch::findOrFail($id)->users()->detach($request->user_ids);
+            $batch = Batch::findOrFail($id);
+            $batch->users()->detach($request->user_ids);
+            $batch_certificate_ids = $batch->certificates->pluck('id')->toArray();
+            DB::table('batch_certificate_users')->whereIn('batch_certificate_id', $batch_certificate_ids)->whereIn('user_id', $request->user_ids)->delete();
         }else{
             DB::table('batch_users')->whereIn('user_id', $request->user_ids)->update(['status'=>$request->status,'updated_at'=>now()]);
             // Batch::findOrFail($id)->users()->whereIn('user_id', $request->user_ids)->update(['status'=>$request->status]);

@@ -2,14 +2,14 @@
 
 2. ADMIN ACCOUNT CHANGES
 
-Administrator
+Administrator ---DONE--- 
    >Help?
 -Palagyan na lang po muna ng white blank page ito. Dito po ilalagay yung user manual for admin
    
 •Dashboard (give colors)
 -As per client request, gawin na lang raw pong light colors lang ito. Siguro gawin na lang pong light blue and white
 
-•Requirements
+•Requirements ---DONE--- 
 List of Requirements
 
 -as is
@@ -28,31 +28,35 @@ Uploaded Requirements
 (ID-hide), Learner's ID, Last Name, First Name, Middle Name, Extension Name, Course/Qualification, Batch, Schoolyear, Contact No., Email Address, Home Address, Actions: Edit, View Learner's Profile button (Clickable, direct view to the filled out Learner's Profile Form submitted by each student-Must be editable, downloadable and printable by the Admin (show only if learner's profile is completed)
 
 
-•Courses 
-   >Courses/Qualifications Offerings
+•Courses  ---DONE--- 
+   >Courses/Qualifications Offerings ---DONE--- 
 -As per client request, parename po ng Course into Course/Qualifications tas paexpand po ng column width neto then bawasan naman ang column width sa Duration of Training
 
-   >Create Batch (max slot, batch #, year)
-   >Batches Action
+   >Create Batch (max slot, batch #, year) ---DONE--- 
+   >Batches Action ---DONE--- 
 
-   >Course (Batch) Enlistment
+   >Course (Batch) Enlistment ---DONE--- 
 
--Adding form consists of:
+-Adding form consists of: ---DONE--- 
 Dropdown buttons of: Name of Student, Course/Qualification, Batch, Schoolyear, then Enroll & Unenroll button
--Dapat restricted sa 25 students lang ang pwede maiadd sa bawat course and batch, di na pwedeng mag add pa, lalabas "Full Slots", pero pag nag unenroll ng student pwede na ulit mag add hanggat di narireach ang 25 max number of students per course and batch. Tas di rin po pala pwede magduplicate ng same names on the same course.
--Sa ibaba, Search function
--Table:
-Courses/Qualifications, Batch (dropdown button), School year (drop down button), Slots (for example 18/25, *permanent ang denominator na 25), Actions: View Class list
 
-•Class Lists (Course Batch List)
--Dropdown buttons of: Course, Batch, Schoolyear then View Class List button
--Search function
--Table: Learner's ID, LastName, FirstName, Training Status(Completed, Not Completed, Back out), Actions: Edit (Status)
+-Dapat restricted sa 25 students lang ang pwede maiadd sa bawat course and batch, di na pwedeng mag add pa, lalabas "Full Slots", pero pag nag unenroll ng student pwede na ulit mag add hanggat di narireach ang 25 max number of students per course and batch. Tas di rin po pala pwede magduplicate ng same names on the same course. ---DONE--- 
+
+-Sa ibaba, Search function ---DONE---
+
+-Table:
+Courses/Qualifications, Batch (dropdown button), School year (drop down button), Slots (for example 18/25, *permanent ang denominator na 25), Actions: View Class list ---DONE--- 
+
+•Class Lists (Course Batch List) ---DONE--- 
+
+-Dropdown buttons of: Course, Batch, Schoolyear then View Class List button ---DONE--- 
+-Search function ---DONE--- 
+-Table: Learner's ID, LastName, FirstName, Training Status(Completed, Not Completed, Back out), Actions: Edit (Status) ---DONE--- 
 
 •Documents
-   >Documents for Requests
+   >Documents for Requests ---DONE---
 -as is
-   >Issuance of Training Certificates (!)
+   >Issuance of Training Certificates (!) ---DONE---
 -Dapat lalabas lang po dito lahat ng may Completed status per course/batch
 -Dropdown buttons of: Course, Batch, Schoolyear then View Class List button (Filter)
 -Search function
@@ -60,21 +64,21 @@ Courses/Qualifications, Batch (dropdown button), School year (drop down button),
 -(Magiging visible lang po kay student account ang Training Certificates once maaccomplished nya lahat ng naunang steps
 
 
-•Requests
-    >Requests from Students
+•Requests ---DONE---
+    >Requests from Students ---DONE---
 -Table Column Arrangement:
 Learner's ID, Last Name, First Name, Middle Name, Course, Batch, Schoolyear, Document Name, Signature, Request Date, Release Date, Processing Officer, Response Status, Actions (as is)
 
-    >Requests to Students
+    >Requests to Students ---DONE---
 -Table Column Arrangement:
 Learner's ID, Last Name, First Name, Middle Name, Document Name, Request Date, Request from, Response Status, Actions (as is)
 
-•Users
--Table Column Arrangement:
+•Users ---DONE---
+-Table Column Arrangement: ---DONE---
 Learner's ID, Last Name, First Name, Middle Name, Contact No., Email Address, Role, Status (Active, Deactivated) Actions (as is)
 
 
-ADMIN Sidebar
+ADMIN Sidebar ---DONE---
 
 Administrator
    >Help?

@@ -105,9 +105,8 @@
               <input type="submit" class="btn btn-primary" id="btnSearch" value="Search">
             </div>
           </div> --}}
-          <div class="clearfix"></div>
-          <div class="table-responsive">
-            <table class="table" id="example1">
+          <div class="">
+            <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <th class="" > Requirement</th>
                 <th class="" > Student Name</th>
@@ -151,7 +150,6 @@
                 @endforeach
               </tbody>
             </table>
-            {{-- {{$list->links()}} --}}
           </div>
         </div>
     </div>
@@ -183,11 +181,11 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable();
   });
 </script>
 <script>
     $(document).ready(function() {
+      $("#example1").DataTable();
 
       @if($requirement != null)
         const data = @json($requirement);

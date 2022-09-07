@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-lg-3 col-6">
-        <div class="small-box bg-success">
+        <div class="small-box bg-info">
           <div class="inner">
             <h3>{{ $requests_count }}<sup style="font-size: 20px"></sup></h3>
             <p>Number of Requests</p>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="col-lg-3 col-6">
-        <div class="small-box bg-warning">
+        <div class="small-box bg-info">
           <div class="inner">
             <h3>{{ $pending_count }}</h3>
             <p>Number of Pending Requests</p>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="col-lg-3 col-6">
-        <div class="small-box bg-danger">
+        <div class="small-box bg-info">
           <div class="inner">
             <h3>{{ $completed_count }}</h3>
             <p>Number of completed Requests</p>
@@ -58,7 +58,8 @@
     <div class="row">
       <section class="col-lg-12 connectedSortable">
         <!-- Calendar -->
-        <div class="card " style="background-color: #fd7e14">
+        {{-- <div class="card bg-info"  style="background-color: #f8832b"> --}}
+        <div class="card bg-info" >
           <div class="card-header border-0">
   
             <h3 class="card-title" >

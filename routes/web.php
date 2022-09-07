@@ -83,6 +83,10 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/batch/manage/{id}', 'BatchController@showManage')->name('batch.manage.show');
         Route::post('/batch/manage/{id}', 'BatchController@enlist')->name('batch.manage.enlist');
         Route::put('/batch/manage/{id}', 'BatchController@updateManage')->name('batch.manage.update');
+        
+        Route::get('/issued_certificates', 'BatchCertificateController@index')->name('certificates.index');
+        Route::post('/issued_certificates/{id}', 'BatchCertificateController@update')->name('certificates.update');
+
         //Route for adding a new course
         Route::post('/add_course', 'Admin\CourseController@add_course');     
         //Route to show the page to edit the course
@@ -201,7 +205,9 @@ use App\Http\Middleware\StudentMiddleware;
         Route::post('/requirements/update/{id}', 'RequirementController@update')->name('requirements.update');
         Route::get('/download_request/{id}', 'Admin\StudentRequestController@download')->name('request.download');
 
-
+        Route::get('/issued_certificates/{id}/view', 'BatchCertificateController@view')->name('certificates.view');
+        Route::get('/issued_certificates/{id}/download', 'BatchCertificateController@download')->name('certificates.download');
+        Route::get('/help', 'HelpController@index')->name('help');
     });
 
 

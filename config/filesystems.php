@@ -67,6 +67,11 @@ return [
         'requirements'=> [
             'driver'=>'local',
             'root'=>storage_path('app/requirements')
+        ],
+
+        'certificates'=> [
+            'driver'=>'local',
+            'root'=>storage_path('app/certificates')
         ]
 
     ],

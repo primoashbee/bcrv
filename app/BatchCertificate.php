@@ -14,4 +14,11 @@ class BatchCertificate extends Model
     {
         return $this->belongsTo(Batch::class,'batch_id','id');
     }
+
+    public function userCertificates()
+    {
+        return $this->hasMany(BatchCertificateUser::class, 'batch_certificate_id','id');
+    }
+
+    
 }

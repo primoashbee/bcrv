@@ -51,11 +51,12 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
+                        <th>Learner's ID</th>
                         <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
                         {{-- <th>Designation</th> --}}
-                        <th>Phone Number</th>
+                        <th>Contact No.</th>
                         
                         <th>Email</th>
                         <th>Role</th>
@@ -66,10 +67,11 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        <td> Learner's ID</td>
 
-                        <td>{{ $user->studentInfo->firstname }}</td>
                         <td>{{ $user->studentInfo->lastname }}</td>
+                        <td>{{ $user->studentInfo->firstname }}</td>
+                        <td>{{ $user->studentInfo->middlename }}</td>
                         {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
