@@ -106,20 +106,83 @@
             </div>
           </div> --}}
           <div class="">
+            <form action="{{url()->current()}}" method="GET" id="frmFilter">
+
+              <div class="row">
+
+                  <div class="col-5 form-group">
+                      <label for="">Name</label>
+                      <select name="name" id="filter_name" class="form-control form-filter">
+                          <option value="">Please Select</option>
+                          @foreach($students as $student)
+                          <option value="{{$student->id}}"> {{$student->studentInfo->name}} </option>
+                          @endforeach
+                      </select>
+                  </div>
+                  <div class="col-3 form-group">
+                      <label for="">Course</label>
+                      <select name="course" id="filter_course" class="form-control form-filter">
+                          <option value="">Please Select</option>
+                          @foreach($courses as $courses)
+                          <option value="{{$courses->id}}"> {{$courses->course_name}} </option>
+                          @endforeach
+                      </select>
+                  </div>
+                  <div class="col-1 form-group">
+                      <label for="">Batch</label>
+                      <select name="batch" id="filter_batch" class="form-control form-filter">
+                          <option value="">Please Select</option>
+                          @foreach($batches as $batch)
+                          <option value="{{$batch->batch}}"> {{$batch->batch}} </option>
+                          @endforeach
+                      </select>
+                  </div>
+
+                  <div class="col-1 form-group">
+                      <label for="">School Year</label>
+                      <select name="school_year" id="filter_school_year" class="form-control form-filter">
+                          <option value="">Please Select</option>
+                          @foreach($school_year as $year)
+                          <option value="{{$year->school_year}}"> {{$year->school_year}} </option>
+                          @endforeach
+                      </select>
+                  </div>
+
+                  <div class="col-1 form-group">
+                      <label for="">Status</label>
+                      <select name="status" id="filter_status" class="form-control form-filter">
+                          <option value="">Please Select</option>
+                          <option value="2">Approved</option>
+                          <option value="1">Pending</option>
+                          <option value="3">Not Uploaded</option>
+                          <option value="4">Rejected</option>
+                      </select>
+                  </div>
+                  <div class="col-1 form-group">
+                      <label for="">Action</label>
+                      <br>
+                      <input type="submit" class="btn btn-primary" value="Filter"/>
+                  </div>
+              </div>
+            </form>
             <table id="example1" class="table table-bordered table-striped">
               <thead>
-                <th class="" > Requirement</th>
-                <th class="" > Student Name</th>
-                <th class="text-center" > Level</th>
+                <th class="" > Last Name</th>
+                <th class="" > First Name</th>
+                <th class="" > Middle Name</th>
+                <th class="text-center" > Type Of Requirement</th>
+                <th class="text-center" > Date Uploaded</th>
                 <th class="text-center" > Status</th>
                 <th class="text-center"> Actions</th>
               </thead>
               <tbody>
                 @foreach($list as $item)
                     <tr>
+                        <td class="">{{$item->student->studentInfo->lastname}}</td>
+                        <td class="">{{$item->student->studentInfo->firstname}}</td>
+                        <td class="">{{$item->student->studentInfo->middlename}}</td>
                         <td class="">{{$item->requirement->name}}</td>
-                        <td class="">{{$item->student->studentInfo->name}}</td>
-                        <td class="text-center">{{$item->student->studentInfo->education_level}}</td>
+                        <td class="">{{$item->date_uploaded}}</td>
                         <td class="text-center">
                             @if($item->status == 1)
                             <span class="badge badge-warning">Pending</span>
@@ -178,15 +241,29 @@
 <script src="{{ asset('admin_assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
-<!-- Page specific script -->
 <script>
-  $(function () {
-  });
-</script>
-<script>
+    $.noConflict();
+
     $(document).ready(function() {
       $("#example1").DataTable();
+      @if(request()->name !== null)
+            $('#filter_name').val(@json(request()->name))
+        @endif
 
+        @if(request()->course !== null)
+            $('#filter_course').val(@json(request()->course))
+        @endif
+
+        @if(request()->batch !== null)
+            $('#filter_batch').val(@json(request()->batch))
+        @endif
+
+        @if(request()->school_year !== null)
+            $('#filter_batch').val(@json(request()->school_year))
+        @endif
+        @if(request()->status !== null)
+            $('#filter_status').val(@json(request()->status))
+        @endif
       @if($requirement != null)
         const data = @json($requirement);
         const URL  = `/requirements/${data.id}`
@@ -235,6 +312,14 @@
         
 
         $('#modal-lg').modal('show')
+      })
+
+      $('#frmFilter').submit(function(e){
+        $.each($('.form-filter'), function(index, element){
+            if($(this).val() == ""){
+              $(this).remove();
+            }
+        })
       })
 
 

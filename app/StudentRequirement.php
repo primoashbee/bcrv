@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -103,6 +104,14 @@ class StudentRequirement extends Model
     public function hasUploaded()
     {
         return in_array($this->status, [self::PENDING, self::APPROVED]); 
+    }
+
+    public function getDateUploadedAttribute()
+    {
+        if(is_null($this->path)){
+            return null;
+        }
+        return Carbon::parse($this->getOriginal('updated_at'))->format('D, M-d-Y h:i A');
     }
 
 }

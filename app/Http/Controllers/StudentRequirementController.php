@@ -11,6 +11,8 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use App\Models\PrimaryModels\CourseModel;
+use App\Models\PrimaryModels\StudentInfo;
 use App\Events\StudentRequirementUploadedEvent;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Notifications\StudentRequirementUpdatedNotification;
@@ -70,10 +72,40 @@ class StudentRequirementController extends Controller
                                   ->when($request->has('status'), function($q, $data)  use ($request){
                                       $q->where('status', $request->status);
                                   })
-                                  ->get();
+                                  ->when($request->name, function($q, $data){
+                                      $q->where('user_id', $data);
+                                  })
+                                  ->when($request->course, function($q, $data){
+                                      $q->whereHas('student.courses', function($sQ) use($data){
+                                        $sQ->where('id', $data);
+                                      });
+                                  })
+                                  ->when($request->batch, function($q, $data){
+                                      $q->whereHas('student.studentInfo', function($sQ) use($data){
+                                        $sQ->where('batch', $data);
+                                      });
+                                  })
+                                  ->when($request->school_year, function($q, $data){
 
+                                      $q->whereHas('student.studentInfo', function($sQ) use($data){
+                                        $sQ->where('school_year', $data);
+                                      });
+                                  })
+                                  ->when($request->status, function($q, $data){
+                                      $q->where('status', $data);
+                                  })
+                                  ->get();
         $requirement = $request->has('id') ? StudentRequirement::with('student','requirement')->findOrFail($request->id) : null ;
-        return view('admin.requirements.student-requirements', compact('list','requirement'));
+        $courses = CourseModel::select('id','course_name')->orderBy('course_name','asc')->get();
+        $batches = StudentInfo::whereNotNull('batch')->distinct()->orderBy('batch','desc')->get(['batch']);
+        // $batches = StudentInfo::whereNotNull('batch')->distinct()->get(['batch']);
+        // $school_year = StudentInfo::whereNotNull('school_year')->distinct()->get(['id','school_year']);
+        $school_year = StudentInfo::whereNotNull('school_year')->distinct()->orderBy('school_year','desc')->get(['school_year']);
+        $students = User::whereHas('studentInfo')
+                      ->with(['studentInfo'=>function($q){
+                          $q->select('email','firstname','lastname','name');
+                      }])->select('id','email')->get();
+        return view('admin.requirements.student-requirements', compact('list','requirement','batches','school_year','courses','students'));
     }
 
     public function download(Request $request, $id)

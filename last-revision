@@ -16,16 +16,19 @@ List of Requirements
 
 Uploaded Requirements
 
--As per panel, dapat raw po pag nagsearch ng isang name ng student, lalabas na lahat ng uploaded requirements nya at status (pending, approved or rejected) ng magkakasama. 
--Search function by Name,Course,Batch, Schoolyear (nakadropdown button po lahat yan para magseselect na lang)
--Tas eto po madidisplay sa table: Last Name, First Name, Middle Name, Type of Requirement, Date Uploaded, Status, Actions: Edit, View, Download
+-As per panel, dapat raw po pag nagsearch ng isang name ng student, lalabas na lahat ng uploaded requirements nya at status (pending, approved or rejected) ng magkakasama.  ---DONE--- 
+
+-Search function by Name,Course,Batch, Schoolyear (nakadropdown button po lahat yan para magseselect na lang)  ---DONE--- 
+
+-Tas eto po madidisplay sa table: Last Name, First Name, Middle Name, Type of Requirement, Date Uploaded, Status, Actions: Edit, View, Download ---DONE--- 
+
 -Once maapproved lahat ng requirements ng isang student, magiging visible na sa student account ang Learner's Profile Form (html form, editable) na required nyang ifill out. Pero pag hindi pa approved lahat hindi pa maaaccess o magiging visible kay student ang registration form (Leaner's Profile Form)
 
-•Students
+•Students --DONE--- 
    >List of Students
--Search function (x)
--Table Column Arrangement: 
-(ID-hide), Learner's ID, Last Name, First Name, Middle Name, Extension Name, Course/Qualification, Batch, Schoolyear, Contact No., Email Address, Home Address, Actions: Edit, View Learner's Profile button (Clickable, direct view to the filled out Learner's Profile Form submitted by each student-Must be editable, downloadable and printable by the Admin (show only if learner's profile is completed)
+-Search function (x) 
+-Table Column Arrangement: --DONE--- 
+(ID-hide), Learner's ID, Last Name, First Name, Middle Name, Extension Name, Course/Qualification, Batch, Schoolyear, Contact No., Email Address, Home Address, Actions: Edit, View Learner's Profile button (Clickable, direct view to the filled out Learner's Profile Form submitted by each student-Must be editable, downloadable and printable by the Admin (show only if learner's profile is completed) --DONE--- 
 
 
 •Courses  ---DONE--- 

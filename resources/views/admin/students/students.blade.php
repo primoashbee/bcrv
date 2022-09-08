@@ -93,40 +93,42 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Student No.</th>
-                        <th>First Name</th>
+                        <th>Learner's ID</th>
                         <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Ext. Name</th>
                         <th>Course</th>
-                        {{-- <th>Year</th> --}}
                         <th>Batch</th>
                         <th>School Year</th>
-                        <th>Contact</th>
-                        <th>Email</th>
+                        <th>Contact No. </th>
+                        <th>Email Address</th>
+                        <th>Home Address</th>
 
-                        <th>Account</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($students as $student)
                     <tr>
-                        <td>{{ $student->id }}</td>
-                        <td>STDNT-{{ $student->alternate_id }}</td>
-                        <td>{{ $student->firstname }}</td>
+                        <td>Learner's ID</td>
                         <td>{{ $student->lastname }}</td>
+                        <td>{{ $student->firstname }}</td>
+                        <td>{{ $student->middlename }}</td>
+                        <td>{{ $student->ext_name }}</td>
                         <td>{{ $student->user->courseList}}</td>
                         {{-- <td>{{ $student->year }}</td> --}}
                         <td> {{$student->batch}}</td>
                         <td> {{$student->school_year}}</td>
                         <td>{{ $student->contact_number }}</td>
                         <td>{{ $student->email }}</td>
+                        <td>{{ $student->home_address }}</td>
 
-                        @if ($student->status == 0)
+                        {{-- @if ($student->status == 0)
                             <b><td class="text-danger">Inactive</td></b>
                         @else
                             <b><td class="text-success">Active</td></b>
-                        @endif
+                        @endif --}}
                         <td style="width: 190px;">
                             <a href="/show_edit_student/{{ $student->id }}" type="button" class="btn btn-sm btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> 
@@ -172,9 +174,9 @@
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('admin_assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}}"></script>
+<script src="{{ asset('admin_assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/jszip/jszip.min.js') }}"></script>
 <script src="{{ asset('admin_assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
@@ -187,21 +189,12 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
-</script>
-<script>
-    $(function () {
-      //Initialize Select2 Elements
-      $('.select2').select2()
-    });
-</script>  
-<script>
+    $.noConflict();
     $(document).ready(function() {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
         $('.btn-delete').click(function(e){
             e.preventDefault();
             var id = $(this).attr('student_id')
