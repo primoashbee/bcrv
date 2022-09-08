@@ -280,9 +280,14 @@ use App\Http\Middleware\StudentMiddleware;
             Route::get('/newest_requests', 'Admin\DashboardController@newest_requests')->name('/newest_requests');
             Route::get('/show_notifications', 'Admin\DashboardController@show_notifications');
 
+
+            Route::get("/my_courses", "Admin\CourseController@myCourses")->name('student.courses');
+            Route::get("/my_certificates", "BatchCertificateController@myCertificates")->name('student.certificates');
             //NOTIFICATIONS - Students
             Route::get('/newest_response_students', 'Admin\DashboardController@newest_response_students')->name('/newest_response_students');
             Route::get('/show_response_students', 'Admin\DashboardController@show_response_students');
+
+            Route::get("/setup", 'Admin\StudentController@setup');
     });
             
 

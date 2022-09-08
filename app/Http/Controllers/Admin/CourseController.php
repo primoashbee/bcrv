@@ -54,5 +54,10 @@ class CourseController extends Controller
         return redirect('show_courses')->with('status', 'Course Deleted!');
     }
 
+    public function myCourses(Request $request)
+    {
+        $courses = auth()->user()->batches->load('course');
+        return view('students.courses.index', compact('courses'));
+    }
 
 }

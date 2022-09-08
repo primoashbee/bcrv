@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BatchCertificate;
 use Illuminate\Http\Request;
 use App\BatchCertificateUser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PrimaryModels\CourseModel;
 
@@ -73,5 +74,29 @@ class BatchCertificateController extends Controller
         $file = BatchCertificateUser::findOrFail($id);
         return Storage::disk('certificates')->download($file->path);
 
+    }
+
+
+    public function myCertificates(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        
+
+        //get the batch ids
+        $batch_ids = DB::table('batch_users')
+                            ->select('id','batch_id','user_id')
+                            ->where('user_id', $user_id)
+                            ->where('status', 1)
+                            ->get();
+        
+
+        $certificates = BatchCertificateUser::with('certificate')
+            ->whereHas('certificate.batch.course', function($q) use ($batch_ids) {
+                $q->whereIn('batch_id', $batch_ids->pluck('batch_id')->toArray());
+            })
+            ->where('user_id', $user_id)
+            ->whereNotNull('path')
+            ->get();
+        return view("students.certificates.index", compact("certificates"));
     }
 }

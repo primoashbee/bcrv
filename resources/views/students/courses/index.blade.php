@@ -1,15 +1,52 @@
-
-@extends('layouts.master')
+@extends('layouts.master_student')
 
 @section('title')
-      Help
+    Students | My Courses
 @endsection
 
 @section('content')
 
-@endsection
-@section('scripts')
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Course</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Course </th>
+                        <th>Training Hours</th>
+                        <th>Batch</th>
+                        <th>Year</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($courses as $course)
+                    <tr>
+                        <td>{{$course->name}}</td>
+                        <td>{{$course->course->course_description}}</td>
+                        <td>{{$course->batch}}</td>
+                        <td>{{$course->year}}</td>
+                        <td>{{$course->pivot->status}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
 
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    </div>
+    <!-- /.col -->
+@endsection
+    
+@section('scripts')
+<!-- jQuery -->
 <script src="{{ asset('admin_assets/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -29,4 +66,12 @@
 <script src="{{ asset('admin_assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
+<!-- Page specific script -->
+
+<script>
+    $(document).ready(function() {
+      $('#example1').DataTable();
+    });
+</script>
+
 @endsection

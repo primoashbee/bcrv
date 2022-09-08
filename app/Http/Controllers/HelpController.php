@@ -8,6 +8,9 @@ class HelpController extends Controller
 {
     public function index(Request $request)
     {
-        return view('help');
+        if(auth()->user()->roles()->where("name","Admin")->count() == 1){
+            return view('help');
+        }
+        return view('student-help');
     }
 }

@@ -62,4 +62,12 @@ class StudentController extends Controller
         return response()->json([], 200);
     }
 
+    public function setup()
+    {
+        $courses = CourseModel::select('id','course_name')->orderBy('course_name','desc')->get();
+        $batches = range(1,10);
+        $years = range(now()->year, 2019);
+        return response()->json(compact('courses','batches','years'),200);
+    }
+
 }

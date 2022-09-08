@@ -78,6 +78,11 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="/help" class="nav-link" >
+                    <i class="fas fa-question-circle nav-icon"></i>
+                    <p>Help</p>
+                  </a>
+                <li class="nav-item">
                   <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit()">
                     <i class="fas fa-sign-out-alt nav-icon"></i>
                     <p>Logout</p>
@@ -106,12 +111,47 @@
           </li>
 
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_requests_students') }}" class="nav-link {{ 'show_requests_students' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-box nav-icon"></i>
               <p>List of Requests</p>
             </a>
+          </li> --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ 'request' == request()->path() ? 'active' : '' }}">
+              <i class="fas fa-box nav-icon"></i>
+              <p>Requests</p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview ml-3">
+              <li class="nav-item">
+                <a href="/show_requests_from_admins" class="nav-link {{ 'show_requests_from_admins' == request()->path() ? 'active' : '' }}" >
+                  <i class="fas fa-indent nav-icon"></i>
+                  <p> Request from Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/show_requests_students" class="nav-link {{ 'show_requests_students' == request()->path() ? 'active' : '' }}" >
+                  <i class="fas fa-outdent nav-icon"></i>
+                  <p> Request to Admin</p>
+                </a>
+              </li>
+            </ul>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/my_courses') }}" class="nav-link {{ 'my_courses' == request()->path() ? 'active' : '' }}">
+              <i class="fas fa-layer-group  nav-icon"></i>
+              <p>My Courses</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/my_certificates') }}" class="nav-link {{ 'my_certificates' == request()->path() ? 'active' : '' }}">
+              <i class="fas fa-certificate nav-icon"></i>
+              <p>My Certificates</p>
+            </a>
+          </li>
+
+ 
 
           {{-- <li class="nav-item">
             <a href="{{ url('/show_responses_students') }}" class="nav-link {{ 'show_responses_students' == request()->path() ? 'active' : '' }}">
@@ -120,12 +160,12 @@
             </a>
           </li> --}}
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ url('/show_requests_from_admins') }}" class="nav-link {{ 'show_requests_from_admins' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-file nav-icon"></i>
               <p>Requests from Admins</p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{ url('/show_profile_students') }}" class="nav-link {{ 'show_profile_students' == request()->path() ? 'active' : '' }}">
@@ -154,6 +194,7 @@
     <section class="content">
       <div class="container-fluid">
         @yield('content')
+        <profile-steps></profile-steps>
       </div>
     </section>
   </div>
