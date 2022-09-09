@@ -2245,6 +2245,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         finished: false
       },
       learners: {
+        learner_id: "",
+        entry_date: "",
+        lastname: "",
+        firstname: "",
+        middlename: "",
+        ext_name: "",
+        street: "",
+        barangay: "",
+        district: "",
+        city: "",
+        province: "",
+        region: "",
+        email: "",
+        contact_number: "",
+        nationality: "",
+        gender: "",
+        civil_status: "",
+        employement_status: "",
+        birthday: "",
+        birth_city: "",
+        birth_province: "",
+        education_attainment: "",
+        parent_name: "",
+        parent_mailing_address: "",
+        classification: {},
+        disability: {},
+        course_qualification: "",
+        scholarship_package: "",
+        date_received: "",
         finished: false
       },
       setup: {
@@ -2276,10 +2305,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.setup.batches = data.batches;
                 _this2.setup.years = data.years;
                 _this2.requirements.list = data.list;
+                _this2.requirements.finished = data.steps.find(function (x) {
+                  return x.step == 2;
+                }).finished;
 
                 _this2.setProfile(data.profile, data.profile.courses);
 
-              case 9:
+              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -2390,8 +2422,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$post2 = _context3.sent;
                 _data = _yield$axios$post2.data;
                 _this3.errors = [];
-                _this3.profile.finished = true;
-                Swal.fire(_data.message, 'Please proceed to the next step', 'success');
+                _this3.requirements.finished = _data.finished;
+
+                if (_data.finished == 1) {
+                  Swal.fire(_data.message, 'Please proceed to the next step', 'success');
+                  _this3.step++;
+                } else {
+                  Swal.fire(_data.message, 'Please complete all the requirements', 'success');
+                }
+
                 _context3.next = 33;
                 break;
 
@@ -2447,16 +2486,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     disabled: function disabled() {
       if (this.step == 1) {
-        console.log("Next Button should be clickable: " + this.profile.finished);
         return !this.profile.finished;
       }
 
       if (this.step == 2) {
-        return this.requirements.finished;
+        return !this.requirements.finished;
       }
 
       if (this.step == 3) {
-        return this.learners.finished;
+        return !this.learners.finished;
       }
     }
   }

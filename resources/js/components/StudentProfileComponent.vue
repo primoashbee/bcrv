@@ -124,6 +124,7 @@
 
                     <div id="requirements">
                         <h3> Learner's Profile</h3>
+                        
                         <button class="btn btn-success float-right" @click="submit(step)" > Save </button>
 
 
@@ -170,8 +171,39 @@ export default {
                 finished: false
             },
             learners : {
+                learner_id: "",
+                entry_date: "",
+                lastname: "",
+                firstname: "",
+                middlename: "",
+                ext_name: "",
+                street: "",
+                barangay:"",
+                district:"",
+                city:"",
+                province:"",
+                region:"",
+                email:"",
+                contact_number:"",
+                nationality:"",
+                gender:"",
+                civil_status:"",
+                employement_status:"",
+                birthday:"",
+                birth_city:"",
+                birth_province:"",
+                education_attainment:"",
+                parent_name:"",
+                parent_mailing_address:"",
+                classification: {},
+                disability: {},
+                course_qualification:"",
+                scholarship_package:"",
+                date_received:"",
+                
                 finished: false
             },
+
             setup : {
                 courses: [],
                 batches: [],
@@ -188,8 +220,9 @@ export default {
             this.setup.years = data.years;
             
             this.requirements.list = data.list
-
+            this.requirements.finished = data.steps.find(x=>x.step == 2).finished
             this.setProfile(data.profile, data.profile.courses)
+
         },
         setProfile(data, courses){
             this.profile.firstname = data.firstname;
@@ -259,8 +292,14 @@ export default {
                     // formData.append("files", this.requirements.)
                     const { data }  = await axios.post('/setup/requirements', formData)
                     this.errors = []
-                    this.profile.finished = true
-                    Swal.fire(data.message, 'Please proceed to the next step', 'success');
+                    this.requirements.finished = data.finished
+                    if(data.finished == 1){
+                        Swal.fire(data.message, 'Please proceed to the next step', 'success');
+                        this.step++;
+                    }else{
+                        Swal.fire(data.message, 'Please complete all the requirements', 'success');
+
+                    }
 
                 }catch(e){
                     console.log(e)
@@ -299,14 +338,13 @@ export default {
         disabled()
         {
             if(this.step == 1){
-                console.log("Next Button should be clickable: " + this.profile.finished)
                 return !this.profile.finished;
             }
             if(this.step == 2){
-                return this.requirements.finished 
+                return !this.requirements.finished 
             }
             if(this.step == 3){
-                return this.learners.finished    
+                return !this.learners.finished    
             }
         }
     }

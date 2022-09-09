@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -230,7 +232,9 @@ return [
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
 
-        'Pusher'    =>  Pusher\Pusher::class
+        'Pusher'    =>  Pusher\Pusher::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
 
 
     ],

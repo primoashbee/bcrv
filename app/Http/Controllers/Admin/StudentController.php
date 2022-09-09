@@ -8,9 +8,11 @@ use App\Requirement;
 use App\StudentRequirement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PrimaryModels\CourseModel as CourseModel;
 use App\Models\PrimaryModels\StudentsModel as StudentsModel;
 use App\Models\PrimaryModels\StudentInfo as StudentInfoModel;
+use App\Notifications\StudentRequirementUploadedNotification;
 
 class StudentController extends Controller
 {
@@ -91,13 +93,32 @@ class StudentController extends Controller
                 ]);
         }
 
+        $steps = [
+            [
+                'step'=>1,
+                'finished'=> $profile->is_finished
+            ],
+            [
+                'step'=>2,
+                'finished'=> $user->requirements_complete
+            ],
+            [
+                'step'=>3,
+                'finished'=>false
+            ]
+        ];
+
         $list = $user->studentRequirements->load('requirement')->each->append('html','date_uploaded');
-        return response()->json(compact('courses','batches','years','profile','list'),200);
+        return response()->json(compact('courses','batches','years','profile','list','steps'),200);
     }
 
     public function postSetup(Request $request, $type)
     {
         $user = auth()->user();
+        $email = $user->email;
+        $student_info = $user->studentInfo;
+        $admin = User::find(1);
+
         if($type=="profile"){
             $request->validate([
                 'firstname'=>'required',
@@ -134,11 +155,43 @@ class StudentController extends Controller
 
         }
         if($type=="requirements"){
-            dd($request->all());
-            foreach($request->file as $file)
+            foreach($request->file as $key=>$file)
             {
-                dd($file);
+
+                $student_requirement = StudentRequirement::find($request->requirement_id[$key]);
+                // $requirement  = Requirement::find($key)->name;\
+                $requirement_name = $student_requirement->requirement->name;
+                $filename = "$email/$student_info->name - $requirement_name.png";
+                Storage::disk('requirements')->putFileAs(
+                    '',
+                    $file,
+                    $filename
+                  );
+    
+                // $student_requirement = $user->studentRequirements()->where('requirement_id', $request->requirement_id[$key])->first();
+                $student_requirement->update([
+                    'status' => StudentRequirement::PENDING,
+                    'path'   => $email,
+                    'filename' => "$student_info->name - $requirement_name.png",
+                    'updated_at' => now()
+                ]);
+                $admin->notify(new StudentRequirementUploadedNotification($student_requirement, true));
+    
+                $user->notify(new StudentRequirementUploadedNotification($student_requirement));
+                
             }
+
+            if($user->requirements_complete){
+                return response()->json([
+                    'message'=>'Requirements Completed',
+                    'finished'=>true
+                ]);
+            }
+            return response()->json([
+                'message'=>'Requirement/s Uploaded',
+                'finished'=>false
+            ]);
+            
         }
     }
 

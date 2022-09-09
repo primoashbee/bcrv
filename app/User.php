@@ -121,4 +121,18 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Batch::class,'batch_users')->withPivot('status');
     }
+
+    public function getRequirementsCompleteAttribute()
+    {
+        $requirements = $this->studentRequirements();
+        $count = $requirements->count();
+        $uploaded = $requirements->whereIn('status', [StudentRequirement::PENDING, StudentRequirement::APPROVED])->count();
+
+        return $count == $uploaded;
+    }
+
+    public function learner()
+    {
+        return $this->hasOne(Learner::class,'user_id','id');
+    }
 }

@@ -208,6 +208,13 @@ use App\Http\Middleware\StudentMiddleware;
         Route::get('/issued_certificates/{id}/view', 'BatchCertificateController@view')->name('certificates.view');
         Route::get('/issued_certificates/{id}/download', 'BatchCertificateController@download')->name('certificates.download');
         Route::get('/help', 'HelpController@index')->name('help');
+
+        Route::get('/learner/profile/{id}/view', 'LearnerController@view');
+        Route::get('/learner/profile/{id}/download', 'LearnerController@download');
+        Route::get('/learner/profile', 'LearnerController@index');
+        Route::post('/learner/profile', 'LearnerController@update');
+
+        Route::get('/learner/setup', 'LearnerController@setup');
     });
 
 

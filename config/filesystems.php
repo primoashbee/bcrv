@@ -72,6 +72,11 @@ return [
         'certificates'=> [
             'driver'=>'local',
             'root'=>storage_path('app/certificates')
+        ],
+
+        'templates'=> [
+            'driver'=>'local',
+            'root'=>storage_path('app/templates')
         ]
 
     ],
