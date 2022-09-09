@@ -288,6 +288,7 @@ use App\Http\Middleware\StudentMiddleware;
             Route::get('/show_response_students', 'Admin\DashboardController@show_response_students');
 
             Route::get("/setup", 'Admin\StudentController@setup');
+            Route::post("/setup/{type}", 'Admin\StudentController@postSetup');
     });
             
 

@@ -2,24 +2,31 @@
     <div class="">
         <div class="card">
             <div class="card-header">
-                <h3> Setup your profile</h3>
+                <h3> Setup your profile 
+
+                </h3>
+
 
             </div>
             <div class="card-body">
                 <transition name="slide-fade">
 
                     <div id="profile" v-if="step==1">
-                        <h3> Basic Profile</h3>
+                        <h3> Basic Profile
+                            <a href="#" class="badge badge-success" v-if="profile.finished">Finished</a>
+                            <a href="#" class="badge badge-danger" v-else>On-going</a>
+                        </h3>
+                        
                         <div class="row">
                             <div class="col-md-4 col-xs-12 ">
                                 <div class="form-group">
-                                    <label for="firstname">First Name</label>
+                                    <label for="firstname">First Name <span style="color:red"> * </span></label>
                                     <input type="text" class="form-control" v-model="profile.firstname">
                                 </div>
                             </div>
                             <div class="col-md-4 col-xs-12">
                                 <div class="form-group">
-                                    <label for="lastname">Last Name</label>
+                                    <label for="lastname">Last Name <span style="color:red"> * </span></label>
                                     <input type="text" class="form-control" v-model="profile.lastname">
                                 </div>
                             </div>
@@ -39,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-5 col-xs-12">
                                 <div class="form-group">
-                                    <label for="ext_name">Course </label>
+                                    <label for="ext_name">Course <span style="color:red"> * </span></label>
                                     <select v-model="profile.courses" multiple="true" class="form-control">
                                         <option v-for="(item, key) in setup.courses" :value="item.id">{{item.course_name}}</option>
                                     </select>
@@ -47,19 +54,19 @@
                             </div>
                             <div class="col-md-4 col-xs-12">
                                 <div class="form-group">
-                                    <label for="ext_name">Address </label>
+                                    <label for="ext_name">Address <span style="color:red"> * </span></label>
                                     <input type="text" class="form-control" v-model="profile.address">
                                 </div>
                             </div>
                             <div class="col-md-1 col-xs-12">
                                 <div class="form-group">
-                                    <label for="phone">Phone </label>
+                                    <label for="phone">Phone <span style="color:red"> * </span></label>
                                     <input type="text" class="form-control" v-model="profile.contact_number"/>
                                 </div>
                             </div>
                             <div class="col-md-1 col-xs-12">
                                 <div class="form-group">
-                                    <label for="ext_name">Year </label>
+                                    <label for="ext_name">Year <span style="color:red"> * </span> </label>
                                     <select v-model="profile.school_year"  class="form-control">
                                         <option v-for="(item, key) in setup.years" :value="item">{{item}}</option>
                                     </select>
@@ -67,7 +74,7 @@
                             </div>
                             <div class="col-md-1 col-xs-12">
                                 <div class="form-group">
-                                    <label for="ext_name">Batch </label>
+                                    <label for="ext_name">Batch <span style="color:red"> * </span></label>
                                     <select v-model="profile.batch"  class="form-control">
                                         <option v-for="(item, key) in setup.batches" :value="item">{{item}}</option>
                                     </select>
@@ -75,12 +82,41 @@
                             </div>
 
                         </div>
+                        <button class="btn btn-success float-right" @click="submit(step)" > Save </button>
+
                     </div>
                 </transition>
                 <transition name="slide-fade">
 
                     <div id="requirements" v-if="step==2">
-                        <h3> Requirements</h3>
+                        <h3> Requirements
+                            <a :href="false" class="badge badge-success" v-if="requirements.finished">Finished</a>
+                            <a :href="false" class="badge badge-danger" v-else>On-going</a>
+                        </h3>
+                        <div class="form-group" v-for="(item,key) in requirements.list">
+                            <label> {{item.requirement.name }}
+                                
+                            </label>
+                            <div v-if="item.status ==1 || item.status==2">
+                                <a :href="`/requirements/view/${item.id}`" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
+                                <a :href="`/requirements/download/${item.id}`"  class="badge badge-success"><i class="fa fa-download"></i></a>
+                                <span > Submitted on: {{item.updated_at}}</span>                    
+                            </div>
+
+                            <div class="custom-file">
+
+                                <input type="file" :class="fileClass(item)"  :name="fileHTMLId(item)" :id="fileHTMLId(item)" :readonly="fileReadOnly(item)" @change="fileChanged($event, item)">
+                    
+                            
+                                <label class="custom-file-label" :for="fileHTMLId(item)" required> Choose File</label>
+                                <div :class="fileDivClass(item)">
+                                {{item.html['message']}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <button class="btn btn-success float-right" @click="submit(step)" > Save </button>
+
 
                     </div>
                 </transition>
@@ -88,15 +124,17 @@
 
                     <div id="requirements">
                         <h3> Learner's Profile</h3>
+                        <button class="btn btn-success float-right" @click="submit(step)" > Save </button>
+
 
                     </div>
                 </transition>
 
             </div>
             <div class="card-footer">
-                <button class="btn btn-success float-left" @click="back" v-if="step>1"> Back </button>
-                <button class="btn btn-success float-right" @click="next" v-if="step<3"> Next </button>
-                <button class="btn btn-success float-right" @click="next" v-if="step==3"> Submit </button>
+                <button class="btn btn-success float-left" @click="back" v-if="step > 1"> Back </button>
+                <button class="btn btn-success float-right" @click="next" v-if="step < 3" :disabled="disabled"> Next </button>
+                <button class="btn btn-success float-right" @click="next" v-if="step == 3"> Submit </button>
             </div>
         </div>
     </div>
@@ -121,15 +159,25 @@ export default {
                 contact_number: "09685794313",
                 school_year: "2022",
                 batch: "1",
-                address: ""
+                address: "",
+                finished: false,
 
 
+            },
+            requirements: {
+                list : [],
+                submit:[],
+                finished: false
+            },
+            learners : {
+                finished: false
             },
             setup : {
                 courses: [],
                 batches: [],
                 years  : []
-            }
+            },
+            errors : []
         }
     },
     methods : {
@@ -138,6 +186,99 @@ export default {
             this.setup.courses = data.courses;
             this.setup.batches = data.batches;
             this.setup.years = data.years;
+            
+            this.requirements.list = data.list
+
+            this.setProfile(data.profile, data.profile.courses)
+        },
+        setProfile(data, courses){
+            this.profile.firstname = data.firstname;
+            this.profile.lastname = data.lastname;
+            this.profile.middlename = data.middlename;
+            this.profile.ext_name = data.ext_name;
+            this.profile.courses = courses.map(x=> {return x.id} )
+            this.profile.contact_number = data.contact_number;
+            this.profile.school_year    = data.school_year;
+            this.profile.batch = data.batch;
+            this.profile.address = data.address;
+            this.profile.finished = data.is_finished;
+            console.log(data);
+        },  
+        fileReadOnly(file){
+            return file.status == 2
+        },
+        fileClass(file){
+            return `custom-file-input ${file.html['class']}`;
+        },
+        fileHTMLId(file){
+            return `requirement[${file.requirement_id}]`
+        },
+        fileDivClass(file)
+        {
+            return file.html['feedback_class']
+        },
+        fileChanged(event, file){
+            const filename = event.target.value;
+            const file_upload     = event.target.files[0];
+            const data = {
+                requirement_id: file.id,
+                file: file_upload
+            }
+            const requirements = this.requirements.submit.filter(x=> x.requirement != file.id);
+            requirements.push(data)
+            this.requirements.submit = requirements
+            
+        },
+        async submit(step){
+            if(step==1){
+                try{
+                    const { data }  = await axios.post('/setup/profile', this.profile)
+                    this.errors = []
+                    this.profile.finished = true
+                    Swal.fire(data.message, 'Please proceed to the next step', 'success');
+
+                }catch(e){
+                    if(e.response.status == 422)
+                    {
+                        this.errors = e.response.data.errors
+                        Swal.fire('Please fill required fields', '', 'info');
+
+
+                    }
+                }
+                return;
+            }
+            if(step==2){
+                try{
+                    const formData = new FormData();
+                    const list = [];
+                    this.requirements.submit.map(x=>{
+                        formData.append('requirement_id[]', x.requirement_id)
+                        formData.append('file[]', x.file)
+                    })
+                    // formData.append("files", this.requirements.)
+                    const { data }  = await axios.post('/setup/requirements', formData)
+                    this.errors = []
+                    this.profile.finished = true
+                    Swal.fire(data.message, 'Please proceed to the next step', 'success');
+
+                }catch(e){
+                    console.log(e)
+                    if(e.response.status == 422)
+                    {
+                        this.errors = e.response.data.errors
+                        Swal.fire('Please fill required fields', '', 'info');
+
+                    }
+                }
+                this.requirements.finished = true
+                return;
+            }
+            if(step==3){
+                alert('submitting learners profile')
+                this.learners.finished = true
+                return;
+            }
         },
         next(){
             if(this.step ==3){
@@ -153,6 +294,21 @@ export default {
             this.step--;
             return;
         },
+    },
+    computed : {
+        disabled()
+        {
+            if(this.step == 1){
+                console.log("Next Button should be clickable: " + this.profile.finished)
+                return !this.profile.finished;
+            }
+            if(this.step == 2){
+                return this.requirements.finished 
+            }
+            if(this.step == 3){
+                return this.learners.finished    
+            }
+        }
     }
 }
 

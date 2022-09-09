@@ -2236,13 +2236,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         contact_number: "09685794313",
         school_year: "2022",
         batch: "1",
-        address: ""
+        address: "",
+        finished: false
+      },
+      requirements: {
+        list: [],
+        submit: [],
+        finished: false
+      },
+      learners: {
+        finished: false
       },
       setup: {
         courses: [],
         batches: [],
         years: []
-      }
+      },
+      errors: []
     };
   },
   methods: {
@@ -2265,13 +2275,156 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.setup.courses = data.courses;
                 _this2.setup.batches = data.batches;
                 _this2.setup.years = data.years;
+                _this2.requirements.list = data.list;
 
-              case 7:
+                _this2.setProfile(data.profile, data.profile.courses);
+
+              case 9:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
+      }))();
+    },
+    setProfile: function setProfile(data, courses) {
+      this.profile.firstname = data.firstname;
+      this.profile.lastname = data.lastname;
+      this.profile.middlename = data.middlename;
+      this.profile.ext_name = data.ext_name;
+      this.profile.courses = courses.map(function (x) {
+        return x.id;
+      });
+      this.profile.contact_number = data.contact_number;
+      this.profile.school_year = data.school_year;
+      this.profile.batch = data.batch;
+      this.profile.address = data.address;
+      this.profile.finished = data.is_finished;
+      console.log(data);
+    },
+    fileReadOnly: function fileReadOnly(file) {
+      return file.status == 2;
+    },
+    fileClass: function fileClass(file) {
+      return "custom-file-input ".concat(file.html['class']);
+    },
+    fileHTMLId: function fileHTMLId(file) {
+      return "requirement[".concat(file.requirement_id, "]");
+    },
+    fileDivClass: function fileDivClass(file) {
+      return file.html['feedback_class'];
+    },
+    fileChanged: function fileChanged(event, file) {
+      var filename = event.target.value;
+      var file_upload = event.target.files[0];
+      var data = {
+        requirement_id: file.id,
+        file: file_upload
+      };
+      var requirements = this.requirements.submit.filter(function (x) {
+        return x.requirement != file.id;
+      });
+      requirements.push(data);
+      this.requirements.submit = requirements;
+    },
+    submit: function submit(step) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _yield$axios$post, data, formData, list, _yield$axios$post2, _data;
+
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(step == 1)) {
+                  _context3.next = 15;
+                  break;
+                }
+
+                _context3.prev = 1;
+                _context3.next = 4;
+                return axios.post('/setup/profile', _this3.profile);
+
+              case 4:
+                _yield$axios$post = _context3.sent;
+                data = _yield$axios$post.data;
+                _this3.errors = [];
+                _this3.profile.finished = true;
+                Swal.fire(data.message, 'Please proceed to the next step', 'success');
+                _context3.next = 14;
+                break;
+
+              case 11:
+                _context3.prev = 11;
+                _context3.t0 = _context3["catch"](1);
+
+                if (_context3.t0.response.status == 422) {
+                  _this3.errors = _context3.t0.response.data.errors;
+                  Swal.fire('Please fill required fields', '', 'info');
+                }
+
+              case 14:
+                return _context3.abrupt("return");
+
+              case 15:
+                if (!(step == 2)) {
+                  _context3.next = 35;
+                  break;
+                }
+
+                _context3.prev = 16;
+                formData = new FormData();
+                list = [];
+
+                _this3.requirements.submit.map(function (x) {
+                  formData.append('requirement_id[]', x.requirement_id);
+                  formData.append('file[]', x.file);
+                }); // formData.append("files", this.requirements.)
+
+
+                _context3.next = 22;
+                return axios.post('/setup/requirements', formData);
+
+              case 22:
+                _yield$axios$post2 = _context3.sent;
+                _data = _yield$axios$post2.data;
+                _this3.errors = [];
+                _this3.profile.finished = true;
+                Swal.fire(_data.message, 'Please proceed to the next step', 'success');
+                _context3.next = 33;
+                break;
+
+              case 29:
+                _context3.prev = 29;
+                _context3.t1 = _context3["catch"](16);
+                console.log(_context3.t1);
+
+                if (_context3.t1.response.status == 422) {
+                  _this3.errors = _context3.t1.response.data.errors;
+                  Swal.fire('Please fill required fields', '', 'info');
+                }
+
+              case 33:
+                _this3.requirements.finished = true;
+                return _context3.abrupt("return");
+
+              case 35:
+                if (!(step == 3)) {
+                  _context3.next = 39;
+                  break;
+                }
+
+                alert('submitting learners profile');
+                _this3.learners.finished = true;
+                return _context3.abrupt("return");
+
+              case 39:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[1, 11], [16, 29]]);
       }))();
     },
     next: function next() {
@@ -2289,6 +2442,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.step--;
       return;
+    }
+  },
+  computed: {
+    disabled: function disabled() {
+      if (this.step == 1) {
+        console.log("Next Button should be clickable: " + this.profile.finished);
+        return !this.profile.finished;
+      }
+
+      if (this.step == 2) {
+        return this.requirements.finished;
+      }
+
+      if (this.step == 3) {
+        return this.learners.finished;
+      }
     }
   }
 });
@@ -2438,7 +2607,17 @@ var render = function render() {
     attrs: {
       id: "profile"
     }
-  }, [_c("h3", [_vm._v(" Basic Profile")]), _vm._v(" "), _c("div", {
+  }, [_c("h3", [_vm._v(" Basic Profile\n                        "), _vm.profile.finished ? _c("a", {
+    staticClass: "badge badge-success",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("Finished")]) : _c("a", {
+    staticClass: "badge badge-danger",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("On-going")])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-4 col-xs-12"
@@ -2448,7 +2627,11 @@ var render = function render() {
     attrs: {
       "for": "firstname"
     }
-  }, [_vm._v("First Name")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("First Name "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2477,7 +2660,11 @@ var render = function render() {
     attrs: {
       "for": "lastname"
     }
-  }, [_vm._v("Last Name")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Last Name "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2566,7 +2753,11 @@ var render = function render() {
     attrs: {
       "for": "ext_name"
     }
-  }, [_vm._v("Course ")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Course "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2603,7 +2794,11 @@ var render = function render() {
     attrs: {
       "for": "ext_name"
     }
-  }, [_vm._v("Address ")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Address "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2632,7 +2827,11 @@ var render = function render() {
     attrs: {
       "for": "phone"
     }
-  }, [_vm._v("Phone ")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Phone "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2661,7 +2860,11 @@ var render = function render() {
     attrs: {
       "for": "ext_name"
     }
-  }, [_vm._v("Year ")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Year "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2695,7 +2898,11 @@ var render = function render() {
     attrs: {
       "for": "ext_name"
     }
-  }, [_vm._v("Batch ")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Batch "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v(" * ")])]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2721,7 +2928,14 @@ var render = function render() {
         value: item
       }
     }, [_vm._v(_vm._s(item))]);
-  }), 0)])])])]) : _vm._e()]), _vm._v(" "), _c("transition", {
+  }), 0)])])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success float-right",
+    on: {
+      click: function click($event) {
+        return _vm.submit(_vm.step);
+      }
+    }
+  }, [_vm._v(" Save ")])]) : _vm._e()]), _vm._v(" "), _c("transition", {
     attrs: {
       name: "slide-fade"
     }
@@ -2729,7 +2943,66 @@ var render = function render() {
     attrs: {
       id: "requirements"
     }
-  }, [_c("h3", [_vm._v(" Requirements")])]) : _vm._e()]), _vm._v(" "), _vm.step == 3 ? _c("transition", {
+  }, [_c("h3", [_vm._v(" Requirements\n                        "), _vm.requirements.finished ? _c("a", {
+    staticClass: "badge badge-success",
+    attrs: {
+      href: false
+    }
+  }, [_vm._v("Finished")]) : _c("a", {
+    staticClass: "badge badge-danger",
+    attrs: {
+      href: false
+    }
+  }, [_vm._v("On-going")])]), _vm._v(" "), _vm._l(_vm.requirements.list, function (item, key) {
+    return _c("div", {
+      staticClass: "form-group"
+    }, [_c("label", [_vm._v(" " + _vm._s(item.requirement.name) + "\n                            \n                        ")]), _vm._v(" "), item.status == 1 || item.status == 2 ? _c("div", [_c("a", {
+      staticClass: "badge badge-success",
+      attrs: {
+        href: "/requirements/view/".concat(item.id),
+        target: "_blank"
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-eye"
+    })]), _vm._v(" "), _c("a", {
+      staticClass: "badge badge-success",
+      attrs: {
+        href: "/requirements/download/".concat(item.id)
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-download"
+    })]), _vm._v(" "), _c("span", [_vm._v(" Submitted on: " + _vm._s(item.updated_at))])]) : _vm._e(), _vm._v(" "), _c("div", {
+      staticClass: "custom-file"
+    }, [_c("input", {
+      "class": _vm.fileClass(item),
+      attrs: {
+        type: "file",
+        name: _vm.fileHTMLId(item),
+        id: _vm.fileHTMLId(item),
+        readonly: _vm.fileReadOnly(item)
+      },
+      on: {
+        change: function change($event) {
+          return _vm.fileChanged($event, item);
+        }
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "custom-file-label",
+      attrs: {
+        "for": _vm.fileHTMLId(item),
+        required: ""
+      }
+    }, [_vm._v(" Choose File")]), _vm._v(" "), _c("div", {
+      "class": _vm.fileDivClass(item)
+    }, [_vm._v("\n                            " + _vm._s(item.html["message"]) + "\n                            ")])])]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success float-right",
+    on: {
+      click: function click($event) {
+        return _vm.submit(_vm.step);
+      }
+    }
+  }, [_vm._v(" Save ")])], 2) : _vm._e()]), _vm._v(" "), _vm.step == 3 ? _c("transition", {
     attrs: {
       name: "slide-fade"
     }
@@ -2737,7 +3010,14 @@ var render = function render() {
     attrs: {
       id: "requirements"
     }
-  }, [_c("h3", [_vm._v(" Learner's Profile")])])]) : _vm._e()], 1), _vm._v(" "), _c("div", {
+  }, [_c("h3", [_vm._v(" Learner's Profile")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-success float-right",
+    on: {
+      click: function click($event) {
+        return _vm.submit(_vm.step);
+      }
+    }
+  }, [_vm._v(" Save ")])])]) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "card-footer"
   }, [_vm.step > 1 ? _c("button", {
     staticClass: "btn btn-success float-left",
@@ -2746,6 +3026,9 @@ var render = function render() {
     }
   }, [_vm._v(" Back ")]) : _vm._e(), _vm._v(" "), _vm.step < 3 ? _c("button", {
     staticClass: "btn btn-success float-right",
+    attrs: {
+      disabled: _vm.disabled
+    },
     on: {
       click: _vm.next
     }
@@ -2763,7 +3046,7 @@ var staticRenderFns = [function () {
 
   return _c("div", {
     staticClass: "card-header"
-  }, [_c("h3", [_vm._v(" Setup your profile")])]);
+  }, [_c("h3", [_vm._v(" Setup your profile \n\n            ")])]);
 }];
 render._withStripped = true;
 
