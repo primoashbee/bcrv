@@ -13,6 +13,9 @@ $(function () {
   //-----------------------
 
   // Get context with jQuery - using jQuery's .get() method.
+  if($('#salesChart') === null){
+    return;
+  }
   var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
 
   var salesChartData = {

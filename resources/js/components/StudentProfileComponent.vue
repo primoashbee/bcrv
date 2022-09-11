@@ -220,10 +220,7 @@ export default {
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()
-                    const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                    b.textContent = Swal.getTimerLeft()
-                    }, 100)
+                  
                 }
                 
             })
@@ -251,7 +248,6 @@ export default {
             this.profile.batch = data.batch;
             this.profile.address = data.address;
             this.profile.finished = data.is_finished;
-            console.log(data);
         },  
         fileReadOnly(file){
             return file.status == 2

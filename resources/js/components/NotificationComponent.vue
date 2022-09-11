@@ -42,7 +42,6 @@ export default {
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.student-uploaded-requirement', (e) => {
                 const payload = e;
-                console.log(payload)
                 this.$toast(e.data.data.message, {
                     timeout: 5000,
                     onClick: ()=> {
@@ -50,21 +49,18 @@ export default {
                     },
                 
                 });
-                console.log(e)
                 this.notifications.unshift(e.data)
             });
         }else{
         Echo.channel('user.notifications.' + this.user_id)
             .listen('.requirement-updated', (e) => {
                 const payload = e;
-                console.log(e , 'ashbee')
                 this.$toast(e.message.message + '['+e.message.title+']', {
                         timeout: 5000,
                         onClick: ()=> {
                             this.goToNotification(payload.data.id)
                         },
                 });
-                console.log(e , 'ashbee')
 
                 console.log('admin has updated your uploaded')
 
@@ -72,7 +68,6 @@ export default {
             })
         }
         const {data} = await axios.get('/notifications/list')
-        console.log(data)
         this.notifications = data.data
     },
 
