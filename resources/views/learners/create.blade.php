@@ -3,9 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Learner's Form</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ asset('admin_assets/dist/img/icon.ico') }}">
+
         <link rel="stylesheet" href="{{asset('css/learner-style.css')}}">
         <style>
             .button {
