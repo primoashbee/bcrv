@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{asset('css/learner-style.css')}}">
+        <link rel="stylesheet" href="/public/css/learner-style.css">
         <style>
             .button {
                     background-color: #4CAF50; /* Green */
