@@ -75,10 +75,11 @@
                         {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>
-
-                        @foreach($user->roles as $roles)
-                            <td>- {{ $roles->name }}</td>
-                        @endforeach
+                        <td> @foreach($user->roles as $roles)
+                            - {{ $roles->name }}
+                            @endforeach
+                        </td>
+                                               
                         @if ($user->status == 0)
                             <b><td class="text-danger">Inactive</td></b>
                         @else
@@ -142,15 +143,15 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
+//   $(function () {
+//     $("#example1").DataTable({
+//       "responsive": true, "lengthChange": false, "autoWidth": false,
+//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+//   });
 </script>
 <script>
-        $.noConflict();
+    $.noConflict();
 
     $(document).ready(function() {
       $('#example1').DataTable();
