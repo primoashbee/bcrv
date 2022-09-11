@@ -246,6 +246,41 @@
 
     $(document).ready(function() {
       $("#example1").DataTable();
+      $("#example1").on('click','.btnSearch',function(){
+        const q = $('#q').val();
+        const q_status = $('#q_status').val();
+
+        var s_url = new URL('{{route('requirements.uploaded')}}');
+        const requirement_id = @if(request()->has('requirement_id')) {{request()->requirement_id}} @else null @endif ;
+        if(q!=""){
+          s_url.searchParams.append('q', q);
+        }
+        if(requirement_id!=""){
+          s_url.searchParams.append('requirement_id', id);
+        }
+        if(q_status != "all"){
+          s_url.searchParams.append('status', q_status);
+        }
+        window.location.href=s_url
+      });
+
+      $("#example1").on('click','.showUpdate',function(){
+        $('#span-view').attr('hidden',true)
+
+        const data = JSON.parse($(this).attr('data'))
+        const URL  = `/requirements/${data.id}`
+        const type = $(this).attr('student') + ' - ' + $(this).attr('requirement_type')
+        console.log(type)
+        $('#formSubmit').attr('action',URL)
+        $('#name').val(data.filename);
+        $('#created_at').val(data.created_at);
+        $('#status').val(data.status);
+        $('#modal_title').html(type);
+        
+
+        $('#modal-lg').modal('show')
+      });
+      
       @if(request()->name !== null)
             $('#filter_name').val(@json(request()->name))
         @endif
@@ -279,40 +314,40 @@
         
 
       @endif
-      $('#btnSearch').click(function(){
-        const q = $('#q').val();
-        const q_status = $('#q_status').val();
+      // $('#btnSearch').click(function(){
+      //   const q = $('#q').val();
+      //   const q_status = $('#q_status').val();
 
-        var s_url = new URL('{{route('requirements.uploaded')}}');
-        const requirement_id = @if(request()->has('requirement_id')) {{request()->requirement_id}} @else null @endif ;
-        if(q!=""){
-          s_url.searchParams.append('q', q);
-        }
-        if(requirement_id!=""){
-          s_url.searchParams.append('requirement_id', id);
-        }
-        if(q_status != "all"){
-          s_url.searchParams.append('status', q_status);
-        }
-        window.location.href=s_url
+      //   var s_url = new URL('{{route('requirements.uploaded')}}');
+      //   const requirement_id = @if(request()->has('requirement_id')) {{request()->requirement_id}} @else null @endif ;
+      //   if(q!=""){
+      //     s_url.searchParams.append('q', q);
+      //   }
+      //   if(requirement_id!=""){
+      //     s_url.searchParams.append('requirement_id', id);
+      //   }
+      //   if(q_status != "all"){
+      //     s_url.searchParams.append('status', q_status);
+      //   }
+      //   window.location.href=s_url
         
-      });
-      $('.showUpdate').click(function(){
-        $('#span-view').attr('hidden',true)
+      // });
+      // $('.showUpdate').click(function(){
+      //   $('#span-view').attr('hidden',true)
 
-        const data = JSON.parse($(this).attr('data'))
-        const URL  = `/requirements/${data.id}`
-        const type = $(this).attr('student') + ' - ' + $(this).attr('requirement_type')
-        console.log(type)
-        $('#formSubmit').attr('action',URL)
-        $('#name').val(data.filename);
-        $('#created_at').val(data.created_at);
-        $('#status').val(data.status);
-        $('#modal_title').html(type);
+      //   const data = JSON.parse($(this).attr('data'))
+      //   const URL  = `/requirements/${data.id}`
+      //   const type = $(this).attr('student') + ' - ' + $(this).attr('requirement_type')
+      //   console.log(type)
+      //   $('#formSubmit').attr('action',URL)
+      //   $('#name').val(data.filename);
+      //   $('#created_at').val(data.created_at);
+      //   $('#status').val(data.status);
+      //   $('#modal_title').html(type);
         
 
-        $('#modal-lg').modal('show')
-      })
+      //   $('#modal-lg').modal('show')
+      // })
 
       $('#frmFilter').submit(function(e){
         $.each($('.form-filter'), function(index, element){
