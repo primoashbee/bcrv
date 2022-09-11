@@ -133,6 +133,14 @@
                             <a href="/show_edit_student/{{ $student->id }}" type="button" class="btn btn-sm btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> 
                             </a>
+                            <a href="/learner/profile?id={{$student->user->id}}" target="_blank" type="button" class="btn btn-sm btn-default bg-info">
+                                <i class="fa fa-id-card" style="padding: 10px;"></i> 
+                            </a>
+                            @if($student->user->learner->finished)
+                            <a href="/learner/profile/{{$student->user->id}}/view" target="_blank" type="button" class="btn btn-sm btn-success bg-success">
+                                <i class="fa fa-download" style="padding: 10px;"></i> 
+                            </a>
+                            @endif
                             <a href="#" type="button" class="btn btn-sm btn-primary bg-danger btn-delete" student_id="{{$student->id}}">
                                 <i class="fa fa-trash" style="padding: 10px;"></i> 
                             </a>

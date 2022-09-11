@@ -318,7 +318,7 @@
                             <div class="row">
                                 <div class="ml-10">
                                     <div class="d-flex cbox p-top-10">
-                                        <input type="radio" name="educational_attainment" v-model="educational_attainment" value="Pre-school (Nursery/KinderPrep)<">
+                                        <input type="radio" name="educational_attainment" v-model="educational_attainment" value="Pre-school (Nursery/KinderPrep)">
                                         <label class="bold ml-10">Pre-school (Nursery/KinderPrep)</label>
                                     </div>
                                 </div>
@@ -1019,7 +1019,14 @@
                             }
                             
                         })
+                        @if(request()->has('id'))
+                        const id = @json(request()->id);
+                        const { data } = await axios.get('/learner/setup?id=' + id);
+                        @else
                         const { data } = await axios.get('/learner/setup');
+
+                        @endif
+
                         this.agree      = "false",
                         this.learner_id = data.profile.learner_id;
                         this.entry_date = data.profile.entry_date;
@@ -1068,9 +1075,20 @@
                             })
                             try{
                                 
-                                const {data} = await axios.post('/learner/profile', this.$data)
+                                @if(request()->has('id'))
+                                    const id = @json(request()->id);
+                                    const sURL = `/learner/profile/${id}`
+                                    const rURL = '/show_students'
+                                @else                                    
+                                    const sURL = `/learner/profile`
+                                    const rURL = '/show_dashboard_students'
+
+                                @endif
+                                const { data } = await axios.post(sURL, this.$data);
+
+                                console.log( data )
                                 await Swal.fire(data.message, '', 'success');
-                                location.href = "/show_dashboard_students"
+                                location.href = rURL
 
                             } catch (e){
                                 alert.close()
