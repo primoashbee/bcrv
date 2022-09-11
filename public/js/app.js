@@ -2227,6 +2227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       step: 1,
+      loaded: false,
       profile: {
         firstname: "",
         lastname: "",
@@ -2245,35 +2246,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         finished: false
       },
       learners: {
-        learner_id: "",
-        entry_date: "",
-        lastname: "",
-        firstname: "",
-        middlename: "",
-        ext_name: "",
-        street: "",
-        barangay: "",
-        district: "",
-        city: "",
-        province: "",
-        region: "",
-        email: "",
-        contact_number: "",
-        nationality: "",
-        gender: "",
-        civil_status: "",
-        employement_status: "",
-        birthday: "",
-        birth_city: "",
-        birth_province: "",
-        education_attainment: "",
-        parent_name: "",
-        parent_mailing_address: "",
-        classification: {},
-        disability: {},
-        course_qualification: "",
-        scholarship_package: "",
-        date_received: "",
+        // learner_id: "",
+        // entry_date: "",
+        // lastname: "",
+        // firstname: "",
+        // middlename: "",
+        // ext_name: "",
+        // street: "",
+        // barangay:"",
+        // district:"",
+        // city:"",
+        // province:"",
+        // region:"",
+        // email:"",
+        // contact_number:"",
+        // nationality:"",
+        // gender:"",
+        // civil_status:"",
+        // employement_status:"",
+        // birthday:"",
+        // birth_city:"",
+        // birth_province:"",
+        // education_attainment:"",
+        // parent_name:"",
+        // parent_mailing_address:"",
+        // classification: {},
+        // disability: {},
+        // course_qualification:"",
+        // scholarship_package:"",
+        // date_received:"",
         finished: false
       },
       setup: {
@@ -2289,16 +2290,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$axios$get, data;
+        var _data$steps$find;
+
+        var alert, _yield$axios$get, data;
 
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                alert = Swal.fire({
+                  title: 'Loading',
+                  timerProgressBar: true,
+                  didOpen: function didOpen() {
+                    Swal.showLoading();
+                    var b = Swal.getHtmlContainer().querySelector('b');
+                    timerInterval = setInterval(function () {
+                      b.textContent = Swal.getTimerLeft();
+                    }, 100);
+                  }
+                });
+                _context2.next = 3;
                 return axios.get('/setup');
 
-              case 2:
+              case 3:
                 _yield$axios$get = _context2.sent;
                 data = _yield$axios$get.data;
                 _this2.setup.courses = data.courses;
@@ -2311,7 +2325,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.setProfile(data.profile, data.profile.courses);
 
-              case 10:
+                _this2.learners.finished = (_data$steps$find = data.steps.find(function (x) {
+                  return x.step == 3;
+                })) === null || _data$steps$find === void 0 ? void 0 : _data$steps$find.finished;
+                _this2.loaded = true;
+                alert.close();
+
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -2633,7 +2653,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {}, [_c("div", {
+  return _vm.loaded ? _c("div", {}, [_c("div", {
     staticClass: "card"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "card-body"
@@ -3048,14 +3068,22 @@ var render = function render() {
     attrs: {
       id: "requirements"
     }
-  }, [_c("h3", [_vm._v(" Learner's Profile")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-success float-right",
-    on: {
-      click: function click($event) {
-        return _vm.submit(_vm.step);
-      }
+  }, [_c("h3", [_vm._v(" Learner's Profile\n                        "), _vm.learners.finished ? _c("a", {
+    staticClass: "badge badge-success",
+    attrs: {
+      href: false
     }
-  }, [_vm._v(" Save ")])])]) : _vm._e()], 1), _vm._v(" "), _c("div", {
+  }, [_vm._v("Finished")]) : _c("a", {
+    staticClass: "badge badge-danger",
+    attrs: {
+      href: false
+    }
+  }, [_vm._v("On-going")])]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-success float-right",
+    attrs: {
+      href: "/learner/profile"
+    }
+  }, [_vm._v(" Setup Learner's Profile ")])])]) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "card-footer"
   }, [_vm.step > 1 ? _c("button", {
     staticClass: "btn btn-success float-left",
@@ -3075,7 +3103,7 @@ var render = function render() {
     on: {
       click: _vm.next
     }
-  }, [_vm._v(" Submit ")]) : _vm._e()])])]);
+  }, [_vm._v(" Submit ")]) : _vm._e()])])]) : _vm._e();
 };
 
 var staticRenderFns = [function () {

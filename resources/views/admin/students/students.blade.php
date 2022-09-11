@@ -111,7 +111,7 @@
                 <tbody>
                     @foreach($students as $student)
                     <tr>
-                        <td>Learner's ID</td>
+                        <td> {{ $student->user->learner->learner_id }}</td>
                         <td>{{ $student->lastname }}</td>
                         <td>{{ $student->firstname }}</td>
                         <td>{{ $student->middlename }}</td>

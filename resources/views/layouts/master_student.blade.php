@@ -168,6 +168,12 @@
           </li> --}}
 
           <li class="nav-item">
+            <a href="{{ url('/learner/profile') }}" class="nav-link ">
+              <i class="fas fa-id-card nav-icon"></i>              
+              <p>Learner's Profile</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('/show_profile_students') }}" class="nav-link {{ 'show_profile_students' == request()->path() ? 'active' : '' }}">
               <i class="fas fa-user nav-icon"></i>
               <p>Profile</p>
@@ -194,7 +200,6 @@
     <section class="content">
       <div class="container-fluid">
         @yield('content')
-        <profile-steps></profile-steps>
       </div>
     </section>
   </div>

@@ -13,7 +13,7 @@ class BatchCertificateController extends Controller
 {
     public function index(Request $request)
     {
-        $list = BatchCertificateUser::with('user.studentInfo','certificate.batch.course')
+        $list = BatchCertificateUser::with('user.studentInfo','user.learner','certificate.batch.course')
             ->when($request->course_id,function($q, $value){
                 $q->whereHas('certificate.batch', function($query) use ($value){
                     $query->where('course_id', $value);

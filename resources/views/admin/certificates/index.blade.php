@@ -107,11 +107,11 @@
                     <tbody>
                         @foreach($list as $key=>$item)
                         <tr class="xxx">
-                            <td>LEARNERS ID</td>
+                            <td>{{$item->user->learner->learner_id}}</td>
                             <td>{{$item->user->studentInfo->lastname}}</td>
                             <td>{{$item->user->studentInfo->firstname}}</td>
-                            <td>{{$item->user->studentInfo->middlename}}</td>
-                            <td>{{$item->user->studentInfo->ext_name}}</td>
+                            <td>{{$item->user->learner->middlename}}</td>
+                            <td>{{$item->user->learner->ext_name}}</td>
                             <td>{{$item->certificate->name}}</td>
                             <td>
                                 @if($item->pivot()->status == 1 )

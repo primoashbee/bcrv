@@ -135,4 +135,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Learner::class,'user_id','id');
     }
+    
 }

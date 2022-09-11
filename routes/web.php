@@ -16,6 +16,7 @@
 use App\Http\Middleware\AdminMiddlewareLegit;
 use App\Http\Middleware\LoggedInMiddleware;
 use App\Http\Middleware\StudentMiddleware;
+use App\Http\Middleware\StudentProfileSetupFinished;
 
     Route::get('/', function () {
         return view('layouts.welcome');
@@ -215,6 +216,7 @@ use App\Http\Middleware\StudentMiddleware;
         Route::post('/learner/profile', 'LearnerController@update');
 
         Route::get('/learner/setup', 'LearnerController@setup');
+
     });
 
 
@@ -226,16 +228,12 @@ use App\Http\Middleware\StudentMiddleware;
     // ============================= Routes for requests page - STUDENT ============================= //
 
     Route::middleware([StudentMiddleware::class])->group(function () {
-            Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
 
+        Route::middleware([StudentProfileSetupFinished::class])->group(function () {
+            Route::get('/show_dashboard_students','Admin\DashboardController@show_dashboard_students');
             
             Route::post('/requirements/student', 'StudentRequirementController@store')->name('requirements.student.store');
-
             // Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
-
-
-
-
 
             //Route to show requests page
             Route::get('/show_requests_students', 'Admin\StudentRequestController@show_requests_students');
@@ -294,8 +292,13 @@ use App\Http\Middleware\StudentMiddleware;
             Route::get('/newest_response_students', 'Admin\DashboardController@newest_response_students')->name('/newest_response_students');
             Route::get('/show_response_students', 'Admin\DashboardController@show_response_students');
 
+
+        });
+            
             Route::get("/setup", 'Admin\StudentController@setup');
             Route::post("/setup/{type}", 'Admin\StudentController@postSetup');
+            Route::get('/validate', 'LearnerController@guard')->name('profile.guard-form');
+
     });
             
 

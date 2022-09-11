@@ -20,6 +20,9 @@
                     float: right;
                     margin-top: 15px;
                 }
+            .required {
+                color:red;  
+            }
         </style>
     </head>
     <body >
@@ -963,6 +966,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
                 var app = new Vue({
                     el: '#app',
@@ -1004,8 +1008,19 @@
                         finished: false
                     },
                     async mounted(){
+                        const alert = Swal.fire({
+                            title: 'Loading',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            }
+                            
+                        })
                         const { data } = await axios.get('/learner/setup');
-                        console.log(data.profile);
                         this.agree      = "false",
                         this.learner_id = data.profile.learner_id;
                         this.entry_date = data.profile.entry_date;
@@ -1039,10 +1054,39 @@
                         this.course_qualification = data.profile.course_qualification;
                         this.scholarship_package = data.profile.scholarship_package;
                         this.date_received = data.profile.date_received;
+                        alert.close()
                     },
                     methods : {
                         async submit(){
-                            const {data} = await axios.post('/learner/profile', this.$data)
+                            const alert = Swal.fire({
+                            title: 'Loading',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer().querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                    }, 100)
+                                }
+                                
+                            })
+                            try{
+                                
+                                const {data} = await axios.post('/learner/profile', this.$data)
+                                await Swal.fire(data.message, '', 'success');
+                                location.href = "/show_dashboard_students"
+
+                            } catch (e){
+                                alert.close()
+                                if(e.response.status == 422)
+                                    {
+                                        this.errors = e.response.data.errors
+                                        Swal.fire('Please fill required fields', '', 'info');
+
+
+                                    }
+                            }
+                            
                         }
                     },
                     computed:{

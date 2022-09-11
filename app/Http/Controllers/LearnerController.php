@@ -96,6 +96,10 @@ class LearnerController extends Controller
             'finished_at'=>now()
         ]);
 
+        $user->update([
+            'profile_setup_finished'=> true
+        ]); 
+
         return response()->json(['message'=>'Learner Profile Updated!','finished'=>1],200);
     }
     public function view(Request $request, $id)
@@ -156,5 +160,16 @@ class LearnerController extends Controller
 
 
         
+    }
+
+
+    public function guard()
+    {
+        $user = auth()->user();
+
+        return view('students.guard-form');
+
+
+
     }
 }

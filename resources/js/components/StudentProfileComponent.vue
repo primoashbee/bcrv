@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-if="loaded">
         <div class="card">
             <div class="card-header">
                 <h3> Setup your profile 
@@ -123,11 +123,11 @@
                 <transition name="slide-fade"  v-if="step==3">
 
                     <div id="requirements">
-                        <h3> Learner's Profile</h3>
-                        
-                        <button class="btn btn-success float-right" @click="submit(step)" > Save </button>
-
-
+                        <h3> Learner's Profile
+                            <a :href="false" class="badge badge-success" v-if="learners.finished">Finished</a>
+                            <a :href="false" class="badge badge-danger" v-else>On-going</a>
+                        </h3>
+                        <a href="/learner/profile" class="btn btn-success float-right"> Setup Learner's Profile </a>
                     </div>
                 </transition>
 
@@ -151,6 +151,7 @@ export default {
     data(){
         return {
             step: 1,
+            loaded: false,
             profile : {
                 firstname: "",
                 lastname : "",
@@ -171,35 +172,35 @@ export default {
                 finished: false
             },
             learners : {
-                learner_id: "",
-                entry_date: "",
-                lastname: "",
-                firstname: "",
-                middlename: "",
-                ext_name: "",
-                street: "",
-                barangay:"",
-                district:"",
-                city:"",
-                province:"",
-                region:"",
-                email:"",
-                contact_number:"",
-                nationality:"",
-                gender:"",
-                civil_status:"",
-                employement_status:"",
-                birthday:"",
-                birth_city:"",
-                birth_province:"",
-                education_attainment:"",
-                parent_name:"",
-                parent_mailing_address:"",
-                classification: {},
-                disability: {},
-                course_qualification:"",
-                scholarship_package:"",
-                date_received:"",
+                // learner_id: "",
+                // entry_date: "",
+                // lastname: "",
+                // firstname: "",
+                // middlename: "",
+                // ext_name: "",
+                // street: "",
+                // barangay:"",
+                // district:"",
+                // city:"",
+                // province:"",
+                // region:"",
+                // email:"",
+                // contact_number:"",
+                // nationality:"",
+                // gender:"",
+                // civil_status:"",
+                // employement_status:"",
+                // birthday:"",
+                // birth_city:"",
+                // birth_province:"",
+                // education_attainment:"",
+                // parent_name:"",
+                // parent_mailing_address:"",
+                // classification: {},
+                // disability: {},
+                // course_qualification:"",
+                // scholarship_package:"",
+                // date_received:"",
                 
                 finished: false
             },
@@ -214,6 +215,18 @@ export default {
     },
     methods : {
         async init(){
+            const alert = Swal.fire({
+                title: 'Loading',
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                }
+                
+            })
             const { data } = await axios.get('/setup')
             this.setup.courses = data.courses;
             this.setup.batches = data.batches;
@@ -222,6 +235,9 @@ export default {
             this.requirements.list = data.list
             this.requirements.finished = data.steps.find(x=>x.step == 2).finished
             this.setProfile(data.profile, data.profile.courses)
+            this.learners.finished = data.steps.find(x=>x.step==3)?.finished
+            this.loaded = true
+            alert.close()
 
         },
         setProfile(data, courses){

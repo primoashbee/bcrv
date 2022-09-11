@@ -67,7 +67,7 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <td> Learner's ID</td>
+                        <td> {{$user->learner->learner_id}}</td>
 
                         <td>{{ $user->studentInfo->lastname }}</td>
                         <td>{{ $user->studentInfo->firstname }}</td>
@@ -150,6 +150,8 @@
   });
 </script>
 <script>
+        $.noConflict();
+
     $(document).ready(function() {
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {

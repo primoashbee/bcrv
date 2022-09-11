@@ -36,7 +36,7 @@
                 <tbody>
                     @foreach($requests as $request)
                     <tr>
-                        <td> LEARNER'S ID</td>
+                        <td>{{ $request->studentInfo->user->learner->learner_id}}</td>
                         <td>{{ $request->lastname }}</td>
                         <td>{{ $request->studentInfo->firstname }}</td>
                         <td>{{ $request->studentInfo->middlename }}</td>
@@ -149,6 +149,8 @@
 //   });
 </script>
 <script>
+        $.noConflict();
+
     $(document).ready(function() {
       $('#example1').DataTable();
       $('#example1').on('click', '.deletbtn', function() {

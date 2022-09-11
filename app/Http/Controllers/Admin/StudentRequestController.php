@@ -34,7 +34,6 @@ class StudentRequestController extends Controller
     public function add_request_students(Request $request) {
         
 
-
         $request_document = new RequestModel(); 
         $current_user  = Sentinel::getUser()->email;
         $student = DB::table('student_info')
@@ -51,7 +50,8 @@ class StudentRequestController extends Controller
             $student_course = $student_course;
         }
         
-        $request_document->student_id = str_replace($skips, ' ',$student->pluck('student_id'));
+        // $request_document->student_id = str_replace($skips, ' ',$student->pluck('student_id'));
+        $request_document->student_id  = $student->first()->student_id;
         $request_document->course = $student_course;
         $request_document->document_name = $request->input('document_name');
         $request_document->number_of_copies = $request->input('number_of_copies');

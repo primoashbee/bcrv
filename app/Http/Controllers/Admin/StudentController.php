@@ -18,7 +18,7 @@ class StudentController extends Controller
 {
     // show students page
     public function show_students() {
-        $students = StudentInfoModel::with('user')->get();
+        $students = StudentInfoModel::with('user.learner')->get();
         $courses = CourseModel::all();
         return view('admin.students.students')->with('students', $students)
                                             ->with('courses', $courses);
@@ -93,6 +93,13 @@ class StudentController extends Controller
                 ]);
         }
 
+
+        $has_leaner = false;
+        $learner = $user->learner;
+        if(!is_null($learner)){
+            
+            $has_leaner = $learner->finished;
+        }
         $steps = [
             [
                 'step'=>1,
@@ -104,7 +111,7 @@ class StudentController extends Controller
             ],
             [
                 'step'=>3,
-                'finished'=>false
+                'finished'=>$has_leaner
             ]
         ];
 
@@ -147,8 +154,9 @@ class StudentController extends Controller
                     );
                 }
             }
+ 
 
-            return response()->json(['message'=>'Profile Update Success!','finished'=>true]);
+            return response()->json(['message'=>'Learner Profile Updated!','finished'=>true]);
 
 
 

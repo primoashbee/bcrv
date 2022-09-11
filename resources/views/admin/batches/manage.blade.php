@@ -85,7 +85,7 @@
                                         @foreach($batch->users as $student)
                                         <tr>
                                             <td style="width:5px"> <input type="checkbox" name="student_id[]" class="chkEnlisted" id="student-{{$student->id}}" value="{{$student->id}}"/> </td>
-                                            <td> Learner's 1-2-3-4</td>
+                                            <td> {{$student->learner->learner_id}}</td>
                                             <td> {{$student->studentInfo->firstname}}</td>
                                             <td> {{$student->studentInfo->lastname}}</td>
                                             <td>
@@ -139,7 +139,7 @@
                                         <td style="width:5px"> 
                                             <input type="checkbox" name="student_id[]" class="chkEnlist" id="enlist-student-{{$student->id}}" value="{{$student->id}}"/>
                                         </td>
-                                        <td> <label for="enlist-student-{{$student->id}}" > Learner's 1-2-3-4 </label></td>
+                                        <td> <label for="enlist-student-{{$student->id}}"> {{ $student->learner->learner_id}} </label></td>
                                         <td> {{$student->studentInfo->firstname}}</td>
                                         <td> {{$student->studentInfo->lastname}}</td>
                                     </tr>

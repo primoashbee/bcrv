@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\User;
+use Illuminate\Console\Command;
+
+class LearnerProfileSeed extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'learner:seed';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $total = 0 ;
+        foreach(User::whereHas('studentInfo')->doesntHave('studentInfo')->get() as $student)
+        {
+            $student->learner()->updateOrCreate([]);
+            $total++;
+        }
+        $this->info("Processed: ${total}");
+        return' finished';
+
+    }
+}
