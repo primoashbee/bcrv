@@ -306,7 +306,7 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/app.js') . "?v=" .rand(0,200) }}" defer></script>
 <script src="{{ asset('admin_assets/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

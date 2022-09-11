@@ -95,7 +95,6 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Course Name</th>
                         <th>Duration of Training (Hours)</th>
                         <th>Actions</th>
@@ -104,10 +103,9 @@
                 <tbody>
                     @foreach($courses as $course)
                     <tr>
-                        <td>{{ $course->id }}</td>
-                        <td style="width: 100px;">{{ $course->course_name }}</td>
-                        <td style="width: 700px;">{{ $course->course_description }}</td>
-                        <td>
+                        <td style="width: 75%;">{{ $course->course_name }}</td>
+                        <td style="width: 10%;">{{ $course->course_description }}</td>
+                        <td style="width: 15%;">
                             <a href="/show_edit_course/{{ $course->id }}" type="button" class="btn btn-primary bg-info">
                                 <i class="fa fa-pen" style="padding: 10px;"></i> 
                             </a>
