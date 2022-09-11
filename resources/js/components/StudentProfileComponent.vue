@@ -108,7 +108,7 @@
                                 <input type="file" :class="fileClass(item)"  :name="fileHTMLId(item)" :id="fileHTMLId(item)" :readonly="fileReadOnly(item)" @change="fileChanged($event, item)">
                     
                             
-                                <label class="custom-file-label" :for="fileHTMLId(item)" required> Choose File</label>
+                                <label class="custom-file-label" :for="fileHTMLId(item)" v-bind:id="`file-upload-label-${item.id}`" required> Choose File</label>
                                 <div :class="fileDivClass(item)">
                                 {{item.html['message']}}
                                 </div>
@@ -269,10 +269,17 @@ export default {
                 requirement_id: file.id,
                 file: file_upload
             }
+            const el = document.getElementById(`file-upload-label-${file.id}`);
+            el.innerHTML = file_upload.name
+
+            this.requirements.list.find(x=>x.id == file.id).html.class = ""
             const requirements = this.requirements.submit.filter(x=> x.requirement != file.id);
             requirements.push(data)
             this.requirements.submit = requirements
             
+        },
+        fileUploadID(item){
+            return `file-upload-label-${item.id}`
         },
         async submit(step){
             if(step==1){

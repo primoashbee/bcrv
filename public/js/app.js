@@ -2362,11 +2362,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         requirement_id: file.id,
         file: file_upload
       };
+      var el = document.getElementById("file-upload-label-".concat(file.id));
+      el.innerHTML = file_upload.name;
+      this.requirements.list.find(function (x) {
+        return x.id == file.id;
+      }).html["class"] = "";
       var requirements = this.requirements.submit.filter(function (x) {
         return x.requirement != file.id;
       });
       requirements.push(data);
       this.requirements.submit = requirements;
+    },
+    fileUploadID: function fileUploadID(item) {
+      return "file-upload-label-".concat(item.id);
     },
     submit: function submit(step) {
       var _this3 = this;
@@ -3037,6 +3045,7 @@ var render = function render() {
       staticClass: "custom-file-label",
       attrs: {
         "for": _vm.fileHTMLId(item),
+        id: "file-upload-label-".concat(item.id),
         required: ""
       }
     }, [_vm._v(" Choose File")]), _vm._v(" "), _c("div", {

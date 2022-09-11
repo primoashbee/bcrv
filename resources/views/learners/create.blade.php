@@ -25,6 +25,14 @@
             .required {
                 color:red;  
             }
+
+            .photo-upload {
+                background-size:     cover;
+                background-repeat:   no-repeat;
+                background-position: center center;  
+                width: 150px;
+                height: 150px;
+            }
         </style>
     </head>
     <body >
@@ -54,8 +62,10 @@
                     <h2 class="bold font-md text-center">LEARNERS PROFILE FORM</h2>
                 </div>
                 <div class="w-20">
-                    <div class="border picture-wrapper d-flex">
+                    <div class="border picture-wrapper d-flex photo-upload" id="profile-photo-preview" style="background-image: url('https://via.placeholder.com/250'); background-repeat: no-repeat; backrgound-size: auto;">
                         <p class="margin-auto">I.D Picture</p>
+                        <input type="file" class="w-100 h-100 hidden file" v-on:change="fileUpload('2x2', $event)">
+
                     </div>
                 </div>
             </div>
@@ -1101,6 +1111,13 @@
                                     }
                             }
                             
+                        },
+                        fileUpload(type,event){
+                            if(type=="2x2"){
+                                const src = URL.createObjectURL(event.target.files[0]);
+                                const preview = document.getElementById("profile-photo-preview");
+                                preview.style.backgroundImage = `url(${src})`;
+                            }
                         }
                     },
                     computed:{
