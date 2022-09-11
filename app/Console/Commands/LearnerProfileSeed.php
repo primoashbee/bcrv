@@ -39,7 +39,7 @@ class LearnerProfileSeed extends Command
     public function handle()
     {
         $total = 0 ;
-        foreach(User::doesntHave('studentInfo')->get() as $student)
+        foreach(User::whereHas('studentInfo')->get() as $student)
         {
             $student->learner()->updateOrCreate([]);
             $total++;
