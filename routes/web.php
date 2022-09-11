@@ -214,7 +214,7 @@ use App\Http\Middleware\StudentProfileSetupFinished;
         Route::get('/learner/profile/{id}/download', 'LearnerController@download');
         Route::get('/learner/profile', 'LearnerController@index');
         Route::post('/learner/profile', 'LearnerController@update');
-        Route::post('/learner/profile/{id}', 'LearnerController@updateFromadmin');
+        Route::post('/learner/profile/{id}', 'LearnerController@updateFromAdmin');
 
         Route::get('/learner/setup', 'LearnerController@setup');
 

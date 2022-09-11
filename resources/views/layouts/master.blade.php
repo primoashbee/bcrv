@@ -234,7 +234,7 @@
               <li class="nav-item">
                 <a href="/show_requests_to_students" class="nav-link" >
                   <i class="fas fa-indent nav-icon"></i>
-                  <p> Request from Students</p>
+                  <p> Request to Students</p>
                 </a>
               </li>
             </ul>
