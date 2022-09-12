@@ -31,7 +31,18 @@
                         <td>{{$course->course->course_description}}</td>
                         <td>{{$course->batch}}</td>
                         <td>{{$course->year}}</td>
-                        <td>{{$course->pivot->status}}</td>
+                        <td>
+                            @if($course->pivot->status == 1 )
+                            <span class="badge badge-pill badge-success">Completed</span>
+
+                            @elseif($course->pivot->status == 2)
+                            <span class="badge badge-pill badge-danger">Not Completed</span>
+
+                            @else($student->pivot->status == 3)
+                            <span class="badge badge-pill badge-dark">Backed Out</span>
+                            @endif
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -69,8 +80,19 @@
 <!-- Page specific script -->
 
 <script>
+    // $.noConflict(); 
     $(document).ready(function() {
+
       $('#example1').DataTable();
+      $('#push-menu-hamburger').click(function(e){
+            const el = $('body'); 
+            if(el.hasClass('sidebar-collapse')){
+            el.removeClass('sidebar-collapse')
+            }else{
+            el.addClass('sidebar-collapse')
+
+            }
+        });
     });
 </script>
 

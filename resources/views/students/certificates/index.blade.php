@@ -74,6 +74,15 @@
 <script>
     $(document).ready(function() {
       $('#example1').DataTable();
+      $('#push-menu-hamburger').click(function(e){
+            const el = $('body'); 
+            if(el.hasClass('sidebar-collapse')){
+            el.removeClass('sidebar-collapse')
+            }else{
+            el.addClass('sidebar-collapse')
+
+            }
+        });
     });
 </script>
 

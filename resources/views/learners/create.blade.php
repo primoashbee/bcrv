@@ -62,8 +62,8 @@
                     <h2 class="bold font-md text-center">LEARNERS PROFILE FORM</h2>
                 </div>
                 <div class="w-20">
-                    <div class="border picture-wrapper d-flex photo-upload" id="profile-photo-preview" style="background-image: url('https://via.placeholder.com/250'); background-repeat: no-repeat; backrgound-size: auto;">
-                        <p class="margin-auto">I.D Picture</p>
+                    <div class="border picture-wrapper d-flex photo-upload" id="profile-photo-preview" style="background-image: url('https://via.placeholder.com/250?text=ID%20HERE'); background-repeat: no-repeat; backrgound-size: auto;">
+                        {{-- <p class="margin-auto">I.D Picture</p> --}}
                         <input type="file" class="w-100 h-100 hidden file" v-on:change="fileUpload('2x2', $event)" accept="image/*">
 
                     </div>
@@ -828,6 +828,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="row d-flex border-bottom">
+                    <div class="w-33 p-5">
+                        <div class="row">
+                            <div class="ml-10">
+                                <div class="d-flex cbox p-top-10">
+                                    <input type="radio" v-model="disability_type" value="None">
+                                    <label class="bold ml-10"> None</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-33 p-5">
+                        <div class="row">
+                            <div class="ml-10">
+                                <div class="d-flex cbox p-top-10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-33 p-5">
+                        <div class="row">
+                            <div class="ml-10">
+                                <div class="d-flex cbox p-top-10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="content-wrapper border-x border-bottom">
                 <p class="content-head bold" style="font-size:1.5em;">
@@ -862,6 +890,18 @@
                                 <div class="d-flex cbox p-top-10">
                                     <input type="radio" v-model="disability_cause" value="Injury">
                                     <label class="bold ml-10">Injury</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex border-bottom">
+                    <div class="w-33 p-5">
+                        <div class="row">
+                            <div class="ml-10">
+                                <div class="d-flex cbox p-top-10">
+                                    <input type="radio" v-model="disability_cause" value="None">
+                                    <label class="bold ml-10">None</label>
                                 </div>
                             </div>
                         </div>
@@ -941,9 +981,10 @@
                     </div>
                     <div class="w-40 p-5">
                         <div class="row">
-                            <div class="upload-box relative">
+                            
+                            <div class="upload-box relative photo-upload" id="profile-photo-preview-2" style=" background-repeat: no-repeat; backrgound-size: auto;">
                                 <p class="absolute box-text text-center">1 x 1 picture taken the past 6 months</p>
-                                <input type="file" class="w-100 h-100 hidden file">
+                                {{-- <input type="file" class="w-100 h-100 hidden file"> --}}
                             </div>
                         </div>
                     </div>
@@ -1080,7 +1121,9 @@
                         //load profile photo
                                 
                         const preview = document.getElementById("profile-photo-preview");
+                        const preview2 = document.getElementById("profile-photo-preview-2");
                         preview.style.backgroundImage = `url(${data.profile.photo_preview_path})`;
+                        preview2.style.backgroundImage = `url(${data.profile.photo_preview_path})`;
                         console.log(data.profile.photo_preview_path);
                         alert.close()
                     },
@@ -1112,7 +1155,10 @@
                                 let fData = {...this.$data}
                                 Object.keys(fData).map(x=> { 
                                     console.log(`Appending [${x}]${this.$data[x]} to formData`)
-                                    formData.append(x, this.$data[x]);
+                                    if(x=='photo' && this.$data[x] == null){
+                                    }else{
+                                        formData.append(x, this.$data[x]);
+                                    }
                                     // formData.append(x, this.$data[x]);
                                 })
                                 const { data } = await axios.post(sURL, formData);
@@ -1139,7 +1185,10 @@
                                 const file = event.target.files[0]
                                 const src = URL.createObjectURL(file);
                                 const preview = document.getElementById("profile-photo-preview");
+                                const preview2 = document.getElementById("profile-photo-preview-2");
+                                // const preview = document.getElementById("p");
                                 preview.style.backgroundImage = `url(${src})`;
+                                preview2.style.backgroundImage = `url(${src})`;
                                 this.photo = file;
                             }
                         }

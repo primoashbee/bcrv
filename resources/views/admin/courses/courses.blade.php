@@ -162,6 +162,7 @@
 <script>
     $.noConflict();
     $(document).ready(function() {
+        
         $('#example1').DataTable()
         $('.btn-delete').click(function(e) {
             e.preventDefault();

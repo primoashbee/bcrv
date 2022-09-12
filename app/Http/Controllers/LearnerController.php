@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -51,7 +52,7 @@ class LearnerController extends Controller
 
         $user = auth()->user();
         $request->request->remove('signature');
-        $request->validate([
+        $rules = [
             'barangay'=>'required',
             'birth_city'=>'required',
             'birth_province'=>'required',
@@ -84,24 +85,32 @@ class LearnerController extends Controller
             'street'=>'required',
             'photo'=>'required|image',
             'signature'=>'nullable|image'
-        ]);
+        ];
+
+        $has_photo = false;
+        
+        if($user->learner->finished){
+            $rules['photo'] = 'nullable|image';
+            $has_photo = true;
+        }
+
+        $request->validate($rules);
 
         $student_info = $user->studentInfo;
+        $photo_filename = $user->learner->photo_path;
 
-        $photo_file = $request->file('photo');
-        $photo_ext  = $photo_file->extension();
-        $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
-
-        $signature_filename = null;
+        if($request->has('photo')){
+            $photo_file = $request->file('photo');
+            $photo_ext  = $photo_file->extension();
+            $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
+        }
+        $signature_filename = $user->learner->signature_path;
         if($request->has('signature')){
             $signature_file = $request->file('signature');
             $signature_ext  = $photo_file->extension();
             $signature_filename  = "$student_info->email/$student_info->name - Signature.$photo_ext";
 
         }
-
-
-
 
         $user->learner()->update([
             'barangay'=> $request->barangay,
@@ -146,12 +155,14 @@ class LearnerController extends Controller
         ]); 
 
         
-       
-        Storage::disk('photos')->putFileAs(
-            '',
-            $photo_file,
-            $photo_filename
-        );
+        if($request->has('photo')){
+            $res = Storage::disk('photos')->putFileAs(
+                '',
+                $photo_file,
+                $photo_filename
+            );
+            Log::info($res);
+        }
         if($request->has('signature')){
             Storage::disk('signatures')->putFileAs(
                 '',
@@ -167,7 +178,8 @@ class LearnerController extends Controller
 
         $user = User::findOrFail($id);
 
-        $request->validate([
+        $request->request->remove('signature');
+        $rules = [
             'barangay'=>'required',
             'birth_city'=>'required',
             'birth_province'=>'required',
@@ -200,16 +212,26 @@ class LearnerController extends Controller
             'street'=>'required',
             'photo'=>'required|image',
             'signature'=>'nullable|image'
-        ]);
+        ];
 
+        $has_photo = false;
+        
+        if($user->learner->finished){
+            $rules['photo'] = 'nullable|image';
+            $has_photo = true;
+        }
+
+        $request->validate($rules);
 
         $student_info = $user->studentInfo;
+        $photo_filename = $user->learner->photo_path;
 
-        $photo_file = $request->file('photo');
-        $photo_ext  = $photo_file->extension();
-        $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
-
-        $signature_filename = null;
+        if($request->has('photo')){
+            $photo_file = $request->file('photo');
+            $photo_ext  = $photo_file->extension();
+            $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
+        }
+        $signature_filename = $user->learner->signature_path;
         if($request->has('signature')){
             $signature_file = $request->file('signature');
             $signature_ext  = $photo_file->extension();
@@ -251,21 +273,23 @@ class LearnerController extends Controller
             'street'=>$request->street,
             'finished'=>true,
             'finished_at'=>now(),
-            'photo_path'=>$photo_filename,
-            'signature_filename'=>$signature_filename
+            'photo_path'=> $photo_filename,
+            'signature_path'=> $signature_filename,
         ]);
 
-
-     
         $user->update([
             'profile_setup_finished'=> true
         ]); 
 
-        Storage::disk('photos')->putFileAs(
-            '',
-            $photo_file,
-            $photo_filename
-        );
+        
+        if($request->has('photo')){
+            $res = Storage::disk('photos')->putFileAs(
+                '',
+                $photo_file,
+                $photo_filename
+            );
+            Log::info($res);
+        }
         if($request->has('signature')){
             Storage::disk('signatures')->putFileAs(
                 '',
