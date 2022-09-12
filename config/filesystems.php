@@ -77,7 +77,17 @@ return [
         'templates'=> [
             'driver'=>'local',
             'root'=>storage_path('app/templates')
-        ]
+        ],
+
+        'photos'=> [
+            'driver'=>'local',
+            'root'=>storage_path('app/images/photos')
+        ],
+        'signatures'=> [
+            'driver'=>'local',
+            'root'=>storage_path('app/images/signatures')
+        ],
+        
 
     ],
 

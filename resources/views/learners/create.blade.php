@@ -64,7 +64,7 @@
                 <div class="w-20">
                     <div class="border picture-wrapper d-flex photo-upload" id="profile-photo-preview" style="background-image: url('https://via.placeholder.com/250'); background-repeat: no-repeat; backrgound-size: auto;">
                         <p class="margin-auto">I.D Picture</p>
-                        <input type="file" class="w-100 h-100 hidden file" v-on:change="fileUpload('2x2', $event)">
+                        <input type="file" class="w-100 h-100 hidden file" v-on:change="fileUpload('2x2', $event)" accept="image/*">
 
                     </div>
                 </div>
@@ -1017,6 +1017,8 @@
                         scholarship_package:"",
                         date_received:"",
                         
+                        photo: null,
+                        signature: null,
                         finished: false
                     },
                     async mounted(){
@@ -1070,6 +1072,13 @@
                         this.course_qualification = data.profile.course_qualification;
                         this.scholarship_package = data.profile.scholarship_package;
                         this.date_received = data.profile.date_received;
+
+
+                        //load profile photo
+                                
+                        const preview = document.getElementById("profile-photo-preview");
+                        preview.style.backgroundImage = `url(${data.profile.photo_preview_path})`;
+                        console.log(data.profile.photo_preview_path);
                         alert.close()
                     },
                     methods : {
@@ -1082,25 +1091,35 @@
 
                                 }
                                 
-                            })
+                            });
+
                             try{
                                 
                                 @if(request()->has('id'))
                                     const id = @json(request()->id);
-                                    const sURL = `/learner/profile/${id}`
-                                    const rURL = '/show_students'
+                                    const sURL = `/learner/profile/${id}`;
+                                    const rURL = '/show_students';
                                 @else                                    
-                                    const sURL = `/learner/profile`
-                                    const rURL = '/show_dashboard_students'
+                                    const sURL = `/learner/profile`;
+                                    const rURL = '/show_dashboard_students';
 
                                 @endif
-                                const { data } = await axios.post(sURL, this.$data);
+
+                                const formData = new FormData();
+                                let fData = {...this.$data}
+                                Object.keys(fData).map(x=> { 
+                                    console.log(`Appending [${x}]${this.$data[x]} to formData`)
+                                    formData.append(x, this.$data[x]);
+                                    // formData.append(x, this.$data[x]);
+                                })
+                                const { data } = await axios.post(sURL, formData);
 
                                 console.log( data )
                                 await Swal.fire(data.message, '', 'success');
                                 location.href = rURL
 
                             } catch (e){
+                                console.log(e)
                                 alert.close()
                                 if(e.response.status == 422)
                                     {
@@ -1114,9 +1133,11 @@
                         },
                         fileUpload(type,event){
                             if(type=="2x2"){
-                                const src = URL.createObjectURL(event.target.files[0]);
+                                const file = event.target.files[0]
+                                const src = URL.createObjectURL(file);
                                 const preview = document.getElementById("profile-photo-preview");
                                 preview.style.backgroundImage = `url(${src})`;
+                                this.photo = file;
                             }
                         }
                     },

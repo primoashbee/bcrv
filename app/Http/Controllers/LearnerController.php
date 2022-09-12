@@ -16,7 +16,7 @@ class LearnerController extends Controller
             if(auth()->user()->roles->first()->name =="Admin"){
                 $user = User::find($request->id);
                 $user->learner()->updateOrCreate([]);
-                $profile = $user->learner;
+                $profile = $user->learner->append('photo_preview_path');
                 return view('learners.create',compact("profile"));
             }
 
@@ -25,7 +25,7 @@ class LearnerController extends Controller
         }
         $user = auth()->user();
         $user->learner()->updateOrCreate([]);
-        $profile = $user->learner;
+        $profile = $user->learner->append('photo_preview_path');
         return view('learners.create',compact("profile"));
     }
 
@@ -50,7 +50,7 @@ class LearnerController extends Controller
     {
 
         $user = auth()->user();
-
+        $request->request->remove('signature');
         $request->validate([
             'barangay'=>'required',
             'birth_city'=>'required',
@@ -82,7 +82,27 @@ class LearnerController extends Controller
             'region'=>'required',
             'scholarship_package'=>'required',
             'street'=>'required',
+            'photo'=>'required|image',
+            'signature'=>'nullable|image'
         ]);
+
+        $student_info = $user->studentInfo;
+
+        $photo_file = $request->file('photo');
+        $photo_ext  = $photo_file->extension();
+        $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
+
+        $signature_filename = null;
+        if($request->has('signature')){
+            $signature_file = $request->file('signature');
+            $signature_ext  = $photo_file->extension();
+            $signature_filename  = "$student_info->email/$student_info->name - Signature.$photo_ext";
+
+        }
+
+
+
+
         $user->learner()->update([
             'barangay'=> $request->barangay,
             'birth_city'=>$request->birth_city,
@@ -116,12 +136,29 @@ class LearnerController extends Controller
             'scholarship_package'=>$request->scholarship_package,
             'street'=>$request->street,
             'finished'=>true,
-            'finished_at'=>now()
+            'finished_at'=>now(),
+            'photo_path'=> $photo_filename,
+            'signature_path'=> $signature_filename,
         ]);
 
         $user->update([
             'profile_setup_finished'=> true
         ]); 
+
+        
+       
+        Storage::disk('photos')->putFileAs(
+            '',
+            $photo_file,
+            $photo_filename
+        );
+        if($request->has('signature')){
+            Storage::disk('signatures')->putFileAs(
+                '',
+                $signature_file,
+                $signature_filename
+            );
+        }
 
         return response()->json(['message'=>'Learner Profile Updated!','finished'=>1],200);
     }
@@ -161,7 +198,25 @@ class LearnerController extends Controller
             'region'=>'required',
             'scholarship_package'=>'required',
             'street'=>'required',
+            'photo'=>'required|image',
+            'signature'=>'nullable|image'
         ]);
+
+
+        $student_info = $user->studentInfo;
+
+        $photo_file = $request->file('photo');
+        $photo_ext  = $photo_file->extension();
+        $photo_filename = "$student_info->email/$student_info->name - Photo.$photo_ext";
+
+        $signature_filename = null;
+        if($request->has('signature')){
+            $signature_file = $request->file('signature');
+            $signature_ext  = $photo_file->extension();
+            $signature_filename  = "$student_info->email/$student_info->name - Signature.$photo_ext";
+
+        }
+
         $user->learner()->update([
             'barangay'=> $request->barangay,
             'birth_city'=>$request->birth_city,
@@ -195,12 +250,29 @@ class LearnerController extends Controller
             'scholarship_package'=>$request->scholarship_package,
             'street'=>$request->street,
             'finished'=>true,
-            'finished_at'=>now()
+            'finished_at'=>now(),
+            'photo_path'=>$photo_filename,
+            'signature_filename'=>$signature_filename
         ]);
 
+
+     
         $user->update([
             'profile_setup_finished'=> true
         ]); 
+
+        Storage::disk('photos')->putFileAs(
+            '',
+            $photo_file,
+            $photo_filename
+        );
+        if($request->has('signature')){
+            Storage::disk('signatures')->putFileAs(
+                '',
+                $signature_file,
+                $signature_filename
+            );
+        }
 
         return response()->json(['message'=>'Learner Profile Updated!','finished'=>1],200);
     }
