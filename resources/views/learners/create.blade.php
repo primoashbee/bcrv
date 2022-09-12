@@ -924,6 +924,7 @@
                 <div class="row d-flex">
                     <div class="w-40 p-5 h-100" style="margin: auto 0;">
                         <div class="row">
+                            <div class="ml-10" style="text-align: center"> @{{ fullname }} </div>
                             <div class="ml-10">
                                 <p class="border-top text-large bold text-center p-top-10">APPLICANTS SIGNATURE OVER PRINTED NAME</p>
                             </div>
@@ -931,6 +932,8 @@
                     </div>
                     <div class="w-20 p-5 h-100" style="margin: auto 0;">
                         <div class="row">
+                            <div class="ml-10"> &nbsp; </div>
+
                             <div class="ml-10">
                                 <p class="border-top text-large bold text-center p-top-10">DATE ACCOMPLISHED</p>
                             </div>
@@ -1142,6 +1145,9 @@
                         }
                     },
                     computed:{
+                        fullname(){
+                            return `${this.firstname} ${this.lastname}`
+                        },
                         otherEnabled(){
                             return this.classification != 'Others'
                         },

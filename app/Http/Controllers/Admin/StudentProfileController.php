@@ -31,6 +31,7 @@ class StudentProfileController extends Controller
             ->where('email', $current_user);
         $skips = ["[","]","\""];
         $user = auth()->user()->studentInfo;
+        $learner = auth()->user()->learner;
 
         $student_name = str_replace($skips, ' ',$student->pluck('student_name'));
         $student_course = str_replace($skips, ' ',$student->pluck('student_course'));
@@ -45,7 +46,8 @@ class StudentProfileController extends Controller
                                             ->with('courses', $courses)
                                             ->with('batches', $batches)
                                             ->with('years', $years)
-                                            ->with('user', $user);
+                                            ->with('user', $user)
+                                            ->with('learner', $learner);
     }
 
       // function to update student profile
