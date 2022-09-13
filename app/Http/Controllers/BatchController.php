@@ -129,7 +129,7 @@ class BatchController extends Controller
     public function showManage($id)
     {
         $batch = Batch::with('users.learner','course')->findOrFail($id);
-        $toEnlist = User::with('learner')->whereHas('studentInfo')->whereNotIn('id', $batch->users->pluck('id')->toArray())->get();
+        $toEnlist = User::with('learner')->whereHas('studentInfo')->whereHas('learner')->whereNotIn('id', $batch->users->pluck('id')->toArray())->get();
         // $toEnlist = User::whereHas('studentInfo')->get();
         $batch_id = $id;
         return view('admin.batches.manage', compact('batch','toEnlist','batch_id'));
