@@ -83,14 +83,14 @@ class LearnerController extends Controller
             'region'=>'required',
             'scholarship_package'=>'required',
             'street'=>'required',
-            'photo'=>'required|image',
-            'signature'=>'nullable|image'
+            'photo'=>'required|mimes: jpeg,jpg,png,bmp,webp',
+            'signature'=>'required|mimes: jpeg,jpg,png,bmp,webp'
         ];
 
         $has_photo = false;
         
         if($user->learner->finished){
-            $rules['photo'] = 'nullable|image';
+            $rules['photo'] = 'nullable|mimes: jpeg,jpg,png,bmp,webp';
             $has_photo = true;
         }
 
@@ -210,14 +210,14 @@ class LearnerController extends Controller
             'region'=>'required',
             'scholarship_package'=>'required',
             'street'=>'required',
-            'photo'=>'required|image',
-            'signature'=>'nullable|image'
+            'photo'=>'required|mimes: jpeg,jpg,png,bmp,web',
+            'signature'=>'required|mimes: jpeg,jpg,png,bmp,web'
         ];
 
         $has_photo = false;
         
         if($user->learner->finished){
-            $rules['photo'] = 'nullable|image';
+            $rules['photo'] = 'nullable|mimes: jpeg,jpg,png,bmp,web';
             $has_photo = true;
         }
 
