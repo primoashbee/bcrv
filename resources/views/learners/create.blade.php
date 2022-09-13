@@ -1183,6 +1183,15 @@
                         fileUpload(type,event){
                             if(type=="2x2"){
                                 const file = event.target.files[0]
+                                const allowed = ['image/jpeg','image/jpg','image/webp','image/png']
+                                console.log(allowed.filter(x=>x==file.type));
+                                if(allowed.filter(x=>x==file.type).length > 0){
+                                    console.log('pwede')
+                                }else{
+                                    Swal.fire('Invalid File', 'Upload image only','info')
+                                    console.log('hindi pwede')
+                                    return;
+                                }
                                 const src = URL.createObjectURL(file);
                                 const preview = document.getElementById("profile-photo-preview");
                                 const preview2 = document.getElementById("profile-photo-preview-2");

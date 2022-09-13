@@ -84,7 +84,7 @@ class LearnerController extends Controller
             'scholarship_package'=>'required',
             'street'=>'required',
             'photo'=>'required|mimes: jpeg,jpg,png,bmp,webp',
-            'signature'=>'required|mimes: jpeg,jpg,png,bmp,webp'
+            'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,webp'
         ];
 
         $has_photo = false;
@@ -211,7 +211,7 @@ class LearnerController extends Controller
             'scholarship_package'=>'required',
             'street'=>'required',
             'photo'=>'required|mimes: jpeg,jpg,png,bmp,web',
-            'signature'=>'required|mimes: jpeg,jpg,png,bmp,web'
+            'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,web'
         ];
 
         $has_photo = false;
