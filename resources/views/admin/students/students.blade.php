@@ -117,7 +117,7 @@
                         <td>{{ $student->user->learner->middlename }}</td>
                         <td>{{ $student->user->learner->ext_name }}</td>
                         <td>{{ $student->user->courseList}}</td>
-                        <td>{{ $student->year }}</td> 
+                        {{-- <td>{{ $student->year }}</td>  --}}
                         <td> {{$student->batch}}</td>
                         <td> {{$student->school_year}}</td>
                         <td>{{ $student->user->learner->contact_number }}</td>
