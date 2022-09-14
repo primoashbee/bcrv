@@ -18,7 +18,7 @@ class StudentController extends Controller
 {
     // show students page
     public function show_students() {
-        $students = StudentInfoModel::with('user.learner')->get();
+        $students = StudentInfoModel::with('user.learner')->whereHas('user.learner')->get();
         $courses = CourseModel::all();
         return view('admin.students.students')->with('students', $students)
                                             ->with('courses', $courses);
