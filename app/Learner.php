@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -10,8 +11,8 @@ use Illuminate\Support\Facades\Storage;
 class Learner extends Model
 {
     protected $guarded = [];
-    protected $dates = [
-        'birthday'
+    protected $casts = [
+        'birthday' => 'date'
     ];
     protected $appends = ['photo_preview_path'];
     public function user(){
@@ -46,5 +47,10 @@ class Learner extends Model
             return $this->contact_number;
         }
         return $this->user->phone;
+    }
+
+    public function getBirthdayAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }
