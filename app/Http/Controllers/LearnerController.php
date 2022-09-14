@@ -161,7 +161,6 @@ class LearnerController extends Controller
                 $photo_file,
                 $photo_filename
             );
-            Log::info($res);
         }
         if($request->has('signature')){
             Storage::disk('signatures')->putFileAs(
