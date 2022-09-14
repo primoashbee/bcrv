@@ -107,7 +107,7 @@ class StudentController extends Controller
             ],
             [
                 'step'=>2,
-                'finished'=> $user->requirements_complete
+                'finished'=> $user->mandatory_requirements_completed
             ],
             [
                 'step'=>3,

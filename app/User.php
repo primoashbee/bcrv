@@ -131,6 +131,16 @@ class User extends Authenticatable
         return $count == $uploaded;
     }
 
+    public function getMandatoryRequirementsCompletedAttribute(){
+        $requirements = $this->studentRequirements()
+            ->whereHas('requirement', function($q){
+                $q->where('mandatory', 1);
+        });
+        $count = $requirements->count();
+        $uploaded = $requirements->whereIn('status', [StudentRequirement::PENDING, StudentRequirement::APPROVED])->count();
+
+        return $count == $uploaded;
+    }
     public function learner()
     {
         return $this->hasOne(Learner::class,'user_id','id');

@@ -27,4 +27,20 @@ class Learner extends Model
         $filename = $arr[count($arr)-1];
         return route('image.preview',['disk'=>'photos','filename'=>$filename]); 
     }
+
+    public function getFullAddressAttribute()
+    {
+        if($this->finished){
+            return "$this->street, $this->barangay, District $this->district, $this->city, Region $this->region, $this->province";
+        }
+        return $this->user->address;
+    }
+
+    public function getPhoneAttribute()
+    {
+        if($this->finished){
+            return $this->contact_number;
+        }
+        return $this->user->phone;
+    }
 }

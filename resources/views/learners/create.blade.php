@@ -1063,7 +1063,8 @@
                         
                         photo: null,
                         signature: null,
-                        finished: false
+                        finished: false,
+                        agree: "false"
                     },
                     async mounted(){
                         const alert = Swal.fire({
@@ -1117,6 +1118,9 @@
                         this.scholarship_package = data.profile.scholarship_package;
                         this.date_received = data.profile.date_received;
 
+                        if(data.profile.finished){
+                            this.agree = "true"
+                        }
 
                         //load profile photo
                                 

@@ -95,7 +95,8 @@
                         </h3>
                         <div class="form-group" v-for="(item,key) in requirements.list">
                             <label> {{item.requirement.name }}
-                                
+
+                                <span style="color:red" v-if="item.requirement.mandatory == 1">* </span>
                             </label>
                             <div v-if="item.status ==1 || item.status==2">
                                 <a :href="`/requirements/view/${item.id}`" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
@@ -283,13 +284,24 @@ export default {
         },
         async submit(step){
             if(step==1){
+                const alert = Swal.fire({
+                            title: 'Loading',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+
+                            }
+                            
+                })
                 try{
                     const { data }  = await axios.post('/setup/profile', this.profile)
                     this.errors = []
                     this.profile.finished = true
+                    alert.close()
                     Swal.fire(data.message, 'Please proceed to the next step', 'success');
 
                 }catch(e){
+                    alert.close()
                     if(e.response.status == 422)
                     {
                         this.errors = e.response.data.errors
@@ -301,6 +313,15 @@ export default {
                 return;
             }
             if(step==2){
+                const alert = Swal.fire({
+                            title: 'Loading',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+
+                            }
+                            
+                })
                 try{
                     const formData = new FormData();
                     const list = [];
@@ -312,6 +333,7 @@ export default {
                     const { data }  = await axios.post('/setup/requirements', formData)
                     this.errors = []
                     this.requirements.finished = data.finished
+                    alert.close()
                     if(data.finished == 1){
                         Swal.fire(data.message, 'Please proceed to the next step', 'success');
                         this.step++;
@@ -321,6 +343,7 @@ export default {
                     }
 
                 }catch(e){
+                    alert.close()
                     console.log(e)
                     if(e.response.status == 422)
                     {

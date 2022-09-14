@@ -23,10 +23,10 @@
               <b>Email : </b> <a class="float-right">{{ Sentinel::getUser()->email }}</a>
             </li>
             <li class="list-group-item">
-              <b>Address : </b> <a class="float-right">{{ Sentinel::getUser()->address }}</a>
+              <b>Address : </b> <a class="float-right">{{ $learner->full_address }}</a>
             </li>
             <li class="list-group-item">
-              <b>Contact : </b> <a class="float-right">{{ Sentinel::getUser()->phone }}</a>
+              <b>Contact : </b> <a class="float-right">{{ $learner->phone }}</a>
             </li>
           </ul>
         </div>
@@ -106,12 +106,12 @@
 
             </div>
             <div class="row">
-              <div class="col-sm-6">
+              {{-- <div class="col-sm-6">
                 <div class="form-group">
                   <label class="col-form-label" for="inputSuccess">Address</label>
                   <input name="address" type="text" class="form-control" value="{{ Sentinel::getUser()->address }}">
                 </div>
-              </div>
+              </div> --}}
               {{-- <div class="col-sm-6">
                 <div class="form-group">
                   <label for="exampleSelectBorder">Year</label>

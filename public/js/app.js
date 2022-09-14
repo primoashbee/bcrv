@@ -2380,49 +2380,68 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _yield$axios$post, data, formData, list, _yield$axios$post2, _data;
+        var _alert, _yield$axios$post, data, _alert2, formData, list, _yield$axios$post2, _data;
 
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(step == 1)) {
-                  _context3.next = 15;
+                  _context3.next = 18;
                   break;
                 }
 
-                _context3.prev = 1;
-                _context3.next = 4;
+                _alert = Swal.fire({
+                  title: 'Loading',
+                  timerProgressBar: true,
+                  didOpen: function didOpen() {
+                    Swal.showLoading();
+                  }
+                });
+                _context3.prev = 2;
+                _context3.next = 5;
                 return axios.post('/setup/profile', _this3.profile);
 
-              case 4:
+              case 5:
                 _yield$axios$post = _context3.sent;
                 data = _yield$axios$post.data;
                 _this3.errors = [];
                 _this3.profile.finished = true;
+
+                _alert.close();
+
                 Swal.fire(data.message, 'Please proceed to the next step', 'success');
-                _context3.next = 14;
+                _context3.next = 17;
                 break;
 
-              case 11:
-                _context3.prev = 11;
-                _context3.t0 = _context3["catch"](1);
+              case 13:
+                _context3.prev = 13;
+                _context3.t0 = _context3["catch"](2);
+
+                _alert.close();
 
                 if (_context3.t0.response.status == 422) {
                   _this3.errors = _context3.t0.response.data.errors;
                   Swal.fire('Please fill required fields', '', 'info');
                 }
 
-              case 14:
+              case 17:
                 return _context3.abrupt("return");
 
-              case 15:
+              case 18:
                 if (!(step == 2)) {
-                  _context3.next = 35;
+                  _context3.next = 41;
                   break;
                 }
 
-                _context3.prev = 16;
+                _alert2 = Swal.fire({
+                  title: 'Loading',
+                  timerProgressBar: true,
+                  didOpen: function didOpen() {
+                    Swal.showLoading();
+                  }
+                });
+                _context3.prev = 20;
                 formData = new FormData();
                 list = [];
 
@@ -2432,14 +2451,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }); // formData.append("files", this.requirements.)
 
 
-                _context3.next = 22;
+                _context3.next = 26;
                 return axios.post('/setup/requirements', formData);
 
-              case 22:
+              case 26:
                 _yield$axios$post2 = _context3.sent;
                 _data = _yield$axios$post2.data;
                 _this3.errors = [];
                 _this3.requirements.finished = _data.finished;
+
+                _alert2.close();
 
                 if (_data.finished == 1) {
                   Swal.fire(_data.message, 'Please proceed to the next step', 'success');
@@ -2448,12 +2469,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   Swal.fire(_data.message, 'Please complete all the requirements', 'success');
                 }
 
-                _context3.next = 33;
+                _context3.next = 39;
                 break;
 
-              case 29:
-                _context3.prev = 29;
-                _context3.t1 = _context3["catch"](16);
+              case 34:
+                _context3.prev = 34;
+                _context3.t1 = _context3["catch"](20);
+
+                _alert2.close();
+
                 console.log(_context3.t1);
 
                 if (_context3.t1.response.status == 422) {
@@ -2461,13 +2485,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   Swal.fire('Please fill required fields', '', 'info');
                 }
 
-              case 33:
+              case 39:
                 _this3.requirements.finished = true;
                 return _context3.abrupt("return");
 
-              case 35:
+              case 41:
                 if (!(step == 3)) {
-                  _context3.next = 39;
+                  _context3.next = 45;
                   break;
                 }
 
@@ -2475,12 +2499,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this3.learners.finished = true;
                 return _context3.abrupt("return");
 
-              case 39:
+              case 45:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 11], [16, 29]]);
+        }, _callee3, null, [[2, 13], [20, 34]]);
       }))();
     },
     next: function next() {
@@ -3011,7 +3035,11 @@ var render = function render() {
   }, [_vm._v("On-going")])]), _vm._v(" "), _vm._l(_vm.requirements.list, function (item, key) {
     return _c("div", {
       staticClass: "form-group"
-    }, [_c("label", [_vm._v(" " + _vm._s(item.requirement.name) + "\n                            \n                        ")]), _vm._v(" "), item.status == 1 || item.status == 2 ? _c("div", [_c("a", {
+    }, [_c("label", [_vm._v(" " + _vm._s(item.requirement.name) + "\n\n                            "), item.requirement.mandatory == 1 ? _c("span", {
+      staticStyle: {
+        color: "red"
+      }
+    }, [_vm._v("* ")]) : _vm._e()]), _vm._v(" "), item.status == 1 || item.status == 2 ? _c("div", [_c("a", {
       staticClass: "badge badge-success",
       attrs: {
         href: "/requirements/view/".concat(item.id),
