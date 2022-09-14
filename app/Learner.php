@@ -22,7 +22,7 @@ class Learner extends Model
     {
     //     dd(file_exists())
     //     return url('storage/images/'.$article->image);
-        return str_replace(" ", "%20", url('/public/images/photos/' . $this->photo_path) );
+        return str_replace(" ", "%20", url('/images/photos/' . $this->photo_path) );
         // return Storage::disk('photos')->path($this->photo_path);
         // if(is_null($this->photo_path)){
         //     return asset('admin_assets/dist/img/user.png');
