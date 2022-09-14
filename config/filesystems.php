@@ -80,16 +80,16 @@ return [
         ],
 
         'photos'=> [
-            'driver'=>'local',
-
             'driver' => 'local',
-            'root' => storage_path('app/public/images'),
-            'url' => env('APP_URL').'/storage/images',
+            'root' => storage_path('app/public/images/photos'),
+            'url' => env('APP_URL').'/storage/images/photos',
             'visibility' => 'public',
         ],
         'signatures'=> [
-            'driver'=>'local',
-            'root'=>storage_path('app/public/images/signatures')
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/signatures'),
+            'url' => env('APP_URL').'/storage/images/signatures',
+            'visibility' => 'public',
         ],
         
 
