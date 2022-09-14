@@ -218,7 +218,7 @@ use App\Http\Middleware\StudentProfileSetupFinished;
 
         Route::get('/learner/setup', 'LearnerController@setup');
 
-        Route::get('/storage/{disk}/{filename}', 'StorageController@preview')->name('image.preview');
+        // Route::get('/storage/{disk}/{filename}', 'StorageController@preview')->name('image.preview');
     });
 
 

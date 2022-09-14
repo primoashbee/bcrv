@@ -25,6 +25,6 @@ class StorageController extends Controller
             $response = Response::make($file, 200);
             $response->header("Content-Type", $type);
 
-            return $response;
+            return $path;
     }
 }

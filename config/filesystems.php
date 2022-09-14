@@ -81,11 +81,15 @@ return [
 
         'photos'=> [
             'driver'=>'local',
-            'root'=>storage_path('app/images/photos')
+
+            'driver' => 'local',
+            'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL').'/storage/images',
+            'visibility' => 'public',
         ],
         'signatures'=> [
             'driver'=>'local',
-            'root'=>storage_path('app/images/signatures')
+            'root'=>storage_path('app/public/images/signatures')
         ],
         
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,13 +20,16 @@ class Learner extends Model
 
     public function getPhotoPreviewPathAttribute()
     {
-
-        if(is_null($this->photo_path)){
-            return asset('admin_assets/dist/img/user.png');
-        }
-        $arr = explode("/", $this->photo_path);
-        $filename = $arr[count($arr)-1];
-        return route('image.preview',['disk'=>'photos','filename'=>$filename]); 
+    //     dd(file_exists())
+    //     return url('storage/images/'.$article->image);
+        return str_replace(" ", "%20", url('/public/storage/images/' . $this->photo_path) );
+        // return Storage::disk('photos')->path($this->photo_path);
+        // if(is_null($this->photo_path)){
+        //     return asset('admin_assets/dist/img/user.png');
+        // }
+        // $arr = explode("/", $this->photo_path);
+        // $filename = $arr[count($arr)-1];
+        // return route('image.preview',['disk'=>'photos','filename'=>$filename]); 
     }
 
     public function getFullAddressAttribute()
