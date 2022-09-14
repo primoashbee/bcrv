@@ -112,17 +112,17 @@
                     @foreach($students as $student)
                     <tr>
                         <td> {{ $student->user->learner->learner_id }}</td>
-                        <td>{{ $student->lastname }}</td>
-                        <td>{{ $student->firstname }}</td>
-                        <td>{{ $student->middlename }}</td>
-                        <td>{{ $student->ext_name }}</td>
+                        <td>{{ $student->user->learner->lastname }}</td>
+                        <td>{{ $student->user->learner->firstname }}</td>
+                        <td>{{ $student->user->learner->middlename }}</td>
+                        <td>{{ $student->user->learner->ext_name }}</td>
                         <td>{{ $student->user->courseList}}</td>
-                        {{-- <td>{{ $student->year }}</td> --}}
+                        <td>{{ $student->year }}</td> 
                         <td> {{$student->batch}}</td>
                         <td> {{$student->school_year}}</td>
-                        <td>{{ $student->contact_number }}</td>
-                        <td>{{ $student->email }}</td>
-                        <td>{{ $student->home_address }}</td>
+                        <td>{{ $student->user->learner->contact_number }}</td>
+                        <td>{{ $student->user->learner->email }}</td>
+                        <td>{{ $student->user->learner->full_address }}</td>
 
                         {{-- @if ($student->status == 0)
                             <b><td class="text-danger">Inactive</td></b>

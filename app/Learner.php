@@ -38,7 +38,17 @@ class Learner extends Model
         if($this->finished){
             return "$this->street, $this->barangay, District $this->district, $this->city, Region $this->region, $this->province";
         }
-        return $this->user->address;
+
+        
+        
+        // if(!is_null($this->user)){
+        //     return $this->user->address;
+        // }
+        // return "";
+    }
+    public function getFullnameAttribute()
+    {
+        return "{$this->firstname} {$this->middlename} {$this->lastname}";
     }
 
     public function getPhoneAttribute()

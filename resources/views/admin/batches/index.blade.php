@@ -185,6 +185,7 @@
                     </tr>
                     @endforeach
                 </tbody>
+            </table>
         </div>
     </div>
     </div>
@@ -232,7 +233,12 @@
         @endif
 
         $('#mdlLabel').html(mdlLabel)
-        $('#example1').DataTable()
+        $('#example1').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        })
         $('.btn-delete').click(function(e) {
             e.preventDefault();
             const course_id = $(this).attr('course_id')

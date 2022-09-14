@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class LearnerController extends Controller
 {
+    protected $_rels;
+    protected $_types;
     public function index(Request $request)
     {
         if($request->has('id')){
@@ -301,6 +304,9 @@ class LearnerController extends Controller
     }
     public function view(Request $request, $id)
     {
+
+        $this->_countRels=100; 
+
         $file = Storage::disk('templates')->path('TESDA-LEARNERS-FORM.docx');
         //XXX-XX-XXX-XXXXX-XXX
         $learner_id = "0AX-DW-442-5KLJS-222";
@@ -309,12 +315,12 @@ class LearnerController extends Controller
         $profile = User::with('learner')->find($id)->learner;
         $name = $profile->firstname. " " . $profile->lastname;
         $filename = "$name - Learners Profile.docx";
-
         $template->setValue('learner_id',$profile->learner_id);
         $template->setValue('e_date', $profile->entry_date);
         $template->setValue('lastname', $profile->lastname);
         $template->setValue('firstname',$profile->firstname);
         $template->setValue('middlename',$profile->middlename);
+        $template->setValue('fullname',$profile->fullname);
         $template->setValue('street',$profile->street);
         $template->setValue('barangay',$profile->barangay);
         $template->setValue('district',$profile->district);
@@ -325,6 +331,14 @@ class LearnerController extends Controller
         $template->setValue('contact_number',$profile->contact_number);
         $template->setValue('nationality',$profile->nationality);
 
+
+        $template->setImageValue("profile_picture", [
+            'path'=>public_path('/images/photos/' . $profile->photo_path), 
+            'width'=>150, 
+            'height'=>150,
+            'ratio'=>true
+        ]);
+        $template->setImageValue("signature",  public_path('/images/signature.png'));
 
         //For Gender
         if($profile->gender == "Male"){
@@ -1310,6 +1324,17 @@ class LearnerController extends Controller
             $template->setValue("d8",'');
             $template->setValue("d9",'✓');
         }
+        else{
+            $template->setValue("d1",'');
+            $template->setValue("d2",'');
+            $template->setValue("d3",'');
+            $template->setValue("d4",'');
+            $template->setValue("d5",'');
+            $template->setValue("d6",'');
+            $template->setValue("d7",'');
+            $template->setValue("d8",'');
+            $template->setValue("d9",'');
+        }
 
 
         //Cause of disability
@@ -1327,6 +1352,10 @@ class LearnerController extends Controller
             $template->setValue("p1",'');
             $template->setValue("p2",'');
             $template->setValue("p3",'✓');
+        }else{
+            $template->setValue("p1",'');
+            $template->setValue("p2",'');
+            $template->setValue("p3",'');
         }
 
 
@@ -1343,10 +1372,10 @@ class LearnerController extends Controller
 
 
 
-        $template->setValue('birth_month',$profile->birthday->format('F'));
-        $template->setValue('birth_day',$profile->birthday->format('d'));
-        $template->setValue('birth_year',$profile->birthday->format('Y'));
-        $template->setValue('age',$profile->birthday->age);
+        $template->setValue('birth_month',Carbon::parse($profile->birthday)->format('F'));
+        $template->setValue('birth_day',Carbon::parse($profile->birthday)->format('d'));
+        $template->setValue('birth_year',Carbon::parse($profile->birthday)->format('Y'));
+        $template->setValue('age',Carbon::parse($profile->birthday)->age);
         $template->setValue('birth_city',$profile->birth_city);
         $template->setValue('birth_province',$profile->birth_province);
         $template->setValue('birth_region',$profile->birth_region);
