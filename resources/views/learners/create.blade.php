@@ -1128,6 +1128,7 @@
                         const preview2 = document.getElementById("profile-photo-preview-2");
                         console.log(data.profile.photo_preview_path);
                         const rnd = Math.random();
+                        
                         preview.style.backgroundImage = `url(${data.profile.photo_preview_path})`;
                         preview2.style.backgroundImage = `url(${data.profile.photo_preview_path})`;
                         console.log(data.profile.photo_preview_path);

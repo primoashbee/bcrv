@@ -160,7 +160,6 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-    $.noConflict();
     $(document).ready(function() {
         
         $('#example1').DataTable()

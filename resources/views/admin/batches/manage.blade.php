@@ -233,14 +233,24 @@
                     }
                 })
     }
-    $.noConflict();
+    // $.noConflict();
 
     $(document).ready(function() {
 
  
-        const tblEnlisted = $('#tblEnlisted').DataTable()
+        const tblEnlisted = $('#tblEnlisted').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ]
+        })
+        
         const tblEnlist = $('#tblToEnlist').DataTable({
-            autoWidth: false
+            autoWidth: false,
+                        dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'csv'
+            ]
         })
 
         $('#tblToEnlist').on('click','.chkEnlist', function(){

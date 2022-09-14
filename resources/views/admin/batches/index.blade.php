@@ -216,7 +216,7 @@
 <script src="{{ asset('admin_assets/dist/js/adminlte.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-    $.noConflict();
+    // $.noConflict();
     var mdlLabel = "Create new batch"
     var current_index = 1;
     $(document).ready(function() {
