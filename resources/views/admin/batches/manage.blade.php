@@ -17,17 +17,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <div class="modal-body">
-                    <form action="/batch" method="POST" class="form-horizontal">
-                        {{csrf_field()}}
-                        <div class="card-body">
-
-
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-block btn-info float-right"><span id="btnLabel">Submit</span></button>
-                        </div>
-                    </form>
+                <div class="modal-body" >
+                    <ul class="list-group" id="modal-content">
+                    </ul>
                 </div>
             </div>
             </div>
@@ -39,7 +31,10 @@
             <p> 
                 Batch: {{ $batch->batch}}<br>
                 Year: {{ $batch->year}} <br>
-                Slots: {{ $batch->users()->count() . '/' . $batch->max_slot }}
+                Slots: {{ $batch->enlisted()->count() . '/' . $batch->max_slot }} <br>
+                Start: {{ $batch->start_date_formatted}} <br>
+                End: {{ $batch->end_date_formatted }} <br>
+                Status: {!! $batch->status_html !!} <br>
             </p>
 
         </div>
@@ -47,8 +42,10 @@
             <div class="bd-example bd-example-tabs">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Enlisted Students</button>
-                    <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Enlist Student/s</button>
+                        <button class="nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Enlisted Students</button>
+                        @if(!$batch->is_finished)
+                        <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Enlist Student/s</button>
+                        @endif    
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -65,7 +62,9 @@
                                     <a class="dropdown-item" href="#" onClick="markAs(1)">Completed</a>
                                     <a class="dropdown-item" href="#" onClick="markAs(2)">Not Completed</a>
                                     <a class="dropdown-item" href="#" onClick="markAs(3)">Backed Out</a>
+                                    @if(!$batch->is_finished)
                                     <a class="dropdown-item" href="#" onClick="markAs(4)">Remove</a>
+                                    @endif
                                 </div>
                                 </div>
                         </div>
@@ -78,7 +77,7 @@
                                         <th>LastName</th>
                                         <th>FirstName</th>
                                         <th>Training Status</th>
-                                        {{-- <th>Action</th> --}}
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -99,15 +98,12 @@
                                             <span class="badge badge-pill badge-dark">Backed Out</span>
                                             @endif
                                             </td>
-                                            {{-- <td>
-                                                <a href="{{route('batch.manage.show', $student->id)}}" type="button" class="btn btn-sm btn-primary bg-info">
-                                                    <i class="fa fa-users" style="padding: 10px;"></i>
-                                                </a> 
-                                                <a href="{{route('batch.manage.show', $student->id)}}" type="button" class="btn btn-sm btn-primary bg-info">
-                                                    <i class="fa fa-edit" style="padding: 10px;"></i>
+                                            <td>
+                                                <a href="#" user-id="{{$student->id}}" name="{{$student->learner->fullname}}" type="button" class="btnShow btn btn-sm btn-primary bg-info">
+                                                    <i class="fa fa-list" style="padding: 10px;"></i>
                                                 </a> 
                         
-                                            </td> --}}
+                                            </td>
                                         </tr>
                                         @endforeach
                                 </tbody>
@@ -223,6 +219,7 @@
                             status   : status
                         }
                         axios.put(`/batch/manage/${batch_id}`, form)
+                        axios.put(`/batch/manage/${batch_id}`, form)
                             .then(res=>{
 
                                 Swal.fire(res.data.message, '', 'success').then(resx=>{ location.reload()})
@@ -237,12 +234,45 @@
 
     $(document).ready(function() {
 
- 
+        const title = @json($batch->course->course_name . '-'. $batch->name);
+        const batch = @json($batch->batch);
+        const year = @json($batch->year);
+
+        const finished = @json($batch->is_finished);
+
+        if(finished)
+        {
+            Swal.fire('This batch is already finished', 'You can no longer enlist/un-enlist students', 'success')
+        }
         const tblEnlisted = $('#tblEnlisted').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 'csv'
-            ]
+                { extend: 'copy'}, 
+                { extend: 'excel'},
+                { extend:  'pdf' }, 
+                { extend: 'csv' },
+                { 
+                    extend: 'print',
+                    title: ()=>{
+                        return title
+                    },
+                    customize: (win)=>{
+                        $(win.document.body)
+                        .find('div')
+                        .first()
+                        .append(
+                            `
+                            <p> Batch: ${batch} <br>
+                            Year: ${year} </p>
+                            `
+                        );
+                    },
+                    exportOptions: {
+                        columns: [ 1,2,3,4 ]
+                    }    
+                }
+            ],
+            
         })
         
         const tblEnlist = $('#tblToEnlist').DataTable({
@@ -265,6 +295,69 @@
            $("#lblEnlistCount").html('('+enlist.length+')');
         });
 
+        $('#tblEnlisted').on('click','.btnShow', async function(e){
+            e.preventDefault()
+            const id = $(this).attr('user-id');
+            const alert = Swal.fire({
+                            title: 'Fetching list',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+
+                            }
+                            
+            })
+
+            $('#modal-content').empty()
+            
+            const { data } = await axios.get(`/student/${id}/requirements`);
+            const list_count = data.data.length
+            const success_count = data.data.filter(x=> {return x.status == 1 || x.status == 2}).length
+
+            const title = `${$(this).attr('name')} - (${success_count}/${list_count})` 
+
+            $('#mdlLabel').html(title)
+
+            data.data.map(x=>{
+                let badge = "";
+                let date_uploaded  = "";
+                let buttons = "";
+                if(x.status == 1){
+                    badge = `<span class="badge badge-warning">Pending</span>`
+                    date = `<br><span class="badge badge-info">Uploaded at</span>  ${x.date_uploaded}`
+                    buttons = `
+                        <a href="${x.view_link}" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
+                        <a href="${x.download_link}"  class="badge badge-success"><i class="fa fa-download"></i></a>
+                        `;
+                }
+                if(x.status == 2){
+                    badge = `<span class="badge badge-success">Approved</span>`
+                    date = `<br><span class="badge badge-info">Uploaded at</span>  ${x.date_uploaded}`
+                    buttons = `
+                        <a href="${x.view_link}" target="_blank" class="badge badge-success"><i class="fa fa-eye"></i></a>
+                        <a href="${x.download_link}"  class="badge badge-success"><i class="fa fa-download"></i></a>
+                        `;
+                }
+                if(x.status == 3){
+                    badge = `<span class="badge badge-danger">No Uploaded</span>`
+                }
+                if(x.status == 4){
+                    badge = `<span class="badge badge-dark">Rejected</span>`
+                }
+                $('#modal-content').append(
+                    `
+                        <li class="list-group-item">
+                            ${x.requirement.name}  <br>
+                            ${badge} ${buttons}
+                            ${date}
+                        </li>
+                    `
+                )
+            })
+            alert.close()
+            $('#modal-lg').modal('show')
+        })
+
         $('#tblEnlisted').on('click','.chkEnlisted', function(){
             if($(this).prop('checked')){
                 enlisted_selected.push($(this).val())
@@ -282,6 +375,7 @@
         $('.btn-delete').click(function(e) {
             e.preventDefault();
             const course_id = $(this).attr('course_id')
+
             $('#deleteModalForm').attr('action', '/delete_course/'+course_id);
             $('#deleteModalPop').modal('show');
         })

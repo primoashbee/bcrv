@@ -36,7 +36,16 @@
         </style>
     </head>
     <body >
+
         <div class="container margin-x-auto" id="app">
+            <div id="errors" v-if="Object.keys(errors).length > 0" style="border-color: red; border-style:solid" >
+                <h3> Validation Errors </h3>
+                <ol>
+                    <li v-for="(item, key) in Object.keys(errors)">
+                        @{{errors[item][0]}}
+                    </li>
+                </ol>
+            </div>
             <div class="header d-flex">
                 <div class="w-10 box">
                     <img src="{{asset('tesda.png')}}" alt="" class="w-100">
@@ -1064,7 +1073,8 @@
                         photo: null,
                         signature: null,
                         finished: false,
-                        agree: "false"
+                        agree: "false",
+                        errors : []
                     },
                     async mounted(){
                         const alert = Swal.fire({
@@ -1180,8 +1190,9 @@
                                 if(e.response.status == 422)
                                     {
                                         this.errors = e.response.data.errors
-                                        Swal.fire('Please fill required fields', '', 'info');
-
+                                        await Swal.fire('Please fill required fields', '', 'info');
+                                        // document.getElementById("errors").scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                        window.scrollTo(0,0)
 
                                     }
                             }

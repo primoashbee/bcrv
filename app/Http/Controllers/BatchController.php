@@ -43,7 +43,9 @@ class BatchController extends Controller
                 'max_slot'=>'required|gte:0',
                 'batch'=>['required','gt:0', new BatchUnique($request->course_id, $request->year)],
                 'year'=>'required|gt:0',
-                'certificate.*'=>'required|distinct'
+                'certificate.*'=>'required|distinct',
+                'start_date'=>'required|date',
+                'end_date'=>'required|date|after:start_date',
             ],
             [
                 'course_id.required' => 'Course is required',
@@ -53,6 +55,9 @@ class BatchController extends Controller
                 'year.required' => 'Year slot is required',
                 'certificate.*.required'=>'Certificate is Required',
                 'certificate.*.distinct'=>'Certificate is duplicate',
+                'start_date.required'=> 'Start date is required',
+                'end_date.required'=> 'End date is required',
+                'end_date.after'=> 'End date must be after the start date',
             ]
         );
 
@@ -61,7 +66,9 @@ class BatchController extends Controller
             'name'=>$request->name,
             'max_slot'=>$request->max_slot,
             'batch'=>$request->batch,
-            'year'=>$request->year
+            'year'=>$request->year,
+            'start_date'=>$request->start_date,
+            'end_date'=>$request->end_date
         ]);
 
         foreach($request->certificate as $name)
@@ -85,17 +92,24 @@ class BatchController extends Controller
             [
                 'name'=>'required|unique:batches,name,' . $id,
                 'max_slot'=>'required|gte:0',
+                'start_date'=>'required|date',
+                'end_date'=>'required|date|after:start_date',
             ],
             [
                 'name.required' => 'Name is required',
                 'max_slot.required' => 'Max slot is required',
+                'start_date.required'=> 'Start date is required',
+                'end_date.required'=> 'End date is required',
+                'end_date.after'=> 'End date must be after the start date',
             ]
         );
 
         
         $batch->update([
             'name'=>$request->name,
-            'max_slot'=>$request->max_slot
+            'max_slot'=>$request->max_slot,
+            'start_date'=>$request->start_date,
+            'end_date'=>$request->end_date,
         ]);
 
         $retained_keys = [];

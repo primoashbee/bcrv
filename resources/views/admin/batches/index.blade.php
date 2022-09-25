@@ -71,6 +71,18 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label> Start Date </label>
+                                        <input type="date" id="start_date" name="start_date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label> End Date </label>
+                                        <input type="date" id="end_date" name="end_date" class="form-control">
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
                             
                                 <div class="col-12">
@@ -161,6 +173,8 @@
                         <th>Name</th>
                         <th>Batch</th>
                         <th>Year</th>
+                        <th>Start</th>
+                        <th>End</th>
                         <th>Slots</th>
                         <th>Action</th>
                     </tr>
@@ -172,9 +186,11 @@
                         <td> {{$batch->name}}</td>
                         <td> {{$batch->batch}}</td>
                         <td> {{$batch->year}}</td>
-                        <td> {{$batch->users()->count() . '/' . $batch->max_slot}}</td>
+                        <td> {{$batch->start_date_formatted}}</td>
+                        <td> {{$batch->end_date_formatted}}</td>
+                        <td> {{$batch->enlisted()->count() . '/' . $batch->max_slot}}</td>
                         <td> 
-                            <a href="{{route('batch.manage.show', $batch->id)}}" type="button" class="btn btn-sm btn-primary bg-info">
+                            <a href="{{route('batch.manage.show', $batch->id)}}" type="button" is-finished="{{$batch->is_finished}}" class="btn-manage btn btn-sm btn-primary bg-info">
                                 <i class="fa fa-users" style="padding: 10px;"></i>
                             </a> 
                             <a href="#" type="button" class="btn btn-sm btn-warning bg-warning btnShowEdit" id="{{$batch->id}}" data="{{json_encode($batch)}}">
@@ -219,6 +235,9 @@
     // $.noConflict();
     var mdlLabel = "Create new batch"
     var current_index = 1;
+    @if(count($errors) > 0)
+    alert('may errors')
+    @endif
     $(document).ready(function() {
         @if(request()->course_id !== null)
             $('#filter_course_id').val(@json(request()->course_id))
@@ -239,6 +258,10 @@
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
         })
+        $('.btn-manage').click(function(e){
+            // e.preventDefault()
+            // console.log($(this).attr('is-finished'))
+        })
         $('.btn-delete').click(function(e) {
             e.preventDefault();
             const course_id = $(this).attr('course_id')
@@ -254,6 +277,8 @@
             $('#max_slot').val(data.max_slot);
             $('#year').val(data.year);
             $('#batch').val(data.batch);
+            $('#start_date').val(data.start_date);
+            $('#end_date').val(data.end_date);
             $('#course_id').attr('readonly', true);
             $('#year').attr('readonly', true);
             $('#batch').attr('readonly', true);

@@ -114,4 +114,13 @@ class StudentRequirement extends Model
         return Carbon::parse($this->getOriginal('updated_at'))->format('D, M-d-Y h:i A');
     }
 
+    public function getViewLinkAttribute()
+    {
+        return route('requirements.view', $this->id);
+    }
+    public function getDownloadLinkAttribute()
+    {
+        return route('requirements.download', $this->id);
+    }
+
 }

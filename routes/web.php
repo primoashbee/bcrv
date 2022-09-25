@@ -166,6 +166,8 @@ use App\Http\Middleware\StudentProfileSetupFinished;
         Route::get('/requirements/uploaded', 'StudentRequirementController@index')->name('requirements.uploaded');
         Route::patch('/requirements/{id}', 'StudentRequirementController@update')->name('requirements.update');
 
+        Route::get("/student/{id}/requirements", 'StudentRequirementController@student');
+
 
     });
 //Routes for the admin panel - dashboard

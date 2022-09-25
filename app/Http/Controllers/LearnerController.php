@@ -55,40 +55,42 @@ class LearnerController extends Controller
 
         $user = auth()->user();
         $request->request->remove('signature');
-        $rules = [
-            'barangay'=>'required',
-            'birth_city'=>'required',
-            'birth_province'=>'required',
-            'birth_region'=>'required',
-            'birthday'=>'required',
-            'city'=>'required',
-            'civil_status'=>'required',
-            'classification'=>'required',
-            'contact_number'=>'required',
-            'course_qualification'=>'required',
-            'date_received'=>'nullable',
-            'disability_cause'=>'required',
-            'disability_type'=>'required',
-            'district'=>'required',
-            'educational_attainment'=>'required',
-            'email'=>'required|email',
-            'employment_status'=>'required',
-            'entry_date'=>'required',
-            'firstname'=>'required',
-            'gender'=>'required',
-            'lastname'=>'required',
-            'learner_id'=>'required|unique:learners,learner_id,' . $user->learner->id,
-            'nationality'=>'required',
-            'others_classification'=>'nullable',
-            'parent_mailing_address'=>'required',
-            'parent_name'=>'required',
-            'province'=>'required',
-            'region'=>'required',
-            'scholarship_package'=>'required',
-            'street'=>'required',
-            'photo'=>'required|mimes: jpeg,jpg,png,bmp,webp',
-            'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,webp'
-        ];
+        // $rules = [
+        //     'barangay'=>'required',
+        //     'birth_city'=>'required',
+        //     'birth_province'=>'required',
+        //     'birth_region'=>'required',
+        //     'birthday'=>'required',
+        //     'city'=>'required',
+        //     'civil_status'=>'required',
+        //     'classification'=>'required',
+        //     'contact_number'=>'required',
+        //     'course_qualification'=>'required',
+        //     'date_received'=>'nullable',
+        //     'disability_cause'=>'required',
+        //     'disability_type'=>'required',
+        //     'district'=>'required',
+        //     'educational_attainment'=>'required',
+        //     'email'=>'required|email',
+        //     'employment_status'=>'required',
+        //     'entry_date'=>'required',
+        //     'firstname'=>'required',
+        //     'gender'=>'required',
+        //     'lastname'=>'required',
+        //     'learner_id'=>'required|unique:learners,learner_id,' . $user->learner->id,
+        //     'nationality'=>'required',
+        //     'others_classification'=>'nullable',
+        //     'parent_mailing_address'=>'required',
+        //     'parent_name'=>'required',
+        //     'province'=>'required',
+        //     'region'=>'required',
+        //     'scholarship_package'=>'required',
+        //     'street'=>'required',
+        //     'photo'=>'required|mimes: jpeg,jpg,png,bmp,webp',
+        //     'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,webp'
+        // ];
+
+        $rules = $this->rules($user);
 
         $has_photo = false;
         
@@ -181,40 +183,42 @@ class LearnerController extends Controller
         $user = User::findOrFail($id);
 
         $request->request->remove('signature');
-        $rules = [
-            'barangay'=>'required',
-            'birth_city'=>'required',
-            'birth_province'=>'required',
-            'birth_region'=>'required',
-            'birthday'=>'required',
-            'city'=>'required',
-            'civil_status'=>'required',
-            'classification'=>'required',
-            'contact_number'=>'required',
-            'course_qualification'=>'required',
-            'date_received'=>'nullable',
-            'disability_cause'=>'required',
-            'disability_type'=>'required',
-            'district'=>'required',
-            'educational_attainment'=>'required',
-            'email'=>'required|email',
-            'employment_status'=>'required',
-            'entry_date'=>'required',
-            'firstname'=>'required',
-            'gender'=>'required',
-            'lastname'=>'required',
-            'learner_id'=>'required|unique:learners,learner_id,' . $user->learner->id,
-            'nationality'=>'required',
-            'others_classification'=>'nullable',
-            'parent_mailing_address'=>'required',
-            'parent_name'=>'required',
-            'province'=>'required',
-            'region'=>'required',
-            'scholarship_package'=>'required',
-            'street'=>'required',
-            'photo'=>'required|mimes: jpeg,jpg,png,bmp,web',
-            'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,web'
-        ];
+        $rules = $this->rules($user);
+        // $rules = [
+        //     'barangay'=>'required|min:1|max:20',
+        //     'birth_city'=>'required',
+        //     'birth_province'=>'required',
+        //     'birth_region'=>'required',
+        //     'birthday'=>'required',
+        //     'city'=>'required|min:1|max:50',
+        //     'civil_status'=>'required',
+        //     'classification'=>'required',
+        //     'contact_number'=>'required|min:1|max:11',
+        //     'course_qualification'=>'required|min:1|max:100',
+        //     'date_received'=>'nullable',
+        //     'disability_cause'=>'required',
+        //     'disability_type'=>'required',
+        //     'district'=>'required|min:1|max:20',
+        //     'educational_attainment'=>'required',
+        //     'email'=>'required|email',
+        //     'employment_status'=>'required',
+        //     'entry_date'=>'required',
+        //     'firstname'=>'required',
+        //     'gender'=>'required',
+        //     'lastname'=>'required',
+        //     'learner_id'=>'required|unique:learners,learner_id,' . $user->learner->id,
+        //     'middlename'=>'nullable|min:1|max:20',
+        //     'nationality'=>'required|min:1|max:20',
+        //     'others_classification'=>'nullable',
+        //     'parent_mailing_address'=>'required|min:1|max:20',
+        //     'parent_name'=>'required|min:1|max:20',
+        //     'province'=>'required|min:1|max:50',
+        //     'region'=>'required|min:1|max:50',
+        //     'scholarship_package'=>'required|min:1|max:100',
+        //     'street'=>'required|min:1|max:50',
+        //     'photo'=>'required|mimes: jpeg,jpg,png,bmp,web',
+        //     'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,web'
+        // ];
 
         $has_photo = false;
         
@@ -1409,5 +1413,44 @@ class LearnerController extends Controller
 
 
 
+    }
+
+    public function rules(User $user)
+    {
+        return [
+            'barangay'=>'required|min:1|max:20',
+            'birth_city'=>'required|min:1|max:20',
+            'birth_province'=>'required|min:1|max:20',
+            'birth_region'=>'required',
+            'birthday'=>'required',
+            'city'=>'required|min:1|max:50',
+            'civil_status'=>'required',
+            'classification'=>'required',
+            'contact_number'=>'required|min:1|max:11',
+            'course_qualification'=>'required|min:1|max:100',
+            'date_received'=>'nullable',
+            'disability_cause'=>'required',
+            'disability_type'=>'required',
+            'district'=>'required|min:1|max:20',
+            'educational_attainment'=>'required',
+            'email'=>'required|email',
+            'employment_status'=>'required',
+            'entry_date'=>'required',
+            'firstname'=>'required|min:1|max:20|',
+            'gender'=>'required|min:1|max:20|',
+            'lastname'=>'required|min:1|max:20|',
+            'learner_id'=>'required|min:15|max:20|unique:learners,learner_id,' . $user->learner->id,
+            'middlename'=>'nullable|min:1|max:20',
+            'nationality'=>'required|min:1|max:20',
+            'others_classification'=>'nullable',
+            'parent_mailing_address'=>'required|min:1|max:20',
+            'parent_name'=>'required|min:1|max:20',
+            'province'=>'required|min:1|max:50',
+            'region'=>'required|min:1|max:50',
+            'scholarship_package'=>'required|min:1|max:100',
+            'street'=>'required|min:1|max:50',
+            'photo'=>'required|mimes: jpeg,jpg,png,bmp,web',
+            'signature'=>'nullable|mimes: jpeg,jpg,png,bmp,web'
+        ];
     }
 }

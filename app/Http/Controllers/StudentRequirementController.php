@@ -158,4 +158,12 @@ class StudentRequirementController extends Controller
       return view('preview', compact('src'));
       // return Storage::disk('requirements')->get($requirement->path . '/' . $requirement->filename);
     }
+
+    public function student($id)
+    {
+      $user = User::findOrFail($id);
+      $data = StudentRequirement::with('requirement')->where('user_id', $id)->get()->each->append('date_uploaded','view_link','download_link');
+      // $data = $user->studentRequirements()->with('requirement')->each->append('date_uploaded','view_link','download_link');
+      return response()->json(compact('data'),200);
+    }
 }

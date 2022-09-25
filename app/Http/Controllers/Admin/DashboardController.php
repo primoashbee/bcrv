@@ -36,7 +36,6 @@ class DashboardController extends Controller
         $pending_count = RequestModel::where('status', 'pending')->count();
         $completed_count = RequestModel::where('status', 'sent')->count();
         $announcement = Announcement::pinned();
-
         return view('admin.dashboard.dashboard')->with('student_count', $student_count)
                                             ->with('requests_count', $requests_count)
                                             ->with('pending_count', $pending_count)

@@ -3,7 +3,6 @@
 @section('title')
     Admin | Reports
 @endsection
-
 @section('content')
 <div class="row" id="content">
     <div class="col-12">
@@ -121,8 +120,113 @@
                     </div>
                     </div>
                     <div class="card-body">
-                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" style="">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Students Chart</h3>
+            </div>
+            <div class="card-body">
+                <!-- DONUT CHART -->
+                <div class="card card-info">
+                    <div class="card-header">
+                    <h3 class="card-title"></h3>
+    
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body" >
+                        <div  style="height:300px !important">
+                            <h4 class="text-center"> # of students per batch ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
+                            <canvas id="studentPerBatchChart" ></canvas>
+
+                        </div>
+                        <table class="table table-striped mt-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">Course</th>
+                                @foreach($batch_count as $batch)
+                                <th scope="col">Batch {{$batch}}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($courses_report->datasets as $key=>$item)
+                                <tr>
+                                    <td>
+                                        {{$item->course->course_name}}
+                                    </td>
+                                    @foreach($item->values as $batch_value)
+                                        <td> {{$batch_value}}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+
+ 
+                    </div>
+                    <div class="clearfix"></div>
+                   
+                </div>
+                <div class="card card-info">
+                    <div class="card-header">
+                    <h3 class="card-title"></h3>
+    
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body" >
+                        <div  style="height:450px !important">
+                            <h4 class="text-center"> # of students per year ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
+                            <canvas id="studentPerYearChart" ></canvas>
+                        </div>
+                        {{-- <table class="table table-striped mt-4">
+                            <thead>
+                            <tr>
+                                <th scope="col">Course</th>
+                                @foreach($batch_count as $batch)
+                                <th scope="col">Batch {{$batch}}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($courses_report->datasets as $key=>$item)
+                                <tr>
+                                    <td>
+                                        {{$item->course->course_name}}
+                                    </td>
+                                    @foreach($item->values as $batch_value)
+                                        <td> {{$batch_value}}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table> --}}
+
+ 
+                    </div>
+                    <div class="clearfix"></div>
+                   
                 </div>
             </div>
         </div>
@@ -169,11 +273,21 @@
         const school_year = @json(request()->school_year);
         const status = @json(request()->status);
 
-        $('#btnPrint').click(function(){
+        $('#btnPrint').click(async function(){
             const fileName = String(new Date().valueOf());
             const element = document.getElementById('content');
             const regionCanvas = element.getBoundingClientRect();
+            const alert = Swal.fire({
+                title: 'Generating File',
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                  
+                }
+                
+            })
             html2canvas(element, { scale: 3 }).then(async canvas => {
+                alert.close()
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 // const pdf = new jsPDF({
                 //     orientation: "portrait",
@@ -181,7 +295,9 @@
                 //     format: [4, 2]
                 // });
                 // pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 3, 0, 205, (205 / regionCanvas.width) * regionCanvas.height);
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 205, (205 / regionCanvas.width) * regionCanvas.height);
+                // pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 205, (205 / regionCanvas.width) * regionCanvas.height);
+                pdf.addImage(canvas.toDataURL('image/png'), 'JPEG', 10, 10, 180, (205 / regionCanvas.width) * regionCanvas.height)
+
                 await pdf.save(fileName, { returnPromise: true });
                 window.open(pdf.output('bloburl', { filename: fileName }), '_blank');
                 // window.open().document.write('<img src="' + canvas.toDataURL() + '" />');
@@ -194,7 +310,6 @@
         $('#school_year').val(school_year)
         $('#status').val(status)
 
-        console.log(batch, course, school_year, status)
 
         $('#btnClear').click(function(){
             $('#batch').val('')
@@ -207,10 +322,82 @@
       //- DONUT CHART -
       //-------------
       // Get context with jQuery - using jQuery's .get() method.
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
-      var countpending = {{ $countpending }};
-      var countsent = {{ $countsent }};
-      var donutData        = {
+ 
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
+        const studentPerBatchCanvas = $('#studentPerBatchChart').get(0).getContext('2d');
+        const studentPerYearChart = $('#studentPerYearChart').get(0).getContext('2d');
+        const chart2_label = school_year == null ? new Date().getFullYear() : school_year
+        const myChart = new Chart(studentPerBatchCanvas, {
+            type: 'bar',
+            data: {
+                labels: @json($courses_report->labels),
+                datasets: [
+                    @foreach($courses_report->datasets as $key=>$item)
+                    {
+                        label: @json($item->label),
+                        data : @json($item->values),
+                        backgroundColor: @json($item->bg_color),
+                        borderColor: @json($item->border_color),
+                        borderWidth: 1
+                    },
+                    @endforeach
+                ]
+                   
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0
+                        }
+                    }],
+                    x: {
+                        beginAtZero: true
+                    }
+                },
+                maintainAspectRatio : false,
+                responsive : true
+        }
+        });
+
+
+        const myChart2 = new Chart(studentPerYearChart, {
+            type: 'bar',
+            data: {
+                labels: @json($courses_report_year->labels),
+                datasets: [
+                    @foreach($courses_report_year->datasets as $item)
+                    {
+                        label: @json($item->label),
+                        data: @json($item->values),
+                        backgroundColor: @json($item->bg_color),
+                        borderColor: @json($item->border_color),
+                        borderWidth: 1
+                    },
+                    @endforeach
+                ]
+                   
+            },
+            options: {
+                scales: {
+                    yAxes: [{ stacked: true }],
+                    xAxes: [
+                    {
+                        stacked: true,
+                    }
+                    ]
+                },
+                maintainAspectRatio : false,
+                responsive : true
+            }
+        });
+
+        
+      var countpending = @json($countpending);
+      var countsent = @json($countsent);
+      var donutData = {
         labels: [
             'Pending',
             'Received',
@@ -222,11 +409,15 @@
           }
         ]
       }
+
+      console.log(donutData)
       var donutOptions     = {
         maintainAspectRatio : false,
         responsive : true,
       }
       //Create pie or douhnut chart
+
+
       // You can switch between pie and douhnut using the method below.
       new Chart(donutChartCanvas, {
         type: 'pie',

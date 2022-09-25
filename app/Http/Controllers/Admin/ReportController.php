@@ -8,6 +8,7 @@ use App\Models\PrimaryModels\StudentsModel as StudentsModel;
 use App\Models\PrimaryModels\CourseModel as CourseModel;
 use App\Models\PrimaryModels\RequestModel as RequestModel;
 use App\Models\PrimaryModels\StudentInfo;
+use App\Report;
 use Session;
 
 class ReportController extends Controller
@@ -15,6 +16,14 @@ class ReportController extends Controller
     // show show_reports page
     public function show_reports(Request $request) {
         
+        $filter_year = now()->year;
+        if($request->has('school_year')){
+            $filter_year = $request->school_year;
+        }
+        $courses_report = Report::studentPerBatch($filter_year);
+        $courses_report_year = Report::studentPerYear(now()->year);
+        // dd($courses_report);
+        // dd($courses_report);
         // $requests = RequestModel::all();
         $countpending = RequestModel::where('status', 'Pending')
                             ->when($request->has('batch'), function($q,$data) use($request){
@@ -118,12 +127,16 @@ class ReportController extends Controller
                 $countsent = 0;
             }
         }
+        $batch_count = range(1,10);
         return view('admin.reports.reports')
                                         ->with('countpending', $countpending)
                                         // ->with('countongoing', $countongoing)
                                         ->with('countsent', $countsent)
                                         ->with('courses', $courses)
                                         ->with('batches', $batches)
-                                        ->with('school_year', $school_year);
+                                        ->with('school_year', $school_year)
+                                        ->with('batch_count', $batch_count)
+                                        ->with('courses_report_year', $courses_report_year)
+                                        ->with('courses_report', $courses_report);
     }
 }
