@@ -59,7 +59,7 @@ class CourseModel extends Model
         if($batches->count() > 0){
             foreach($batches as $batch){
                 
-                $count = $count + $batch->users()->count();
+                $count = $count + $batch->users()->whereIn('batch_users.status', [BatchUser::COMPLETED, BatchUser::NOT_COMPLETED])->count();
             }
             // $count = $batch->users()
             //         ->whereIn('batch_users.status', [BatchUser::COMPLETED, BatchUser::NOT_COMPLETED])
