@@ -37,9 +37,9 @@
                     @foreach($requests as $request)
                     <tr>
                         <td>{{ $request->studentInfo->user->learner->learner_id}}</td>
-                        <td>{{ $request->studentInfo->lastname }}</td>
-                        <td>{{ $request->studentInfo->firstname }}</td>
-                        <td>{{ $request->studentInfo->middlename }}</td>
+                        <td>{{ $request->studentInfo->user->learner->lastname }}</td>
+                        <td>{{ $request->studentInfo->user->learner->firstname }}</td>
+                        <td>{{ $request->studentInfo->user->learner->middlename }}</td>
                         <td>{{ $request->studentInfo->user->courseList }}</td>
                         <td>{{ $request->studentInfo->batch }}</td>
                         <td>{{ $request->studentInfo->school_year }}</td>

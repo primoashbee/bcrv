@@ -148,7 +148,7 @@
                     </div>
                     <div class="card-body" >
                         <div  style="height:300px !important">
-                            <h4 class="text-center"> # of students per batch ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
+                            <h4 class="text-center"> Number of students per batch ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
                             <canvas id="studentPerBatchChart" ></canvas>
 
                         </div>
@@ -183,49 +183,23 @@
                 </div>
                 <div class="card card-info">
                     <div class="card-header">
-                    <h3 class="card-title"></h3>
-    
+                        <h3 class="card-title"></h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
+                                <i class="fas fa-minus"></i>
                             </button>
                             <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="card-body" >
-                        <div  style="height:450px !important">
-                            <h4 class="text-center"> # of students per year ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
+                    <div class="card-body mb-4" >
+                        <div  style="height:300px !important" >
+                            <h4 class="text-center"> Number of students per year ({{request()->has('school_year') ? request()->school_year : now()->format('Y')}}) </h4>
                             <canvas id="studentPerYearChart" ></canvas>
+
                         </div>
-                        {{-- <table class="table table-striped mt-4">
-                            <thead>
-                            <tr>
-                                <th scope="col">Course</th>
-                                @foreach($batch_count as $batch)
-                                <th scope="col">Batch {{$batch}}</th>
-                                @endforeach
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($courses_report->datasets as $key=>$item)
-                                <tr>
-                                    <td>
-                                        {{$item->course->course_name}}
-                                    </td>
-                                    @foreach($item->values as $batch_value)
-                                        <td> {{$batch_value}}</td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-
-                            </tbody>
-                        </table> --}}
-
- 
                     </div>
-                    <div class="clearfix"></div>
                    
                 </div>
             </div>
@@ -385,11 +359,15 @@
             },
             options: {
                 scales: {
-                    yAxes: [{ stacked: true }],
+                    yAxes: [
+                        { 
+                            stacked: true 
+                        }
+                    ],
                     xAxes: [
-                    {
-                        stacked: true,
-                    }
+                        {
+                            stacked: true,
+                        }
                     ]
                 },
                 maintainAspectRatio : false,

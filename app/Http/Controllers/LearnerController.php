@@ -1443,7 +1443,7 @@ class LearnerController extends Controller
             'middlename'=>'nullable|min:1|max:20',
             'nationality'=>'required|min:1|max:20',
             'others_classification'=>'nullable',
-            'parent_mailing_address'=>'required|min:1|max:20',
+            'parent_mailing_address'=>'required|min:1|max:50',
             'parent_name'=>'required|min:1|max:20',
             'province'=>'required|min:1|max:50',
             'region'=>'required|min:1|max:50',
