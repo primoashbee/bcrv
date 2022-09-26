@@ -69,9 +69,9 @@
                     <tr>
                         <td> {{$user->learner->learner_id}}</td>
 
-                        <td>{{ $user->studentInfo->lastname }}</td>
-                        <td>{{ $user->studentInfo->firstname }}</td>
-                        <td>{{ $user->studentInfo->middlename }}</td>
+                        <td>{{ $user->learner->lastname }}</td>
+                        <td>{{ $user->learner->firstname }}</td>
+                        <td>{{ $user->learner->middlename }}</td>
                         {{-- <td>{{ $user->designation }}</td> --}}
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->email }}</td>

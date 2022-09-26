@@ -19,6 +19,10 @@ class UserController extends Controller
     public function show_users() {
         $users = Sentinel::getUserRepository()->with('roles')->get();
         $users = User::has('studentInfo')->whereHas('learner')->with('roles','studentInfo','learner')->get();
+        // ($users->map(function($item){
+        //     echo $item->studentInfo->learner . "<br>";
+        // }));
+        // return;
         return view('admin.users.users')->with('users', $users);
     }
 
