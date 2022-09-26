@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 <div class="row" id="content">
-    <div class="col-12">
+    <div class="col-12" id="div-filter">
         <div class="card">
             <div class="card-header">
                 <form action="{{url()->current()}}" method="GET" id="formFilter">
@@ -277,6 +277,7 @@
             const fileName = String(new Date().valueOf());
             const element = document.getElementById('content');
             const regionCanvas = element.getBoundingClientRect();
+            $('#div-filter').hide();
             const alert = Swal.fire({
                 title: 'Generating File',
                 timerProgressBar: true,
@@ -288,6 +289,8 @@
             })
             html2canvas(element, { scale: 3 }).then(async canvas => {
                 alert.close()
+                $('#div-filter').show();
+
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 // const pdf = new jsPDF({
                 //     orientation: "portrait",
@@ -301,7 +304,7 @@
                 await pdf.save(fileName, { returnPromise: true });
                 window.open(pdf.output('bloburl', { filename: fileName }), '_blank');
                 // window.open().document.write('<img src="' + canvas.toDataURL() + '" />');
-
+                
             });
         })
 
