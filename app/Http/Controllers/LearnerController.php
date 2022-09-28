@@ -1439,7 +1439,7 @@ class LearnerController extends Controller
             'firstname'=>'required|min:1|max:50',
             'gender'=>'required|min:1|max:20|',
             'lastname'=>'required|min:1|max:50',
-            'learner_id'=>'required|min:15|max:20|unique:learners,learner_id,' . $user->learner->id,
+            'learner_id'=>'required|min:1|max:20|unique:learners,learner_id,' . $user->learner->id,
             'middlename'=>'nullable|min:1|max:50',
             'nationality'=>'required|min:1|max:20',
             'others_classification'=>'nullable',
