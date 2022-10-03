@@ -182,8 +182,8 @@
     var enlist_profile = [];
     var enlist_length = 0;
     var batch_id = @json($batch_id);
-    var open_slots = @json($batch->max_slot - $batch->users()->count());
-    var occupied_slots = @json($batch->users()->count());
+    var open_slots = @json($batch->open_slots);
+    var occupied_slots = @json($batch->enlisted()->count());
     const max_slot = @json($batch->max_slot);
     var enlisted_selected = [];
     var enlisted_selected_length = 0;

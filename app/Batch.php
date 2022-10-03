@@ -89,4 +89,9 @@ class Batch extends Model
             return "<span class=\"badge badge-primary\">On-Going</span>";
         }
     }
+
+    public function getOpenSlotsAttribute()
+    {
+        return $this->max_slot - $this->enlisted()->count();
+    }
 }
