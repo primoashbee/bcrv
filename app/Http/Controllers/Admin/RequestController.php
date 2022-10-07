@@ -20,9 +20,12 @@ class RequestController extends Controller
 {
     // show requests page
     public function show_requests() {
-        $requests = RequestModel::with('studentInfo.user.learner')->whereHas('studentInfo', function($q){
+        $requests = RequestModel::with('studentInfo.user.learner')
+            ->whereHas('studentInfo', function($q){
             $q->whereNull('deleted_at');
-        })->get();
+            })
+            ->whereHas('document')
+            ->get();
         $role = Sentinel::findRoleBySlug('User');
         $users = $role->users()->with('roles')->get();
         $students = StudentInfoModel::all();
